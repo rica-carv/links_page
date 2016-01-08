@@ -3,7 +3,7 @@ Links page plugin for e107 V2
 
 **WARNING. This plugin is under rewriting** 
  
-Initial commit from 01.08.2016: 
+Initial commit from 08.01.2016: 
 
 *Admin area:*
 complet rewritten and it works. It uses old e_help, there are still missing some custom buttons (view link, view category). 
