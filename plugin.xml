@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e107Plugin name="Links" lan="LCLAN_PLUGIN_LAN_1" version="1.0" date="2016-01-02" compatibility="2.0" installRequired="true" >
+	<author name="Jimako" url="http://e107.sk" />
+	<summary lan="">Links Page For Displaying External Web Links</summary>
+	<description lan="">Links Page For Displaying External Web Links</description>
+	<keywords>
+		<word>links</word>
+		<word>page</word>
+	</keywords>
+	<category>content</category>
+	<copyright>GPL+WTFPL</copyright>
+	<adminLinks>
+		<link url="admin_config.php" description="Configure Link Page Plugin" icon="images/linkspage_32.png" 
+    iconSmall="images/linkspage_16.png" primary="true" >LCLAN_PLUGIN_LAN_3</link>
+	</adminLinks>
+	<siteLinks>
+		<link url="{e_PLUGIN}links_page/links.php" perm='everyone' sef='index'>Links</link>
+	</siteLinks>
+	<pluginPrefs>
+		<pref name='link_nextprev'>1</pref>
+		<pref name='link_nextprev_number'>20</pref>  
+		<pref name='link_cat_icon'>1</pref>
+		<pref name='link_cat_desc'>1</pref>
+		<pref name='link_cat_amount'>1</pref>
+		<pref name='link_cat_total'>1</pref>
+		<pref name='link_cat_empty'>1</pref>
+		<pref name='link_cat_sort'>link_category_name</pref>
+		<pref name='link_cat_order'>ASC</pref>
+		<pref name='link_cat_resize_value'>50</pref>
+		<pref name='link_icon'>1</pref>
+		<pref name='link_referal'>1</pref>
+		<pref name='link_desc'>1</pref>    
+		<pref name='link_sort'>order</pref>
+		<pref name='link_order'>ASC</pref>
+		<pref name='link_open_all'>5</pref>    
+		<pref name='link_resize_value'>100</pref>
+		<pref name='link_menu_caption'>Link menu</pref>
+		<pref name='link_menu_navigator_frontpage'>1</pref>
+		<pref name='link_menu_navigator_submit'>1</pref>
+		<pref name='link_menu_navigator_manager'>1</pref>
+		<pref name='link_menu_navigator_refer'>1</pref>
+		<pref name='link_menu_navigator_rated'>1</pref>
+		<pref name='link_menu_navigator_links'>1</pref>
+		<pref name='link_menu_navigator_category'>1</pref>   
+		<pref name='link_menu_navigator_caption'>Navigator</pref>
+		<pref name='link_menu_category'>1</pref>
+		<pref name='link_menu_category_amount'>1</pref>
+		<pref name='link_menu_category_caption'>Categories</pref>
+		<pref name='link_menu_recent'>1</pref>
+		<pref name='link_menu_recent_number'>5</pref>    
+		<pref name='link_menu_recent_caption'>Recent list</pref>
+	</pluginPrefs>
+</e107Plugin>
