@@ -3,6 +3,9 @@ Links page plugin for e107 V2
 
 **WARNING. This plugin is under rewriting** 
  
+
+Added e_dashboard.php
+
 Initial commit from 08.01.2016: 
 
 *Admin area:*
@@ -15,7 +18,7 @@ complet rewritten and it works. It uses old e_help, there are still missing some
 Todo: add plugin_setup.php, plugin.xml is not enough. 
  
 *What is missing for now*
-- e_ functionality (e_search, e_latest, e_list, e_notify, e_rss, e_status)
+- e_ functionality (e_search, ~~e_latest~~, e_list, e_notify, e_rss, e_status)
 - new way with images on frontend
 - personal manager
 
