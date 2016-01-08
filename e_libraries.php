@@ -9,9 +9,12 @@ class links_page_libraries
            // 'download url' => 'https://github.com/eggboxio/quick-select',
             'library path' => e_WEB.'quick-select',
              'version callback' => 'simple_version_callback',
-      			'files'        => array(
-      				'js'  => array('js/jquery.quickselect.min.js'),
-      				'css' => array('css/quickselect.css'),
+      		   'files'        => array(
+                    'js'  => array('js/jquery.quickselect.min.js' => array(
+                      'type' => 'footer', // If not set, the default: 'url'
+                      'zone' => 5, // If not set, the default: 2
+                    )),
+                    'css' => array('css/quickselect.css'),
       			),            
         ); 
         return $libraries;
