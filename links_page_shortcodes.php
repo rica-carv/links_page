@@ -65,7 +65,7 @@ if($mains){
 
 	$selectjs = " onchange=\"if(this.options[this.selectedIndex].value.indexOf('-') &amp;&amp; this.options[this.selectedIndex].value != '' &amp;&amp; this.options[this.selectedIndex].value != '&nbsp;'){ return document.location=this.options[this.selectedIndex].value; }\" ";
 
-    $main .= $rs -> form_select_open("navigator", $selectjs);
+    $main .= $rs -> form_select_open("catnavigator", $selectjs);
   	$main .= $rs -> form_option(LAN_LINKS_48, "0", "", "");
   	$main .= $mains;
   	$main .= $rs -> form_select_close();
