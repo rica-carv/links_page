@@ -23,11 +23,11 @@ class links_page_url
 
     $config['category'] = array(
 			// Matched against url, and if true, redirected to 'redirect' below.
-			'regex'    => '^links_page/category/(.*)/(.*)$',
+			'regex'    => '^links_page/category/(.*)/(.*)?(.*)$',
 			// Used by e107::url(); to create a url from the db table.
 			'sef'      => 'links_page/category/{link_category_id}/{link_category_name}',
 			// File-path of what to load when the regex returns true.
-			'redirect' => '{e_PLUGIN}links_page/links.php?cat.$1'
+			'redirect' => '{e_PLUGIN}links_page/links.php?cat.$1.$3'
 		); 
 
     $config['manage'] = array(
@@ -83,7 +83,14 @@ class links_page_url
 			// File-path of what to load when the regex returns true.
 			'redirect' => '{e_PLUGIN}links_page/links.php?rated'
 		);
-    
+    $config['ordering'] = array(
+		// Matched against url, and if true, redirected to 'redirect' below.
+		'regex'    => '^links_page/links/(.*)$',
+		// Used by e107::url(); to create a url from the db table.   Not used
+		// 'sef'      => 'links_page/links/orderaheading',
+		// File-path of what to load when the regex returns true.
+		'redirect' => '{e_PLUGIN}links_page/links.php?$1'
+	 ); 
     $config['index'] = array(
 		// Matched against url, and if true, redirected to 'redirect' below.
 		'regex'    => '^links_page/links$',
@@ -93,7 +100,7 @@ class links_page_url
 		'redirect' => '{e_PLUGIN}links_page/links.php'
 	 );
  
-  
+ 
   return $config;
 	}
 }

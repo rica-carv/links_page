@@ -37,8 +37,8 @@ $sc_style['LINK_CATMENU']['post'] = "</td>";
 
 
 // Only renders the following rows when data is present.
-$sc_style['LINK_SORTORDER']['pre'] = "<div class='col-md-6 col-xs-12> ";
-$sc_style['LINK_SORTORDER']['post'] = "</div>";
+$sc_style['LINK_SORTORDER']['pre'] = ' ';
+$sc_style['LINK_SORTORDER']['post'] = ' ';
  
  
 $sc_style['LINK_NAVIGATOR']['pre'] = '<div class="panel panel-default">
@@ -56,7 +56,7 @@ $sc_style['LINK_NAV_ALLCATS']['pre'] = '<div class="panel panel-default">
 $sc_style['LINK_NAV_ALLCATS']['post'] = "</div></div>";
  
 
-$LINK_NAVIGATOR_TABLE = "{LINK_NAVIGATOR} {LINK_NAV_ALLCATS}";
+$LINK_NAVIGATOR_TABLE = "{LINK_NAVIGATOR} {LINK_NAV_ALLCATS} {LINK_SORTORDER} ";
 
 
 

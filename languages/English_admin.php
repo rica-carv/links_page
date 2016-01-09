@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * @file
+ * Definition of english strings for Admin UI.
+ */
+ 
 /* NEW */
 define("LCLAN_SHOW", "Show ");
 define("LCLAN_DISPLAY", "Display ");
@@ -140,5 +144,43 @@ define("LCLAN_CAT_27", "Clear Form");
 define("LCLAN_CAT_28", "Create Link Category");
 define("LCLAN_CAT_29", "Link Category");
  
+
+define("LCLAN_ITEM_1", "Submitted by");
+define("LCLAN_ITEM_2", "Category:");
+define("LCLAN_ITEM_3", "no categories yet");
+define("LCLAN_ITEM_4", "Name:");
+define("LCLAN_ITEM_5", "Url:");
+define("LCLAN_ITEM_6", "Description:");
+define("LCLAN_ITEM_7", "Upload an icon:");
+define("LCLAN_ITEM_8", "Auto-Thumbnail size:");
+define("LCLAN_ITEM_9", "This option is disabled as file uploading is not enabled on your server");
+define("LCLAN_ITEM_10", "The");
+define("LCLAN_ITEM_11", "folder is not writable, you need to CHMOD 777 the folder before uploading");
+define("LCLAN_ITEM_12", "px");
+define("LCLAN_ITEM_13", "upload");
+define("LCLAN_ITEM_14", "Choose an icon:");
+define("LCLAN_ITEM_15", "View Images");
+define("LCLAN_ITEM_16", "Open Type:");
+define("LCLAN_ITEM_17", "Opens in same window");
+define("LCLAN_ITEM_18", "Opens in new window");
+define("LCLAN_ITEM_19", "Opens in 600x400 mini-window");
+define("LCLAN_ITEM_20", "Visible for:");
+define("LCLAN_ITEM_21", "tick to update timestamp to current time");
+define("LCLAN_ITEM_22", "Update Link");
+define("LCLAN_ITEM_23", "Create link");
  
-?>
+define("LCLAN_ITEM_25", "Image");
+define("LCLAN_ITEM_26", "Link Name");
+define("LCLAN_ITEM_27", "Options");
+define("LCLAN_ITEM_28", "Move");
+define("LCLAN_ITEM_29", "Order");
+define("LCLAN_ITEM_30", "Reorder");
+define("LCLAN_ITEM_31", "edit");
+define("LCLAN_ITEM_32", "delete");
+define("LCLAN_ITEM_33", "Are you sure you want to delete this link?");
+define("LCLAN_ITEM_34", "no icon");
+define("LCLAN_ITEM_35", "manage personal links");
+
+define("LCLAN_ITEM_37", "view all links");
+define("LCLAN_ITEM_38", "All Links");
+define("LCLAN_ITEM_39", "Rating");

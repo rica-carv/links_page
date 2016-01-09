@@ -15,7 +15,7 @@ var e107 = e107 || {'settings': {}, 'behaviors': {}};
                     wrapperClass: e107.settings.links_page.wrapperClass
                 });
             });       
-            $(context).find('#catnavigator').once('quick-select').each(function () {
+            $(context).find('#link_navigator_allcat').once('quick-select').each(function () {
                 $(this).quickselect({
                     activeButtonClass: e107.settings.links_page.activeButtonClass,
                     breakOutValues: e107.settings.links_page.breakOutValues,
@@ -25,6 +25,7 @@ var e107 = e107 || {'settings': {}, 'behaviors': {}};
                     wrapperClass: e107.settings.links_page.wrapperClass
                 });
             });
+                     
         }
     };
 

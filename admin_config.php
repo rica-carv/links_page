@@ -10,7 +10,7 @@ if (!getperms('P'))
 }
 
 e107::lan('links_page',true);
-$lan_file = e_PLUGIN."links_page/languages/".e_LANGUAGE.".php";
+//$lan_file = e_PLUGIN."links_page/languages/".e_LANGUAGE.".php";
 include_lan($lan_file);
 
 class links_page_adminArea extends e_admin_dispatcher
@@ -184,7 +184,7 @@ class links_page_ui extends e_admin_ui
 		protected $pid				= 'link_id';
 		protected $perPage			= 10; 
 		protected $batchDelete		= true;
-	//	protected $batchCopy		= true;		
+	 	protected $batchCopy		= true;		
 	//	protected $sortField		= 'somefield_order';
 	//	protected $orderStep		= 10;
 	//	protected $tabs				= array('Tabl 1','Tab 2'); // Use 'tab'=>0  OR 'tab'=>1 in the $fields below to enable. 
@@ -291,9 +291,7 @@ class links_page_ui extends e_admin_ui
       'link_menu_navigator_rated'		=> array('title'=> LCLAN_OPT_58, 'tab'=>6, 'type'=>'checkbox', 'data' => 'str', 'help'=>'Help Text goes here'),
       'link_menu_navigator_links'		=> array('title'=> LCLAN_OPT_58, 'tab'=>6, 'type'=>'checkbox', 'data' => 'str', 'help'=>'Help Text goes here'),
       'link_menu_navigator_category'		=> array('title'=> LCLAN_OPT_58, 'tab'=>6, 'type'=>'checkbox', 'data' => 'str', 'help'=>'Help Text goes here'),
-
-      'link_menu_navigator_submit'		=> array('title'=> LCLAN_OPT_58, 'tab'=>6, 'type'=>'checkbox', 'data' => 'str', 'help'=>'Help Text goes here'),
-      'link_menu_caption'		=> array('title'=> LCLAN_OPT_82, 'tab'=>6, 'type'=>'text', 'data' => 'str', 'help'=>'Help Text goes here'),      
+      'link_menu_navigator_caption'		=> array('title'=> LCLAN_OPT_82, 'tab'=>6, 'type'=>'text', 'data' => 'str', 'help'=>'Help Text goes here'),      
       'link_menu_navigator_rendertype'		=> array('title'=> LCLAN_OPT_69, 'tab'=>6, 'type'=>'dropdown', 'data' => 'str', 'help'=>'Help Text goes here'),  
       'link_menu_category'		=> array('title'=> LCLAN_OPT_70, 'tab'=>6, 'type'=>'boolean', 'data' => 'str', 'help'=>'Help Text goes here'), 
       'link_menu_category_caption'		=> array('title'=> LCLAN_OPT_80, 'tab'=>6, 'type'=>'text', 

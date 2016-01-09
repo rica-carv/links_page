@@ -152,7 +152,7 @@ class linkclass
     function showLinkSort($mode='')
 	{
         global $rs, $ns, $qs;
-
+        $frm = e107::getForm();
         $check = "";
         if($qs){
             for($i=0;$i<count($qs);$i++){
@@ -170,36 +170,47 @@ class linkclass
             $checks = "";
             $checko = "";
         }
-        $baseurl = e_PLUGIN_ABS."links_page/links.php";
-        $qry = (isset($qs[0]) && substr($qs[0],0,5) != "order" ? $qs[0] : "").(isset($qs[1]) && substr($qs[1],0,5) != "order" ? ".".$qs[1] : "").(isset($qs[2]) && substr($qs[2],0,5) != "order" ? ".".$qs[2] : "").(isset($qs[3]) && substr($qs[3],0,5) != "order" ? ".".$qs[3] : "");
-
-        $sotext = "
-        ".$rs -> form_open("post", e_SELF, "linkorder", "", "enctype='multipart/form-data'")."
-            ".LAN_LINKS_15."
-            ".$rs -> form_select_open("link_sort");
-            if($mode == "cat"){
-                $sotext .= "
-                ".$rs -> form_option(LAN_LINKS_4, ($checks == "heading" ? "1" : "0"), "heading", "")."
-                ".$rs -> form_option(LAN_LINKS_44, ($checks == "id" ? "1" : "0"), "id", "")."
-                ".$rs -> form_option(LAN_LINKS_6, ($checks == "order" ? "1" : "0"), "order", "");
-            }else{
-                $sotext .= "
-                ".$rs -> form_option(LAN_LINKS_4, ($checks == "heading" ? "1" : "0"), "heading", "")."
-                ".$rs -> form_option(LAN_LINKS_5, ($checks == "url" ? "1" : "0"), "url", "")."
-                ".$rs -> form_option(LAN_LINKS_6, ($checks == "order" ? "1" : "0"), "order", "")."
-                ".$rs -> form_option(LAN_LINKS_7, ($checks == "refer" ? "1" : "0"), "refer", "")."
-                ".$rs -> form_option(LAN_LINKS_38, ($checks == "date" ? "1" : "0"), "date", "");
-            }
-            $sotext .= "
-            ".$rs -> form_select_close()."
-            ".LAN_LINKS_6."
-            ".$rs -> form_select_open("link_order")."
-            ".$rs -> form_option(LAN_LINKS_8, ($checko == "a" ? "1" : "0"), $baseurl."?".($qry ? $qry."." : "")."ordera", "")."
-            ".$rs -> form_option(LAN_LINKS_9, ($checko == "d" ? "1" : "0"), $baseurl."?".($qry ? $qry."." : "")."orderd", "")."
-            ".$rs -> form_select_close()."
-            ".$rs -> form_button("button", "submit", LCLAN_ITEM_36, " onclick=\"document.location=link_order.options[link_order.selectedIndex].value+link_sort.options[link_sort.selectedIndex].value;\"", "", "")."
-        ".$rs -> form_close();
-
+        $baseurl = SITEURL."links_page/links";
+ 
+         $qry = (isset($qs[0]) && substr($qs[0],0,5) != "order" ? $qs[0] : "").(isset($qs[1]) && substr($qs[1],0,5) != "order" ? ".".$qs[1] : "").(isset($qs[2]) && substr($qs[2],0,5) != "order" ? ".".$qs[2] : "").(isset($qs[3]) && substr($qs[3],0,5) != "order" ? ".".$qs[3] : "");
+         $path = $baseurl."/".($qry ? $qry : "");
+       
+         $order_options_cat = array(
+            "heading"        => LAN_LINKS_4,
+            "id" => LAN_LINKS_44,
+            "order" => LAN_LINKS_6
+         );
+         $order_options_link = array(
+            "heading"  => LAN_LINKS_4,
+            "url"      => LAN_LINKS_5,
+            "order"    => LAN_LINKS_6,            
+            "refer"    => LAN_LINKS_7,
+            "date"     => LAN_LINKS_38
+         );        
+         
+         $sort_options = array(
+            $path."ordera"    => LAN_LINKS_8,
+            $path."orderd"   => LAN_LINKS_9
+         );
+         
+          
+        $sotext  = "<div class='panel panel-default panel-body'>";
+        $sotext .= $frm->open('linkorder','post',e_SELF, 'class=form-inline'); 
+        $sotext .= "<div class='form-group col-md-6'> <label for='link_sorter' class='control-label'>".LAN_LINKS_15."</label>";
+        if($mode == "cat"){
+            $sotext .= $frm->select('link_sorter', $order_options, $checks);               
+        }else{
+            $sotext .= $frm->select('link_sorter',  $order_options_link, $checks); 
+        }
+        $sotext .= "</div><div class='form-group'> <label for='link_order' class='control-label '>".LAN_LINKS_6."</label>"; 
+        $sotext .= $frm->select('link_order', $sort_options, $checko); 
+                                                                                 
+             
+        $sotext .= $rs -> form_button("button", "submit", LCLAN_ITEM_36, 
+        " onclick=\"document.location.href=link_order.options[link_order.selectedIndex].value+link_sorter.options[link_sorter.selectedIndex].value;\"", "", "");                    
+        $sotext .="</div> ";         
+        $sotext .=$frm -> close()."</div>";
+             
         return $sotext;
     }
 

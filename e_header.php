@@ -6,14 +6,17 @@
  * Libraries plugin:  https://github.com/lonalore/libraries 
  */
  
-if(!defined('e107_INIT')) { 	exit; } 
-
-if(USER_AREA && strpos(e_REQUEST_URI,'links_page') )
+if(!defined('e107_INIT'))
+{
+	exit;
+} 
+ 
+if(USER_AREA)
 {  
   if ((function_exists('libraries_load')) &&  ($library = libraries_load('quick-select')) && !empty($library['loaded'])) {}  
   else {
       /* if libraries plugin is not used */
-    	e107::css('links_page','quick-select/css/quickselect.css','');
+     	e107::css('links_page','quick-select/css/quickselect.css','');
       e107::js('links_page','quick-select/js/jquery.quickselect.min.js');
   }  
      
@@ -30,6 +33,6 @@ if(USER_AREA && strpos(e_REQUEST_URI,'links_page') )
   e107::js('settings', array('links_page' => $settings));
   
   // Now load behavior.
- e107::js('footer', '{e_PLUGIN}links_page/quickselect.init.js');
+  e107::js('footer', '{e_PLUGIN}links_page/quickselect.init.js');
 } 
 ?>

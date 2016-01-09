@@ -225,34 +225,16 @@ if($mains){
   function sc_link_button($parm='')
 	{ 
   global $LINK_BUTTON, $rowl, $LINK_NAME, $LINK_APPEND;
-  
+  $tp = e107::getParser();
   if(!$this->plugPrefs['link_icon']){
   	return "";
   }
   $LINK_BUTTON = "&nbsp;";
   if(isset($this->plugPrefs['link_icon']) && $this->plugPrefs['link_icon']){
-  	if ($rowl['link_button']) {
-  		if (strpos($rowl['link_button'], "http://") !== FALSE) {
-  			$LINK_BUTTON = $LINK_APPEND."\n<img class='linkspage_button' src='".$rowl['link_button']."' alt='' /></a>";
-  		} else {
-  			if(strstr($rowl['link_button'], "/")){
-  				if(file_exists(e_BASE.$rowl['link_button'])){
-  					$LINK_BUTTON = $LINK_APPEND."\n<img class='linkspage_button' src='".e_BASE.$rowl['link_button']."' alt='' /></a>";
-  				} else {
-  					if(isset($this->plugPrefs['link_icon_empty']) && $this->plugPrefs['link_icon_empty']){
-  						$LINK_BUTTON = $LINK_APPEND."\n<img class='linkspage_button' style='width: 88px; height: 31px;' src='".e_PLUGIN_ABS."links_page/images/generic.png' alt='' /></a>";
-  					}
-  				}
-  			}else{
-  				if(file_exists(e_PLUGIN."links_page/link_images/".$rowl['link_button'])){
-  					$LINK_BUTTON = $LINK_APPEND."\n<img class='linkspage_button' src='".e_PLUGIN_ABS."links_page/link_images/".$rowl['link_button']."' alt='' /></a>";
-  				}else{
-  					if(isset($this->plugPrefs['link_icon_empty']) && $this->plugPrefs['link_icon_empty']){
-  					$LINK_BUTTON = $LINK_APPEND."\n<img class='linkspage_button' style='width: 88px; height: 31px;' src='".e_PLUGIN_ABS."links_page/images/generic.png' alt='' /></a>";
-  					}
-  				}
-  			}
-  		}
+  	if ($rowl['link_button']) {    
+       $att = 'aw=190&ah=190';
+       $linkbutton = $tp->thumbUrl($rowl['link_button'],$att);
+  			$LINK_BUTTON = $LINK_APPEND."\n<img class='linkspage_button img-responsive'   src='".$linkbutton."' alt='' /></a>";
   	} else {
   		if(isset($this->plugPrefs['link_icon_empty']) && $this->plugPrefs['link_icon_empty']){
   			$LINK_BUTTON = $LINK_APPEND."\n<img class='linkspage_button' style='width: 88px; height: 31px;' src='".e_PLUGIN_ABS."links_page/images/generic.png' alt='' /></a>";
