@@ -23,17 +23,33 @@ define('URL_SEPARATOR','X');		// Used in names of 'inc' and 'dec' fields
 
 class linkclass 
 {
- 
+
+	/**
+	 * Private variable to store plugin configurations.
+	 *
+	 * @var array
+	 */
+	private $plugPrefs = array();
+  
+	/**
+	 * Constructor.
+	 */
+	function __construct()
+	{
+		$this->plugPrefs = e107::getPlugConfig('links_page')->getPref();
+	}
+  
+   
 	function ShowNextPrev($from='0', $number, $total)
 	{
-		global $linkspage_pref, $qs, $tp, $link_shortcodes, $LINK_NEXTPREV, $LINK_NP_TABLE, $pref;
+		global  $qs, $tp, $link_shortcodes, $LINK_NEXTPREV, $LINK_NP_TABLE, $pref;
 
 		$number = (e_PAGE == 'admin_linkspage_config.php' ? '20' : $number);
 		if($total<=$number)
 		{
 			return;
 		}
-		if(e_PAGE == 'admin_linkspage_config.php' || (isset($linkspage_pref["link_nextprev"]) && $linkspage_pref["link_nextprev"]))
+		if(e_PAGE == 'admin_linkspage_config.php' || (isset($this->plugPrefs["link_nextprev"]) && $this->plugPrefs["link_nextprev"]))
 		{
 			$np_querystring = e_SELF."?[FROM]".(isset($qs[0]) ? ".".$qs[0] : "").(isset($qs[1]) ? ".".$qs[1] : "").(isset($qs[2]) ? ".".$qs[2] : "").(isset($qs[3]) ? ".".$qs[3] : "").(isset($qs[4]) ? ".".$qs[4] : "");
 			$parms = $total.",".$number.",".$from.",".$np_querystring."";
@@ -54,10 +70,10 @@ class linkclass
 
     function setPageTitle()
 	{
-        global $sql, $qs, $linkspage_pref;
+        global $sql, $qs;
 
         //show all categories
-        if(!isset($qs[0]) && $linkspage_pref['link_page_categories']){
+        if(!isset($qs[0]) && $this->plugPrefs['link_page_categories']){
             $page = LCLAN_PAGETITLE_1." / ".LCLAN_PAGETITLE_2;
         }
         //show all categories
@@ -65,7 +81,7 @@ class linkclass
             $page = LCLAN_PAGETITLE_1." / ".LCLAN_PAGETITLE_2;
         }
         //show all links in all categories
-        if( (!isset($qs[0]) && !$linkspage_pref['link_page_categories']) || (isset($qs[0]) && $qs[0] == "all") ){
+        if( (!isset($qs[0]) && !$this->plugPrefs['link_page_categories']) || (isset($qs[0]) && $qs[0] == "all") ){
             $page = LCLAN_PAGETITLE_1." / ".LCLAN_PAGETITLE_3;
         }
         //show all links in one categories
@@ -91,7 +107,7 @@ class linkclass
             $page = LCLAN_PAGETITLE_1." / ".LCLAN_PAGETITLE_8;
         }
         //submit link
-        if (isset($qs[0]) && $qs[0] == "submit" && check_class($linkspage_pref['link_submit_class'])) {
+        if (isset($qs[0]) && $qs[0] == "submit" && check_class($this->plugPrefs['link_submit_class'])) {
             $page = LCLAN_PAGETITLE_1." / ".LCLAN_PAGETITLE_9;
         }
         //define("e_PAGETITLE", strtolower($page));
@@ -103,11 +119,11 @@ class linkclass
 
     function parse_link_append($rowl)
 	{
-        global $tp, $linkspage_pref;
-        if($linkspage_pref['link_open_all'] && $linkspage_pref['link_open_all'] == "5"){
+        global $tp;
+        if($this->plugPrefs['link_open_all'] && $this->plugPrefs['link_open_all'] == "5"){
             $link_open_type = $rowl['link_open'];
         }else{
-            $link_open_type = $linkspage_pref['link_open_all'];
+            $link_open_type = $this->plugPrefs['link_open_all'];
         }
 
         switch ($link_open_type) {
@@ -135,7 +151,7 @@ class linkclass
 
     function showLinkSort($mode='')
 	{
-        global $rs, $ns, $qs, $linkspage_pref;
+        global $rs, $ns, $qs;
 
         $check = "";
         if($qs){
@@ -234,7 +250,7 @@ class linkclass
 
 	function getOrder($mode='')
 	{
-        global $qs, $linkspage_pref;
+        global $qs;
 
         if(isset($qs[0]) && substr($qs[0],0,5) == "order"){
             $orderstring    = $qs[0];
@@ -246,11 +262,11 @@ class linkclass
             $orderstring    = $qs[3];
         }else{
             if($mode == "cat"){
-                $orderstring    = "order".($linkspage_pref["link_cat_order"] == "ASC" ? "a" : "d" ).($linkspage_pref["link_cat_sort"] ? $linkspage_pref["link_cat_sort"] : "date" );
+                $orderstring    = "order".($this->plugPrefs["link_cat_order"] == "ASC" ? "a" : "d" ).($this->plugPrefs["link_cat_sort"] ? $this->plugPrefs["link_cat_sort"] : "date" );
             }else{
-                $orderstringcat = "order".($linkspage_pref["link_cat_order"] == "ASC" ? "a" : "d" ).($linkspage_pref["link_cat_sort"] ? $linkspage_pref["link_cat_sort"] : "date" );
+                $orderstringcat = "order".($this->plugPrefs["link_cat_order"] == "ASC" ? "a" : "d" ).($this->plugPrefs["link_cat_sort"] ? $$this->plugPrefs["link_cat_sort"] : "date" );
 
-                $orderstring    = "order".($linkspage_pref["link_order"] == "ASC" ? "a" : "d" ).($linkspage_pref["link_sort"] ? $linkspage_pref["link_sort"] : "date" );
+                $orderstring    = "order".($this->plugPrefs["link_order"] == "ASC" ? "a" : "d" ).($this->plugPrefs["link_sort"] ? $this->plugPrefs["link_sort"] : "date" );
             }
         }
 
@@ -423,7 +439,7 @@ class linkclass
 	// Create a new link. If $mode == 'submit', link has to go through the approval process; else its admin entry
     function dbLinkCreate($mode='') 
 	{
-        global $ns, $tp, $qs, $sql, $e107cache, $e_event, $linkspage_pref;
+        global $ns, $tp, $qs, $sql, $e107cache, $e_event;
 
         $link_name          = $tp->toDB($_POST['link_name']);
         $link_url           = $tp->toDB($_POST['link_url']);
@@ -487,7 +503,7 @@ class linkclass
 
 	function show_link_create()
 	{
-        global $sql, $rs, $qs, $ns, $fl, $linkspage_pref;
+        global $sql, $rs, $qs, $ns, $fl;
 
         $row['link_category']       = "";
         $row['link_name']           = "";
@@ -496,7 +512,7 @@ class linkclass
         $row['link_button']         = "";
         $row['link_open']           = "";
         $row['link_class']          = "";
-        $link_resize_value          = (isset($linkspage_pref['link_resize_value']) && $linkspage_pref['link_resize_value'] ? $linkspage_pref['link_resize_value'] : "100");
+        $link_resize_value          = (isset($this->plugPrefs['link_resize_value']) && $this->plugPrefs['link_resize_value'] ? $this->plugPrefs['link_resize_value'] : "100");
 
         if (isset($qs[1]) && $qs[1] == 'edit' && !isset($_POST['submit'])) 
 		{
@@ -786,7 +802,7 @@ class linkclass
         $row['link_category_name']          = "";
         $row['link_category_description']   = "";
         $row['link_category_icon']          = "";
-        $link_cat_resize_value              = (isset($linkspage_pref['link_cat_resize_value']) && $linkspage_pref['link_cat_resize_value'] ? $linkspage_pref['link_cat_resize_value'] : "50");
+        $link_cat_resize_value              = (isset($this->plugPrefs['link_cat_resize_value']) && $this->plugPrefs['link_cat_resize_value'] ? $this->plugPrefs['link_cat_resize_value'] : "50");
 
         if(isset($_POST['uploadcatlinkicon'])){
             $row['link_category_name']          = $_POST['link_category_name'];
@@ -1026,414 +1042,7 @@ class linkclass
         $ns->tablerender(LCLAN_SL_1, $text);
     }
 
-    function show_pref_options() {
-        global $linkspage_pref, $ns, $rs, $pref;
-
-        $text = "
-        <script type=\"text/javascript\">
-        <!--
-        var hideid=\"optgeneral\";
-        function showhideit(showid){
-            if (hideid!=showid){
-                show=document.getElementById(showid).style;
-                hide=document.getElementById(hideid).style;
-                show.display=\"\";
-                hide.display=\"none\";
-
-                //showh=document.getElementById(showid+'help').style;
-                //hideh=document.getElementById(hideid+'help').style;
-                //showh.display=\"\";
-                //hideh.display=\"none\";
-
-                hideid = showid;
-            }
-        }
-        //-->
-        </script>";
-
-        $TOPIC_ROW = "
-        <tr>
-            <td class='forumheader3' style='width:25%; white-space:nowrap; vertical-align:top;'>{TOPIC_TOPIC}</td>
-            <td class='forumheader3' style='vertical-align:top;'>{TOPIC_FIELD}</td>
-        </tr>";
-
-        $TOPIC_TITLE_ROW = "<tr><td colspan='2' class='fcaption'>{TOPIC_CAPTION}</td></tr>";
-        $TOPIC_ROW_SPACER = "<tr><td style='height:20px;' colspan='2'></td></tr>";
-        $TOPIC_TABLE_END = $this->pref_submit()."</table></div>";
-
-        $text .= "
-        <div style='text-align:center'>
-        ".$rs -> form_open("post", e_SELF."?".e_QUERY, "optform", "", "", "")."
-
-        <div id='optgeneral' style='text-align:center'>
-        <table style='".ADMIN_WIDTH."' class='fborder'>";
-
-        $TOPIC_CAPTION = LCLAN_OPT_MENU_1;
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_TITLE_ROW);
-
-        $TOPIC_TOPIC = LCLAN_OPT_7;
-        $TOPIC_FIELD = "
-        ".$rs -> form_radio("link_page_categories", "1", ($linkspage_pref['link_page_categories'] ? "1" : "0"), "", "").LCLAN_OPT_3."
-        ".$rs -> form_radio("link_page_categories", "0", ($linkspage_pref['link_page_categories'] ? "0" : "1"), "", "").LCLAN_OPT_4;
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_ROW);
-
-        $TOPIC_TOPIC = LCLAN_OPT_8;
-        $TOPIC_FIELD = "
-        ".$rs -> form_radio("link_submit", "1", ($linkspage_pref['link_submit'] ? "1" : "0"), "", "").LCLAN_OPT_3."
-        ".$rs -> form_radio("link_submit", "0", ($linkspage_pref['link_submit'] ? "0" : "1"), "", "").LCLAN_OPT_4;
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_ROW);
-
-        $TOPIC_TOPIC = LCLAN_OPT_9;
-        $TOPIC_FIELD = r_userclass("link_submit_class", $linkspage_pref['link_submit_class']);
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_ROW);
-
-        $TOPIC_TOPIC = LCLAN_OPT_48;
-        $TOPIC_FIELD = "
-        ".$rs -> form_radio("link_submit_directpost", "1", ($linkspage_pref['link_submit_directpost'] ? "1" : "0"), "", "").LCLAN_OPT_3."
-        ".$rs -> form_radio("link_submit_directpost", "0", ($linkspage_pref['link_submit_directpost'] ? "0" : "1"), "", "").LCLAN_OPT_4."<br />".LCLAN_OPT_49;
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_ROW);
-
-        //link_nextprev
-        $TOPIC_TOPIC = LCLAN_OPT_10;
-        $TOPIC_FIELD = "
-        ".$rs -> form_radio("link_nextprev", "1", ($linkspage_pref["link_nextprev"] ? "1" : "0"), "", "").LCLAN_OPT_3."
-        ".$rs -> form_radio("link_nextprev", "0", ($linkspage_pref["link_nextprev"] ? "0" : "1"), "", "").LCLAN_OPT_4;
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_ROW);
-
-        //link_nextprev_number
-        $TOPIC_TOPIC = LCLAN_OPT_11;
-        $TOPIC_FIELD = $rs -> form_select_open("link_nextprev_number");
-        for($i=2;$i<52;$i++){
-            $TOPIC_FIELD .= $rs -> form_option($i, ($linkspage_pref["link_nextprev_number"] == $i ? "1" : "0"), $i);
-            $i++;
-        }
-        $TOPIC_FIELD .= $rs -> form_select_close();
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_ROW);
-
-        //link_comment
-        $TOPIC_TOPIC = LCLAN_OPT_55;
-        $TOPIC_FIELD = "
-        ".$rs -> form_radio("link_comment", "1", ($linkspage_pref["link_comment"] ? "1" : "0"), "", "").LCLAN_OPT_3."
-        ".$rs -> form_radio("link_comment", "0", ($linkspage_pref["link_comment"] ? "0" : "1"), "", "").LCLAN_OPT_4;
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_ROW);
-
-        $TOPIC_TOPIC = LCLAN_OPT_27;
-        $TOPIC_FIELD = "
-        ".$rs -> form_radio("link_rating", "1", ($linkspage_pref['link_rating'] ? "1" : "0"), "", "").LCLAN_OPT_3."
-        ".$rs -> form_radio("link_rating", "0", ($linkspage_pref['link_rating'] ? "0" : "1"), "", "").LCLAN_OPT_4;
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_ROW);
-
-        $TOPIC_TOPIC = LCLAN_OPT_62;
-        $TOPIC_FIELD = "<table style='width:100%;' cellpadding='0' cellspacing='0'><tr><td style='white-space:nowrap; width:20%;'>
-        ".$rs -> form_checkbox("link_navigator_frontpage", 1, ($linkspage_pref['link_navigator_frontpage'] ? "1" : "0"))." ".LCLAN_OPT_60."<br />
-        ".$rs -> form_checkbox("link_navigator_submit", 1, ($linkspage_pref['link_navigator_submit'] ? "1" : "0"))." ".LCLAN_OPT_58."<br />
-        ".$rs -> form_checkbox("link_navigator_manager", 1, ($linkspage_pref['link_navigator_manager'] ? "1" : "0"))." ".LCLAN_OPT_59."<br />
-        ".$rs -> form_checkbox("link_navigator_refer", 1, ($linkspage_pref['link_navigator_refer'] ? "1" : "0"))." ".LCLAN_OPT_20."<br />
-        </td><td style='white-space:nowrap;'>
-        ".$rs -> form_checkbox("link_navigator_rated", 1, ($linkspage_pref['link_navigator_rated'] ? "1" : "0"))." ".LCLAN_OPT_21."<br />
-        ".$rs -> form_checkbox("link_navigator_allcat", 1, ($linkspage_pref['link_navigator_allcat'] ? "1" : "0"))." ".LCLAN_OPT_66."<br />
-        ".$rs -> form_checkbox("link_navigator_links", 1, ($linkspage_pref['link_navigator_links'] ? "1" : "0"))." ".LCLAN_OPT_67."<br />
-        ".$rs -> form_checkbox("link_navigator_category", 1, ($linkspage_pref['link_navigator_category'] ? "1" : "0"))." ".LCLAN_OPT_61."<br />
-        </td></tr></table>";
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_ROW);
-
-        $text .= $TOPIC_TABLE_END;
-
-        $text .= "
-        <div id='optmanager' style='display:none; text-align:center'>
-        <table style='".ADMIN_WIDTH."' class='fborder'>";
-
-        $TOPIC_CAPTION = LCLAN_OPT_MENU_2;
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_TITLE_ROW);
-
-        $TOPIC_TOPIC = LCLAN_OPT_54;
-        $TOPIC_FIELD = "
-        ".$rs -> form_radio("link_manager", "1", ($linkspage_pref['link_manager'] ? "1" : "0"), "", "").LCLAN_OPT_3."
-        ".$rs -> form_radio("link_manager", "0", ($linkspage_pref['link_manager'] ? "0" : "1"), "", "").LCLAN_OPT_4;
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_ROW);
-
-        $TOPIC_TOPIC = LCLAN_OPT_46;
-        $TOPIC_FIELD = r_userclass("link_manager_class", $linkspage_pref['link_manager_class'])."<br />".LCLAN_OPT_47;
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_ROW);
-
-        $TOPIC_TOPIC = LCLAN_OPT_48;
-        $TOPIC_FIELD = "
-        ".$rs -> form_radio("link_directpost", "1", ($linkspage_pref['link_directpost'] ? "1" : "0"), "", "").LCLAN_OPT_3."
-        ".$rs -> form_radio("link_directpost", "0", ($linkspage_pref['link_directpost'] ? "0" : "1"), "", "").LCLAN_OPT_4."<br />".LCLAN_OPT_49;
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_ROW);
-
-        $TOPIC_TOPIC = LCLAN_OPT_50;
-        $TOPIC_FIELD = "
-        ".$rs -> form_radio("link_directdelete", "1", ($linkspage_pref['link_directdelete'] ? "1" : "0"), "", "").LCLAN_OPT_3."
-        ".$rs -> form_radio("link_directdelete", "0", ($linkspage_pref['link_directdelete'] ? "0" : "1"), "", "").LCLAN_OPT_4."<br />".LCLAN_OPT_51;
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_ROW);
-
-        $text .= $TOPIC_TABLE_END;
-
-        $text .= "
-        <div id='optcategory' style='display:none; text-align:center'>
-        <table style='".ADMIN_WIDTH."' class='fborder'>";
-
-        $TOPIC_CAPTION = LCLAN_OPT_MENU_3;
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_TITLE_ROW);
-
-        $TOPIC_TOPIC = LCLAN_OPT_13;
-        $TOPIC_FIELD = "<table style='width:100%;' cellpadding='0' cellspacing='0'><tr><td style='white-space:nowrap; width:20%;'>
-        ".$rs -> form_checkbox("link_cat_icon", 1, ($linkspage_pref['link_cat_icon'] ? "1" : "0"))." ".LCLAN_OPT_14."<br />
-        ".$rs -> form_checkbox("link_cat_desc", 1, ($linkspage_pref['link_cat_desc'] ? "1" : "0"))." ".LCLAN_OPT_15."<br />
-        </td><td style='white-space:nowrap;'>
-        ".$rs -> form_checkbox("link_cat_amount", 1, ($linkspage_pref['link_cat_amount'] ? "1" : "0"))." ".LCLAN_OPT_16."<br />
-        ".$rs -> form_checkbox("link_cat_total", 1, ($linkspage_pref['link_cat_total'] ? "1" : "0"))." ".LCLAN_OPT_19."<br />
-        </td></tr></table>";
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_ROW);
-
-        $TOPIC_TOPIC = LCLAN_OPT_65;
-        $TOPIC_FIELD = "
-        ".$rs -> form_radio("link_cat_empty", "1", ($linkspage_pref['link_cat_empty'] ? "1" : "0"), "", "").LCLAN_OPT_3."
-        ".$rs -> form_radio("link_cat_empty", "0", ($linkspage_pref['link_cat_empty'] ? "0" : "1"), "", "").LCLAN_OPT_4;
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_ROW);
-
-        $TOPIC_TOPIC = LCLAN_OPT_22;
-        $TOPIC_FIELD = "
-        ".$rs -> form_radio("link_cat_icon_empty", "1", ($linkspage_pref['link_cat_icon_empty'] ? "1" : "0"), "", "").LCLAN_OPT_3."
-        ".$rs -> form_radio("link_cat_icon_empty", "0", ($linkspage_pref['link_cat_icon_empty'] ? "0" : "1"), "", "").LCLAN_OPT_4;
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_ROW);
-
-        $TOPIC_TOPIC = LCLAN_OPT_29;
-        $TOPIC_FIELD = "
-        ".$rs -> form_radio("link_cat_sortorder", "1", ($linkspage_pref['link_cat_sortorder'] ? "1" : "0"), "", "").LCLAN_OPT_3."
-        ".$rs -> form_radio("link_cat_sortorder", "0", ($linkspage_pref['link_cat_sortorder'] ? "0" : "1"), "", "").LCLAN_OPT_4;
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_ROW);
-
-        $TOPIC_TOPIC = LCLAN_OPT_23;
-        $TOPIC_FIELD = "
-        ".$rs -> form_select_open("link_cat_sort")."
-        ".$rs -> form_option(LCLAN_OPT_40, ($linkspage_pref['link_cat_sort'] == "heading" ? "1" : "0"), "heading", "")."
-        ".$rs -> form_option(LCLAN_OPT_41, ($linkspage_pref['link_cat_sort'] == "id" ? "1" : "0"), "id", "")."
-        ".$rs -> form_option(LCLAN_OPT_36, ($linkspage_pref['link_cat_sort'] == "order" ? "1" : "0"), "order", "")."
-        ".$rs -> form_select_close();
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_ROW);
-
-        $TOPIC_TOPIC = LCLAN_OPT_24;
-        $TOPIC_FIELD = "
-        ".$rs -> form_select_open("link_cat_order")."
-        ".$rs -> form_option(LCLAN_OPT_30, ($linkspage_pref['link_cat_order'] == "ASC" ? "1" : "0"), "ASC", "")."
-        ".$rs -> form_option(LCLAN_OPT_31, ($linkspage_pref['link_cat_order'] == "DESC" ? "1" : "0"), "DESC", "")."
-        ".$rs -> form_select_close();
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_ROW);
-
-        $TOPIC_TOPIC = LCLAN_OPT_25;
-        $TOPIC_FIELD = $rs -> form_text("link_cat_resize_value", "3", $linkspage_pref['link_cat_resize_value'], "3", "tbox", "", "", "")." ".LCLAN_OPT_5;
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_ROW);
-
-        $text .= $TOPIC_TABLE_END;
-
-        $text .= "
-        <div id='optlinks' style='display:none; text-align:center'>
-        <table style='".ADMIN_WIDTH."' class='fborder'>";
-
-        $TOPIC_CAPTION = LCLAN_OPT_MENU_4;
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_TITLE_ROW);
-
-        $TOPIC_TOPIC = LCLAN_OPT_13;
-        $TOPIC_FIELD = "<table style='width:100%;' cellpadding='0' cellspacing='0'><tr><td style='white-space:nowrap; width:20%;'>
-        ".$rs -> form_checkbox("link_icon", 1, ($linkspage_pref['link_icon'] ? "1" : "0"))." ".LCLAN_OPT_14."<br />
-        ".$rs -> form_checkbox("link_referal", 1, ($linkspage_pref['link_referal'] ? "1" : "0"))." ".LCLAN_OPT_17."<br />
-        </td><td style='white-space:nowrap;'>
-        ".$rs -> form_checkbox("link_url", 1, ($linkspage_pref['link_url'] ? "1" : "0"))." ".LCLAN_OPT_18."<br />
-        ".$rs -> form_checkbox("link_desc", 1, ($linkspage_pref['link_desc'] ? "1" : "0"))." ".LCLAN_OPT_15."<br />
-        </td></tr></table>";
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_ROW);
-
-        $TOPIC_TOPIC = LCLAN_OPT_28;
-        $TOPIC_FIELD = "
-        ".$rs -> form_radio("link_icon_empty", "1", ($linkspage_pref['link_icon_empty'] ? "1" : "0"), "", "").LCLAN_OPT_3."
-        ".$rs -> form_radio("link_icon_empty", "0", ($linkspage_pref['link_icon_empty'] ? "0" : "1"), "", "").LCLAN_OPT_4;
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_ROW);
-
-        $TOPIC_TOPIC = LCLAN_OPT_29;
-        $TOPIC_FIELD = "
-        ".$rs -> form_radio("link_sortorder", "1", ($linkspage_pref['link_sortorder'] ? "1" : "0"), "", "").LCLAN_OPT_3."
-        ".$rs -> form_radio("link_sortorder", "0", ($linkspage_pref['link_sortorder'] ? "0" : "1"), "", "").LCLAN_OPT_4;
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_ROW);
-
-        $TOPIC_TOPIC = LCLAN_OPT_23;
-        $TOPIC_FIELD = "
-        ".$rs -> form_select_open("link_sort")."
-        ".$rs -> form_option(LCLAN_OPT_34, ($linkspage_pref['link_sort'] == "heading" ? "1" : "0"), "heading", "")."
-        ".$rs -> form_option(LCLAN_OPT_35, ($linkspage_pref['link_sort'] == "url" ? "1" : "0"), "url", "")."
-        ".$rs -> form_option(LCLAN_OPT_36, ($linkspage_pref['link_sort'] == "order" ? "1" : "0"), "order", "")."
-        ".$rs -> form_option(LCLAN_OPT_37, ($linkspage_pref['link_sort'] == "refer" ? "1" : "0"), "refer", "")."
-        ".$rs -> form_option(LCLAN_OPT_53, ($linkspage_pref['link_sort'] == "date" ? "1" : "0"), "date", "")."
-        ".$rs -> form_select_close();
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_ROW);
-
-        $TOPIC_TOPIC = LCLAN_OPT_24;
-        $TOPIC_FIELD = "
-        ".$rs -> form_select_open("link_order")."
-        ".$rs -> form_option(LCLAN_OPT_30, ($linkspage_pref['link_order'] == "ASC" ? "1" : "0"), "ASC", "")."
-        ".$rs -> form_option(LCLAN_OPT_31, ($linkspage_pref['link_order'] == "DESC" ? "1" : "0"), "DESC", "")."
-        ".$rs -> form_select_close();
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_ROW);
-
-        //0=same window, 1=_blank, 2=_parent, 3=_top, 4=miniwindow
-        $TOPIC_TOPIC = LCLAN_OPT_32;
-        $TOPIC_FIELD = "
-        ".$rs -> form_select_open("link_open_all")."
-        ".$rs -> form_option(LCLAN_OPT_42, ($linkspage_pref['link_open_all'] == "5" ? "1" : "0"), "5", "")."
-        ".$rs -> form_option(LCLAN_OPT_43, ($linkspage_pref['link_open_all'] == "0" ? "1" : "0"), "0", "")."
-        ".$rs -> form_option(LCLAN_OPT_44, ($linkspage_pref['link_open_all'] == "1" ? "1" : "0"), "1", "")."
-        ".$rs -> form_option(LCLAN_OPT_45, ($linkspage_pref['link_open_all'] == "4" ? "1" : "0"), "4", "")."
-        ".$rs -> form_select_close();
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_ROW);
-
-        $TOPIC_TOPIC = LCLAN_OPT_33;
-        $TOPIC_FIELD = $rs -> form_text("link_resize_value", "3", $linkspage_pref['link_resize_value'], "3", "tbox", "", "", "")." ".LCLAN_OPT_5;
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_ROW);
-
-        $text .= $TOPIC_TABLE_END;
-
-        $text .= "
-        <div id='optrefer' style='display:none; text-align:center'>
-        <table style='".ADMIN_WIDTH."' class='fborder'>";
-
-        $TOPIC_CAPTION = LCLAN_OPT_MENU_5;
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_TITLE_ROW);
-
-        $TOPIC_TOPIC = LCLAN_OPT_56;
-        $TOPIC_FIELD = $rs -> form_text("link_refer_minimum", "3", $linkspage_pref['link_refer_minimum'], "3", "tbox", "", "", "")." ".LCLAN_OPT_57;
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_ROW);
-
-        $text .= $TOPIC_TABLE_END;
-
-        $text .= "
-        <div id='optrating' style='display:none; text-align:center'>
-        <table style='".ADMIN_WIDTH."' class='fborder'>";
-
-        $TOPIC_CAPTION = LCLAN_OPT_MENU_6;
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_TITLE_ROW);
-
-        $TOPIC_TOPIC = LCLAN_OPT_63;
-        $TOPIC_FIELD = "";
-        $TOPIC_FIELD = $rs -> form_text("link_rating_minimum", "3", $linkspage_pref['link_rating_minimum'], "3", "tbox", "", "", "")." ".LCLAN_OPT_64;
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_ROW);
-
-        $text .= $TOPIC_TABLE_END;
-
-
-
-
-
-
-        $text .= "
-        <div id='optmenu' style='display:none; text-align:center'>
-        <table style='".ADMIN_WIDTH."' class='fborder'>";
-
-        $TOPIC_CAPTION = LCLAN_OPT_MENU_7;
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_TITLE_ROW);
-
-        $TOPIC_TOPIC = LCLAN_OPT_85;
-        $TOPIC_FIELD = $rs -> form_text("link_menu_caption", "15", $linkspage_pref['link_menu_caption'], "100", "tbox", "", "", "");
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_ROW);
-
-
-        $TOPIC_TOPIC = LCLAN_OPT_62;
-        $TOPIC_FIELD = "<table style='width:100%;' cellpadding='0' cellspacing='0'><tr><td style='white-space:nowrap; width:20%;'>
-        ".$rs -> form_checkbox("link_menu_navigator_frontpage", 1, ($linkspage_pref['link_menu_navigator_frontpage'] ? "1" : "0"))." ".LCLAN_OPT_60."<br />
-        ".$rs -> form_checkbox("link_menu_navigator_submit", 1, ($linkspage_pref['link_menu_navigator_submit'] ? "1" : "0"))." ".LCLAN_OPT_58."<br />
-        ".$rs -> form_checkbox("link_menu_navigator_manager", 1, ($linkspage_pref['link_menu_navigator_manager'] ? "1" : "0"))." ".LCLAN_OPT_59."<br />
-        ".$rs -> form_checkbox("link_menu_navigator_refer", 1, ($linkspage_pref['link_menu_navigator_refer'] ? "1" : "0"))." ".LCLAN_OPT_20."<br />
-        </td><td style='white-space:nowrap;'>
-        ".$rs -> form_checkbox("link_menu_navigator_rated", 1, ($linkspage_pref['link_menu_navigator_rated'] ? "1" : "0"))." ".LCLAN_OPT_21."<br />
-        ".$rs -> form_checkbox("link_menu_navigator_links", 1, ($linkspage_pref['link_menu_navigator_links'] ? "1" : "0"))." ".LCLAN_OPT_67."<br />
-        ".$rs -> form_checkbox("link_menu_navigator_category", 1, ($linkspage_pref['link_menu_navigator_category'] ? "1" : "0"))." ".LCLAN_OPT_61."<br />
-        </td></tr></table>";
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_ROW);
-
-        $TOPIC_TOPIC = LCLAN_OPT_79;
-        $TOPIC_FIELD = $rs -> form_text("link_menu_navigator_caption", "15", $linkspage_pref['link_menu_navigator_caption'], "100", "tbox", "", "", "");
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_ROW);
-
-        $TOPIC_TOPIC = LCLAN_OPT_69;
-        $TOPIC_FIELD = "
-        ".$rs -> form_radio("link_menu_navigator_rendertype", "1", ($linkspage_pref['link_menu_navigator_rendertype'] ? "1" : "0"), "", "").LCLAN_OPT_76."
-        ".$rs -> form_radio("link_menu_navigator_rendertype", "0", ($linkspage_pref['link_menu_navigator_rendertype'] ? "0" : "1"), "", "").LCLAN_OPT_75;
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_ROW);
-
-
-
-        $TOPIC_TOPIC = LCLAN_OPT_70;
-        $TOPIC_FIELD = "
-        ".$rs -> form_radio("link_menu_category", "1", ($linkspage_pref['link_menu_category'] ? "1" : "0"), "", "").LCLAN_OPT_3."
-        ".$rs -> form_radio("link_menu_category", "0", ($linkspage_pref['link_menu_category'] ? "0" : "1"), "", "").LCLAN_OPT_4;
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_ROW);
-
-        $TOPIC_TOPIC = LCLAN_OPT_80;
-        $TOPIC_FIELD = $rs -> form_text("link_menu_category_caption", "15", $linkspage_pref['link_menu_category_caption'], "100", "tbox", "", "", "");
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_ROW);
-
-        $TOPIC_TOPIC = LCLAN_OPT_87;
-        $TOPIC_FIELD = "
-        ".$rs -> form_radio("link_menu_category_amount", "1", ($linkspage_pref['link_menu_category_amount'] ? "1" : "0"), "", "").LCLAN_OPT_3."
-        ".$rs -> form_radio("link_menu_category_amount", "0", ($linkspage_pref['link_menu_category_amount'] ? "0" : "1"), "", "").LCLAN_OPT_4;
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_ROW);
-
-        $TOPIC_TOPIC = LCLAN_OPT_71;
-        $TOPIC_FIELD = "
-        ".$rs -> form_radio("link_menu_category_rendertype", "1", ($linkspage_pref['link_menu_category_rendertype'] ? "1" : "0"), "", "").LCLAN_OPT_76."
-        ".$rs -> form_radio("link_menu_category_rendertype", "0", ($linkspage_pref['link_menu_category_rendertype'] ? "0" : "1"), "", "").LCLAN_OPT_75;
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_ROW);
-
-
-
-        $TOPIC_TOPIC = LCLAN_OPT_72;
-        $TOPIC_FIELD = "
-        ".$rs -> form_radio("link_menu_recent", "1", ($linkspage_pref['link_menu_recent'] ? "1" : "0"), "", "").LCLAN_OPT_3."
-        ".$rs -> form_radio("link_menu_recent", "0", ($linkspage_pref['link_menu_recent'] ? "0" : "1"), "", "").LCLAN_OPT_4;
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_ROW);
-
-        $TOPIC_TOPIC = LCLAN_OPT_73;
-        $TOPIC_FIELD = "<table style='width:100%;' cellpadding='0' cellspacing='0'><tr><td style='white-space:nowrap; width:20%;'>
-        ".$rs -> form_checkbox("link_menu_recent_category", 1, ($linkspage_pref['link_menu_recent_category'] ? "1" : "0"))." ".LCLAN_OPT_77."<br />
-        ".$rs -> form_checkbox("link_menu_recent_description", 1, ($linkspage_pref['link_menu_recent_description'] ? "1" : "0"))." ".LCLAN_OPT_78."<br />
-        </td></tr></table>";
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_ROW);
-
-        $TOPIC_TOPIC = LCLAN_OPT_81;
-        $TOPIC_FIELD = $rs -> form_text("link_menu_recent_caption", "15", $linkspage_pref['link_menu_recent_caption'], "100", "tbox", "", "", "");
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_ROW);
-
-        $TOPIC_TOPIC = LCLAN_OPT_74;
-        $TOPIC_FIELD = $rs -> form_select_open("link_menu_recent_number");
-        for($i=1;$i<15;$i++){
-            $TOPIC_FIELD .= $rs -> form_option($i, ($linkspage_pref["link_menu_recent_number"] == $i ? "1" : "0"), $i);
-        }
-        $TOPIC_FIELD .= $rs -> form_select_close();
-        $text .= preg_replace("/\{(.*?)\}/e", '$\1', $TOPIC_ROW);
-
-
-
-        $text .= $TOPIC_TABLE_END;
-
-
-        $text .= "
-        ".$rs->form_close()."
-        </div>";
-        $ns->tablerender(LCLAN_OPT_2, $text);
-    }
-
-    function pref_submit() 
-	{
-        global $rs;
-        $text = "
-        <tr>
-        <td colspan='2' style='text-align:center' class='forumheader'>
-        <input class='button' type='submit' name='updateoptions' value='".LCLAN_ADMIN_1."' />
-        </td>
-        </tr>";
-
-        return $text;
-    }
+ 
 
 
 

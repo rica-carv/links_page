@@ -3,32 +3,49 @@ if (!defined('e107_INIT')) { exit; }
 
 class links_page_shortcodes extends e_shortcode
 {
+
+	/**
+	 * Private variable to store plugin configurations.
+	 *
+	 * @var array
+	 */
+	private $plugPrefs = array();
+  
+	/**
+	 * Constructor.
+	 */
+	function __construct()
+	{
+		$this->plugPrefs = e107::getPlugConfig('links_page')->getPref();
+	}
+
+  
   function sc_link_navigator($parm='')
 	{ 
-  global  $rs, $linkspage_pref ;
+  global  $rs;
 
   $mains = "";   
-  $baseurl = e_PLUGIN."links_page/links.php";
-if(isset($linkspage_pref['link_navigator_frontpage']) && $linkspage_pref['link_navigator_frontpage']){
+  $baseurl = e_PLUGIN_ABS."links_page/links.php";
+if(isset($this->plugPrefs['link_navigator_frontpage']) && $this->plugPrefs['link_navigator_frontpage']){
  
   $mains .= $rs -> form_option(LAN_LINKS_14, "0", $baseurl, "");
 }
-if(isset($linkspage_pref['link_navigator_refer']) && $linkspage_pref['link_navigator_refer']){
+if(isset($this->plugPrefs['link_navigator_refer']) && $this->plugPrefs['link_navigator_refer']){
 	$mains .= $rs -> form_option(LAN_LINKS_12, "0", $baseurl."?top", "");
 }
-if(isset($linkspage_pref['link_navigator_rated']) && $linkspage_pref['link_navigator_rated']){
+if(isset($this->plugPrefs['link_navigator_rated']) && $this->plugPrefs['link_navigator_rated']){
 	$mains .= $rs -> form_option(LAN_LINKS_13, "0", $baseurl."?rated", "");
 }
-if(isset($linkspage_pref['link_navigator_category']) && $linkspage_pref['link_navigator_category']){
+if(isset($this->plugPrefs['link_navigator_category']) && $this->plugPrefs['link_navigator_category']){
 	$mains .= $rs -> form_option(LAN_LINKS_43, "0", $baseurl."?cat", "");
 }
-if(isset($linkspage_pref['link_navigator_links']) && $linkspage_pref['link_navigator_links']){
+if(isset($this->plugPrefs['link_navigator_links']) && $this->plugPrefs['link_navigator_links']){
 	$mains .= $rs -> form_option(LAN_LINKS_51, "0", $baseurl."?all", "");
 }
-if(isset($linkspage_pref['link_navigator_submit']) && $linkspage_pref['link_navigator_submit'] && isset($linkspage_pref['link_submit']) && $linkspage_pref['link_submit'] && check_class($linkspage_pref['link_submit_class'])){
+if(isset($this->plugPrefs['link_navigator_submit']) && $this->plugPrefs['link_navigator_submit'] && isset($this->plugPrefs['link_submit']) && $this->plugPrefs['link_submit'] && check_class($this->plugPrefs['link_submit_class'])){
 	$mains .= $rs -> form_option(LAN_LINKS_27, "0", $baseurl."?submit", "");
 }
-if(isset($linkspage_pref['link_navigator_manager']) && $linkspage_pref['link_navigator_manager'] && isset($linkspage_pref['link_manager']) && $linkspage_pref['link_manager'] && check_class($linkspage_pref['link_manager_class'])){
+if(isset($this->plugPrefs['link_navigator_manager']) && $this->plugPrefs['link_navigator_manager'] && isset($this->plugPrefs['link_manager']) && $this->plugPrefs['link_manager'] && check_class($this->plugPrefs['link_manager_class'])){
 	$mains .= $rs -> form_option(LCLAN_ITEM_35, "0", $baseurl."?manage", "");
 }
 
@@ -50,9 +67,10 @@ if($mains){
 
   function sc_link_nav_allcats($parm='')
 	{ 
-    global  $rs, $linkspage_pref ;
-      $baseurl = e_PLUGIN."links_page/links.php";
-    if(isset($linkspage_pref['link_navigator_allcat']) && $linkspage_pref['link_navigator_allcat']){
+    global  $rs;
+ 
+    $baseurl = e_PLUGIN_ABS."links_page/links.php";
+    if(isset($this->plugPrefs['link_navigator_allcat']) && $this->plugPrefs['link_navigator_allcat']){     
     	$sqlc = new db;
     	if ($sqlc->db_Select("links_page_cat", "link_category_id, link_category_name", "link_category_class REGEXP '".e_CLASS_REGEXP."' ORDER BY link_category_name")){
     		$mains .= $rs -> form_option("&nbsp;", "0", "", "");
@@ -65,7 +83,7 @@ if($mains){
 
 	$selectjs = " onchange=\"if(this.options[this.selectedIndex].value.indexOf('-') &amp;&amp; this.options[this.selectedIndex].value != '' &amp;&amp; this.options[this.selectedIndex].value != '&nbsp;'){ return document.location=this.options[this.selectedIndex].value; }\" ";
 
-    $main .= $rs -> form_select_open("catnavigator", $selectjs);
+    $main .= $rs -> form_select_open("link_navigator_allcat", $selectjs);
   	$main .= $rs -> form_option(LAN_LINKS_48, "0", "", "");
   	$main .= $mains;
   	$main .= $rs -> form_select_close();
@@ -103,10 +121,11 @@ if($mains){
 
   function sc_link_manage_options($parm='')
 	{ 
-    global $LINK_MANAGE_OPTIONS, $row, $tp, $linkspage_pref;
+    global $LINK_MANAGE_OPTIONS, $row, $tp;
+ 
     $linkid = $row['link_id'];
     $LINK_MANAGE_OPTIONS = "<a href='".e_SELF."?manage.edit.".$linkid."' title='".LCLAN_ITEM_31."'>".LINK_ICON_EDIT."</a>";
-    if (isset($linkspage_pref['link_directdelete']) && $linkspage_pref['link_directdelete']){
+    if (isset($this->plugPrefs['link_directdelete']) && $this->plugPrefs['link_directdelete']){
     	$LINK_MANAGE_OPTIONS .= " <input type='image' title='delete' name='delete[main_{$linkid}]' alt='".LCLAN_ITEM_32."' src='".LINK_ICON_DELETE_BASE."' onclick=\"return jsconfirm('".$tp->toJS(LCLAN_ITEM_33." [ ".$row['link_name']." ]")."')\" style='vertical-align:top;' />";
     }
     return $LINK_MANAGE_OPTIONS;
@@ -127,19 +146,20 @@ if($mains){
   function sc_link_main_heading($parm='')
 	{ 
     global $LINK_MAIN_HEADING, $rowl, $tp;
-    return (!$rowl['total_links'] ? $rowl['link_category_name'] : "<a href='links.php?cat.".$rowl['link_category_id']."'>".$tp->toHTML($rowl['link_category_name'], TRUE)."</a>");
+    return (!$rowl['total_links'] ? $rowl['link_category_name'] : "<a href='".e_PLUGIN_ABS."links_page/links.php?cat.".$rowl['link_category_id']."'>".$tp->toHTML($rowl['link_category_name'], TRUE)."</a>");
   }
   
   function sc_link_main_desc($parm='')
 	{ 
-    global $LINK_MAIN_DESC, $rowl, $linkspage_pref, $tp;
-    return (isset($linkspage_pref['link_cat_desc']) && $linkspage_pref['link_cat_desc'] ? $tp->toHTML($rowl['link_category_description'], TRUE,'description') : "");
+    global $LINK_MAIN_DESC, $rowl,  $tp;
+                         
+    return (isset($this->plugPrefs['link_cat_desc']) && $this->plugPrefs['link_cat_desc'] ? $tp->toHTML($rowl['link_category_description'], TRUE,'description') : "");
   }
  
   function sc_link_main_number($parm='')
 	{ 
-    global $LINK_MAIN_NUMBER, $rowl, $linkspage_pref;
-    if(isset($linkspage_pref['link_cat_amount']) && $linkspage_pref['link_cat_amount']){
+    global $LINK_MAIN_NUMBER, $rowl;   
+    if(isset($this->plugPrefs['link_cat_amount']) && $this->plugPrefs['link_cat_amount']){
     $LINK_MAIN_NUMBER = $rowl['total_links']." ".($rowl['total_links'] == 1 ? LAN_LINKS_17 : LAN_LINKS_18)." ".LAN_LINKS_16;
     }else{
     $LINK_MAIN_NUMBER = "";
@@ -150,7 +170,7 @@ if($mains){
 
   function sc_link_main_icon($parm='')
 	{ 
-global $LINK_MAIN_ICON, $rowl, $linkspage_pref;
+global $LINK_MAIN_ICON, $rowl;
 $LINK_MAIN_ICON = "";
 $bullet = '';
 if(defined('BULLET'))
@@ -162,7 +182,7 @@ elseif(file_exists(THEME.'images/bullet2.gif'))
 	$bullet = '<img src="'.THEME.'images/bullet2.gif" alt="" style="vertical-align: middle;" />';
 }
 
-if(isset($linkspage_pref['link_cat_icon']) && $linkspage_pref['link_cat_icon'])
+if(isset($this->plugPrefs['link_cat_icon']) && isset($this->plugPrefs['link_cat_icon']))
 {
 	if (isset($rowl['link_category_icon']) && $rowl['link_category_icon'])
 	{
@@ -174,7 +194,7 @@ if(isset($linkspage_pref['link_cat_icon']) && $linkspage_pref['link_cat_icon'])
 			}
 			else
 			{
-				if(isset($linkspage_pref['link_cat_icon_empty']) && $linkspage_pref['link_cat_icon_empty'])
+				if(isset($this->plugPrefs['link_cat_icon_empty']) && $this->plugPrefs['link_cat_icon_empty'])
 				{
 					$LINK_MAIN_ICON = $bullet;
 				}
@@ -188,7 +208,7 @@ if(isset($linkspage_pref['link_cat_icon']) && $linkspage_pref['link_cat_icon'])
 			}
 			else
 			{
-				if(isset($linkspage_pref['link_cat_icon_empty']) && $linkspage_pref['link_cat_icon_empty'])
+				if(isset($this->plugPrefs['link_cat_icon_empty']) && $this->plugPrefs['link_cat_icon_empty'])
 				{
 					$LINK_MAIN_ICON = $bullet;
 				}
@@ -197,14 +217,14 @@ if(isset($linkspage_pref['link_cat_icon']) && $linkspage_pref['link_cat_icon'])
 	}
 	else
 	{
-		if(isset($linkspage_pref['link_cat_icon_empty']) && $linkspage_pref['link_cat_icon_empty'])
+		if(isset($this->plugPrefs['link_cat_icon_empty']) && $this->plugPrefs['link_cat_icon_empty'])
 		{
 			$LINK_MAIN_ICON = $bullet;
 		}
 	}
 	if($rowl['total_links'] && $LINK_MAIN_ICON)
 	{
-		$LINK_MAIN_ICON = "<a href='links.php?cat.".$rowl['link_category_id']."'>".$LINK_MAIN_ICON."</a>";
+		$LINK_MAIN_ICON = "<a href='".e_PLUGIN_ABS."links_page/links.php?cat.".$rowl['link_category_id']."'>".$LINK_MAIN_ICON."</a>";
 	}
 }
 return $LINK_MAIN_ICON;
@@ -214,8 +234,8 @@ return $LINK_MAIN_ICON;
  
   function sc_link_main_total($parm='')
 	{ 
-    global $LINK_MAIN_TOTAL, $sql, $category_total, $linkspage_pref, $alllinks;
-    if(isset($linkspage_pref['link_cat_total']) && $linkspage_pref['link_cat_total']){
+    global $LINK_MAIN_TOTAL, $sql, $category_total,  $alllinks;
+    if(isset($this->plugPrefs['link_cat_total']) && $this->plugPrefs['link_cat_total']){
     $LINK_MAIN_TOTAL = LAN_LINKS_21." ".($alllinks == 1 ? LAN_LINKS_22 : LAN_LINKS_23)." ".$alllinks." ".($alllinks == 1 ? LAN_LINKS_17 : LAN_LINKS_18)." ".LAN_LINKS_24." ".$category_total." ".($category_total == 1 ? LAN_LINKS_20 : LAN_LINKS_19);
     }else{
     $LINK_MAIN_TOTAL = "";
@@ -226,8 +246,8 @@ return $LINK_MAIN_ICON;
  
   function sc_Link_Main_Showall($parm='')
 	{ 
-    global $LINK_MAIN_SHOWALL, $linkspage_pref;
-    return (isset($linkspage_pref['link_cat_total']) && $linkspage_pref['link_cat_total'] ? "<a href='".e_PLUGIN_ABS."links_page/links.php?cat.all'>".LAN_LINKS_25."</a>" : "");
+    global $LINK_MAIN_SHOWALL;
+    return (isset($this->plugPrefs['link_cat_total']) && $this->plugPrefs['link_cat_total'] ? "<a href='".e_PLUGIN_ABS."links_page/links.php?cat.all'>".LAN_LINKS_25."</a>" : "");
   } 
  
 
@@ -237,16 +257,16 @@ return $LINK_MAIN_ICON;
 
   function sc_link_button($parm='')
 	{ 
-    global $LINK_MAIN_SHOWALL, $linkspage_pref;
-    return (isset($linkspage_pref['link_cat_total']) && $linkspage_pref['link_cat_total'] ? "<a href='".e_PLUGIN_ABS."links_page/links.php?cat.all'>".LAN_LINKS_25."</a>" : "");
+    global $LINK_MAIN_SHOWALL;
+    return (isset($this->plugPrefs['link_cat_total']) && $this->plugPrefs['link_cat_total'] ? "<a href='".e_PLUGIN_ABS."links_page/links.php?cat.all'>".LAN_LINKS_25."</a>" : "");
  
-global $LINK_BUTTON, $linkspage_pref, $rowl, $LINK_NAME, $LINK_APPEND;
+global $LINK_BUTTON, $rowl, $LINK_NAME, $LINK_APPEND;
 
-if(!$linkspage_pref['link_icon']){
+if(!$this->plugPrefs['link_icon']){
 	return "";
 }
 $LINK_BUTTON = "&nbsp;";
-if(isset($linkspage_pref['link_icon']) && $linkspage_pref['link_icon']){
+if(isset($this->plugPrefs['link_icon']) && $this->plugPrefs['link_icon']){
 	if ($rowl['link_button']) {
 		if (strpos($rowl['link_button'], "http://") !== FALSE) {
 			$LINK_BUTTON = $LINK_APPEND."\n<img class='linkspage_button' src='".$rowl['link_button']."' alt='' /></a>";
@@ -255,7 +275,7 @@ if(isset($linkspage_pref['link_icon']) && $linkspage_pref['link_icon']){
 				if(file_exists(e_BASE.$rowl['link_button'])){
 					$LINK_BUTTON = $LINK_APPEND."\n<img class='linkspage_button' src='".e_BASE.$rowl['link_button']."' alt='' /></a>";
 				} else {
-					if(isset($linkspage_pref['link_icon_empty']) && $linkspage_pref['link_icon_empty']){
+					if(isset($this->plugPrefs['link_icon_empty']) && $this->plugPrefs['link_icon_empty']){
 						$LINK_BUTTON = $LINK_APPEND."\n<img class='linkspage_button' style='width: 88px; height: 31px;' src='".e_PLUGIN_ABS."links_page/images/generic.png' alt='' /></a>";
 					}
 				}
@@ -263,19 +283,19 @@ if(isset($linkspage_pref['link_icon']) && $linkspage_pref['link_icon']){
 				if(file_exists(e_PLUGIN."links_page/link_images/".$rowl['link_button'])){
 					$LINK_BUTTON = $LINK_APPEND."\n<img class='linkspage_button' src='".e_PLUGIN_ABS."links_page/link_images/".$rowl['link_button']."' alt='' /></a>";
 				}else{
-					if(isset($linkspage_pref['link_icon_empty']) && $linkspage_pref['link_icon_empty']){
+					if(isset($this->plugPrefs['link_icon_empty']) && $this->plugPrefs['link_icon_empty']){
 					$LINK_BUTTON = $LINK_APPEND."\n<img class='linkspage_button' style='width: 88px; height: 31px;' src='".e_PLUGIN_ABS."links_page/images/generic.png' alt='' /></a>";
 					}
 				}
 			}
 		}
 	} else {
-		if(isset($linkspage_pref['link_icon_empty']) && $linkspage_pref['link_icon_empty']){
+		if(isset($this->plugPrefs['link_icon_empty']) && $this->plugPrefs['link_icon_empty']){
 			$LINK_BUTTON = $LINK_APPEND."\n<img class='linkspage_button' style='width: 88px; height: 31px;' src='".e_PLUGIN_ABS."links_page/images/generic.png' alt='' /></a>";
 		}
 	}
 }else{
-	if(isset($linkspage_pref['link_icon_empty']) && $linkspage_pref['link_icon_empty']){
+	if(isset($this->plugPrefs['link_icon_empty']) && $this->plugPrefs['link_icon_empty']){
 		$LINK_BUTTON = $LINK_APPEND."\n<img class='linkspage_button' style='width: 88px; height: 31px;' src='".e_PLUGIN_ABS."links_page/images/generic.png' alt='' /></a>";
 	}
 }
@@ -285,8 +305,8 @@ return $LINK_BUTTON;
 
   function sc_button_column($parm='')
 	{ 
-    global $linkbutton_count,$linkspage_pref;
-    return ($linkspage_pref['link_icon']) ? 2 : 1;
+    global $linkbutton_count;
+    return ($this->plugPrefs['link_icon']) ? 2 : 1;
   }
   
   function sc_link_append($parm='')
@@ -304,8 +324,8 @@ return $LINK_BUTTON;
   
   function sc_link_url($parm='')
 	{ 
-    global $LINK_URL, $linkspage_pref, $rowl;
-    if(!isset($linkspage_pref['link_url']))
+    global $LINK_URL,  $rowl;
+    if(!isset($this->plugPrefs['link_url']))
     {
     	return "";
     }
@@ -315,27 +335,27 @@ return $LINK_BUTTON;
   
   function sc_link_refer($parm='')
 	{ 
-    global $LINK_REFER, $linkspage_pref, $rowl;
-    return (isset($linkspage_pref['link_referal']) && $linkspage_pref['link_referal'] ? $rowl['link_refer'] : "");
+    global $LINK_REFER, $rowl;
+    return (isset($this->plugPrefs['link_referal']) && $this->plugPrefs['link_referal'] ? $rowl['link_refer'] : "");
   }   
   
   function sc_link_comment($parm='')
 	{ 
-    global $LINK_COMMENT, $linkspage_pref, $rowl;
-    return (isset($linkspage_pref['link_comment']) && $linkspage_pref['link_comment'] ? "<a href='".e_SELF."?comment.".$rowl['link_id']."'>".($rowl['link_comment'] ? $rowl['link_comment'] : "0")."</a>" : "");
+    global $LINK_COMMENT, $rowl;
+    return (isset($this->plugPrefs['link_comment']) && $this->plugPrefs['link_comment'] ? "<a href='".e_SELF."?comment.".$rowl['link_id']."'>".($rowl['link_comment'] ? $rowl['link_comment'] : "0")."</a>" : "");
   }   
  
   function sc_link_desc($parm='')
 	{ 
-    global $LINK_DESC, $linkspage_pref, $tp, $rowl;
-    return (isset($linkspage_pref['link_desc']) && $linkspage_pref['link_desc'] ? $tp->toHTML($rowl['link_description'], TRUE,'BODY') : "");
+    global $LINK_DESC, $tp, $rowl;
+    return (isset($this->plugPrefs['link_desc']) && $this->plugPrefs['link_desc'] ? $tp->toHTML($rowl['link_description'], TRUE,'BODY') : "");
   }   
   
   function sc_link_rating($parm='')
 	{ 
-    global $LINK_RATING, $LINK_RATED_RATING, $linkspage_pref, $rater, $rowl, $qs;
+    global $LINK_RATING, $LINK_RATED_RATING, $rater, $rowl, $qs;
     $LINK_RATING = "";
-    if(isset($linkspage_pref['link_rating']) && $linkspage_pref['link_rating']){
+    if(isset($this->plugPrefs['link_rating']) && $this->plugPrefs['link_rating']){
     $LINK_RATING = $rater->composerating("links_page", $rowl['link_id'], $enter=TRUE, $userid=FALSE);
     }
     return $LINK_RATING;
@@ -343,7 +363,7 @@ return $LINK_BUTTON;
   
   function sc_link_new($parm='')
 	{ 
-    global $LINK_NEW, $linkspage_pref, $qs, $rowl;
+    global $LINK_NEW,  $qs, $rowl;
     $LINK_NEW = "";
     if(USER && $rowl['link_datestamp'] > USERLV){
    // $LINK_NEW = "<img class='linkspage_new' src='".IMAGE_NEW."' alt='' style='vertical-align:middle' />";
@@ -373,20 +393,17 @@ return $LINK_BUTTON;
   
   function sc_link_refer_lan($parm='')
 	{ 
-    global $linkspage_pref;
-    return (isset($linkspage_pref['link_referal']) && $linkspage_pref['link_referal'] ? LAN_LINKS_26 : "");
+    return (isset($this->plugPrefs['link_referal']) && $this->plugPrefs['link_referal'] ? LAN_LINKS_26 : "");
   }  
   
   function sc_link_comment_lan($parm='')
 	{ 
-    global $linkspage_pref;
-    return (isset($linkspage_pref['link_comment']) && $linkspage_pref['link_comment'] ? LAN_LINKS_37 : "");
+    return (isset($this->plugPrefs['link_comment']) && $this->plugPrefs['link_comment'] ? LAN_LINKS_37 : "");
   } 
   
   function sc_link_rating_lan($parm='')
 	{ 
-    global $linkspage_pref;
-    if(isset($linkspage_pref['link_rating']) && $linkspage_pref['link_rating']){
+    if(isset($this->plugPrefs['link_rating']) && $this->plugPrefs['link_rating']){
         return LCLAN_ITEM_39;
     }
     return "";
@@ -419,8 +436,8 @@ return $LINK_BUTTON;
   
   function sc_link_rated_button($parm='')
 	{ 
-    global $LINK_RATED_BUTTON, $linkspage_pref, $rowl, $LINK_RATED_NAME, $LINK_RATED_APPEND;
-    if(isset($linkspage_pref['link_icon']) && $linkspage_pref['link_icon']){
+    global $LINK_RATED_BUTTON,  $rowl, $LINK_RATED_NAME, $LINK_RATED_APPEND;
+    if(isset($this->plugPrefs['link_icon']) && $this->plugPrefs['link_icon']){
     	if ($rowl['link_button']) {
     		if (strpos($rowl['link_button'], "http://") !== FALSE) {
     			$LINK_RATED_BUTTON = $LINK_RATED_APPEND."\n<img style='border:0;' src='".$rowl['link_button']."' alt='".$LINK_RATED_NAME."' /></a>";
@@ -432,14 +449,14 @@ return $LINK_BUTTON;
     			}
     		}
     	} else {
-    		if(isset($linkspage_pref['link_icon_empty']) && $linkspage_pref['link_icon_empty']){
+    		if(isset($this->plugPrefs['link_icon_empty']) && $this->plugPrefs['link_icon_empty']){
     			$LINK_RATED_BUTTON = $LINK_RATED_APPEND."\n<img style='border:0; width: 88px; height: 31px;' src='".e_PLUGIN_ABS."links_page/images/generic.png' alt='".$LINK_RATED_NAME."' /></a>";
     		}else{
     			$LINK_RATED_BUTTON = "";
     		}
     	}
     }else{
-    	if(isset($linkspage_pref['link_icon_empty']) && $linkspage_pref['link_icon_empty']){
+    	if(isset($this->plugPrefs['link_icon_empty']) && $this->plugPrefs['link_icon_empty']){
     		$LINK_RATED_BUTTON = $LINK_RATED_APPEND."\n<img style='border:0; width: 88px; height: 31px;' src='".e_PLUGIN_ABS."links_page/images/generic.png' alt='".$LINK_RATED_NAME."' /></a>";
     	}else{
     		$LINK_RATED_BUTTON = "";
@@ -471,20 +488,20 @@ return $LINK_BUTTON;
   
   function sc_link_rated_url($parm='')
 	{ 
-    global $LINK_RATED_URL, $linkspage_pref, $rowl;
-    return (isset($linkspage_pref['link_url']) && $linkspage_pref['link_url'] ? $rowl['link_url'] : "");
+    global $LINK_RATED_URL, $rowl;
+    return (isset($this->plugPrefs['link_url']) && $this->plugPrefs['link_url'] ? $rowl['link_url'] : "");
   } 
   
   function sc_link_rated_refer($parm='')
 	{ 
-    global $LINK_RATED_REFER, $linkspage_pref, $rowl;
-    return (isset($linkspage_pref['link_referal']) && $linkspage_pref['link_referal'] ? LAN_LINKS_26." ".$rowl['link_refer'] : "");
+    global $LINK_RATED_REFER, $rowl;
+    return (isset($this->plugPrefs['link_referal']) && $this->plugPrefs['link_referal'] ? LAN_LINKS_26." ".$rowl['link_refer'] : "");
   } 
   
   function sc_nk_rated_desc($parm='')
 	{ 
-global $LINK_RATED_DESC, $linkspage_pref, $tp, $rowl;
-return (isset($linkspage_pref['link_desc']) && $linkspage_pref['link_desc'] ? $tp->toHTML($rowl['link_description'], TRUE) : "");
+global $LINK_RATED_DESC,  $tp, $rowl;
+return (isset($this->plugPrefs['link_desc']) && $this->plugPrefs['link_desc'] ? $tp->toHTML($rowl['link_description'], TRUE) : "");
   } 
     
   // LINK_SUBMIT_TABLE ------------------------------------------------    
@@ -496,8 +513,8 @@ return (isset($linkspage_pref['link_desc']) && $linkspage_pref['link_desc'] ? $t
   
   function sc_link_submit_pretext($parm='')
 	{ 
-    global $LINK_SUBMIT_PRETEXT, $linkspage_pref;
-    if(isset($linkspage_pref['link_submit_directpost']) && $linkspage_pref['link_submit_directpost']){
+    global $LINK_SUBMIT_PRETEXT;
+    if(isset($this->plugPrefs['link_submit_directpost']) && $this->plugPrefs['link_submit_directpost']){
     return "";
     }else{
     return LCLAN_SL_9;
