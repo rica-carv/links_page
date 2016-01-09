@@ -1,19 +1,19 @@
-# links_page
-Links page plugin for e107 V2
+#Links page plugin for e107 V2
 
 **WARNING. This plugin is under rewriting** 
  
 **09.01.2016 Version 2.0.1:** 
 
-*replaced $linkspage_prefs with new way
-*added Sort and Order functionality
-*added e_url.php  (need to add new fields in database, after finished rewrite) 
-*added e_rss.php  (legacy)
-*added e_frontpage.php
-*added e_dashboard.php (replace old e_latest.php and e_status.php )
-*added e_libraries.php (support for Libraries plugin)
+- replaced $linkspage_prefs with new way
+- added Sort and Order functionality
+- added e_url.php  (need to add new fields in database, after finished rewrite) 
+- added e_rss.php  (legacy)
+- added e_frontpage.php
+- added e_dashboard.php (replace old e_latest.php and e_status.php )
+- added e_libraries.php (support for Libraries plugin)
+- updated plugin.xml and added linkspage_setup.php
 
-Initial commit from 08.01.2016: 
+**Initial commit from 08.01.2016:** 
 
 *Admin area:*
 complet rewritten and it works. It uses old e_help, there are still missing some custom buttons (view link, view category). 
