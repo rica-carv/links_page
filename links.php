@@ -16,7 +16,11 @@
 |     $Author: e107coders $
 +----------------------------------------------------------------------------+
 */
-require_once('../../class2.php');
+
+if(!defined('e107_INIT'))
+{
+	require_once('../../class2.php');
+}
 
 if (!isset($pref['plug_installed']['links_page']))
 {
@@ -56,7 +60,7 @@ if(e_QUERY){
 	}
 }
 include_lan(e_PLUGIN."links_page/languages/".e_LANGUAGE.".php");
-
+e107::lan('links_page');
 $lc -> setPageTitle();
 
 //submit comment
