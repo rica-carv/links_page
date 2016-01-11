@@ -1,6 +1,9 @@
 #Links page plugin for e107 V2
 
 **WARNING. This plugin is under rewriting** 
+
+
+
  
 **09.01.2016 Version 2.0.1:** 
 
@@ -16,7 +19,8 @@
 **Initial commit from 08.01.2016:** 
 
 *Admin area:*
-complet rewritten and it works. It uses old e_help, there are still missing some custom buttons (view link, view category). 
+written as new and it works. It uses old e_help, there are still missing some custom buttons (view link, view category). Are they needed?
+Except submitted links. They use tmp table. Maybe better idea would be add field active?  
 
 *Frontend uses legacy code* 
 (shortcodes rewritten but they use global variables). A lot of work in this area, but it works.
@@ -30,10 +34,17 @@ complet rewritten and it works. It uses old e_help, there are still missing some
 - ~~new way with images on frontend~~
 - personal manager
 - new languages files
+- direct submitting links
+- approving submitted links 
 - ~~sort and order functionality~~
+- new templating system
+- tabless templates / responsive tables are not enough
 
-*What doesn't work for now: legacy rating system* 
+*What doesn't work for now:*
+- legacy rating system (With rating enabled page is displayed but immediately url is changed and result is 404 page)
+- ordering by date
 
-With rating enabled page is displayed but immediately url is changed and result is 404 page. 
+
+
 
 
