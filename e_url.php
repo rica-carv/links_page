@@ -25,18 +25,36 @@ class links_page_url
 			// Matched against url, and if true, redirected to 'redirect' below.
 			'regex'    => '^links_page/category/(.*)/(.*)?(.*)$',
 			// Used by e107::url(); to create a url from the db table.
-			'sef'      => 'links_page/category/{link_category_id}/{link_category_name}',
+			'sef'      => 'links_page/category/{link_category_id}/{link_category_sef}',
 			// File-path of what to load when the regex returns true.
 			'redirect' => '{e_PLUGIN}links_page/links.php?cat.$1.$3'
 		); 
 
+    $config['managecreate'] = array(
+			// Matched against url, and if true, redirected to 'redirect' below.
+			'regex'    => '^links_page/links/manager/create/(.*)$',
+			// Used by e107::url(); to create a url from the db table.
+			'sef'      => 'links_page/links/manager/create/{link_id}',
+			// File-path of what to load when the regex returns true.
+			'redirect' => '{e_PLUGIN}links_page/links.php?manage'
+		);
+    
+    $config['manageedit'] = array(
+			// Matched against url, and if true, redirected to 'redirect' below.
+			'regex'    => '^links_page/links/manager/edit/(.*)$',
+			// Used by e107::url(); to create a url from the db table.
+			'sef'      => 'links_page/links/manager/edit/{link_id}',
+			// File-path of what to load when the regex returns true.
+			'redirect' => '{e_PLUGIN}links_page/links.php?manage.edit.$1'
+		);
+    
     $config['manage'] = array(
 			// Matched against url, and if true, redirected to 'redirect' below.
-			'regex'    => '^links_page/links/manager$',
+			'regex'    => '^links_page/links/manager(.*)$',
 			// Used by e107::url(); to create a url from the db table.
 			'sef'      => 'links_page/links/manager',
 			// File-path of what to load when the regex returns true.
-			'redirect' => '{e_PLUGIN}links_page/links.php?manage'
+			'redirect' => '{e_PLUGIN}links_page/links.php?manage$1'
 		);
  
     $config['submit'] = array(

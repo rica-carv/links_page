@@ -18,7 +18,7 @@ class links_page_frontpage // include plugin-folder in the name.
 	{
 		$frontPage = array();
 		$frontPage['title'] = LCLAN_PLUGIN_LAN_1;  
-		$frontPage['page'][] = array('page' => '{e_PLUGIN}links_page/links.php', 'title' => LCLAN_PAGETITLE_1);
+		$frontPage['page'][] = array('page' => '{e_PLUGIN}links_page/links', 'title' => LCLAN_PAGETITLE_1);
 
 		return $frontPage;
 	}

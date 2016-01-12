@@ -12,7 +12,7 @@ if(!defined('e107_INIT'))
 } 
  
 if(USER_AREA)
-{  
+{                     
   if ((function_exists('libraries_load')) &&  ($library = libraries_load('quick-select')) && !empty($library['loaded'])) {}  
   else {
       /* if libraries plugin is not used */
@@ -34,5 +34,15 @@ if(USER_AREA)
   
   // Now load behavior.
   e107::js('footer', '{e_PLUGIN}links_page/quickselect.init.js');
+                           
+  /* can be delete if theme use admin modal code*/                         
+  if ((function_exists('libraries_load')) &&  ($library = libraries_load('frmediaman-modal')) && !empty($library['loaded'])) {
+   e107::js('links_page','frmediaman/frmediaman-modal.js');
+  }   
+  
+  /* script to get admin modal works */                        
+  if ((function_exists('libraries_load')) &&  ($library = libraries_load('frmediaman')) && !empty($library['loaded'])) {
+   e107::js('links_page','frmediaman/frmediaman.js');  
+  } 
 } 
 ?>
