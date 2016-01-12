@@ -17,14 +17,14 @@
 |     $Author: e107coders $
 +----------------------------------------------------------------------------+
 */
-
+if (!defined('e107_INIT')) { exit; }
 require_once(e_PLUGIN.'links_page/link_defines.php');
 define("LAN_ADMIN_HELP_0", "Linkspage help area");
 
 define("LAN_ADMIN_HELP_1", "<i>the manage link categories page shows all categories present.</i><br /><br /><b>detailed list</b><br />You see a list of all categories with their icon, name and description, options, and sorting options.<br /><br /><b>explanation of icons</b><br />
 ".LINK_ICON_LINK." : link to the category<br /><br />
-".LINK_ICON_EDIT." : edit the category<br /><br />
-".LINK_ICON_DELETE." : delete the category<br /><br />
+".ADMIN_LINK_ICON_EDIT." : edit the category<br /><br />
+".ADMIN_LINK_ICON_DELETE." : delete the category<br /><br />
 ".LINK_ICON_ORDER_UP." : the up button allows you to move the category item one up in order.<br /><br />
 ".LINK_ICON_ORDER_DOWN." : the down button allows you to move the category item one down in order.<br />
 <br />
@@ -34,8 +34,8 @@ define("LAN_ADMIN_HELP_2", "<i>the create link category page allows you to add n
 define("LAN_ADMIN_HELP_3", "<i>the manage links page first show all categories.</i><br /><br />".LINK_ICON_LINK." : link to the category<br /><br />".LINK_ICON_EDIT." : click the icon to view all links in this category<br />");
 define("LAN_ADMIN_HELP_4", "<i>the create link page allows you to add a new link</i><br /><br />You can upload a new icon, and after uploading assign the icon to the link.<br /><br />the open type allows you to define how the link will be opened when a user clicks on it.");
 define("LAN_ADMIN_HELP_5", "<i>the submitted links page shows all links that are submitted by users</i><br /><br /><b>detailed list</b><br />You see the link url, the name of the user who submitted the link and options.<br /><br /><b>explanation of icons</b><br />
-".LINK_ICON_EDIT." : post the submitted link to the link create form<br /><br />
-".LINK_ICON_DELETE." : delete the submitted link<br />
+".ADMIN_LINK_ICON_EDIT." : post the submitted link to the link create form<br /><br />
+".ADMIN_LINK_ICON_DELETE." : delete the submitted link<br />
 ");
 define("LAN_ADMIN_HELP_6", "<i>the options page allows you to change the behaviour of the links_page plugin</i><br /><br />
 general options<br />
@@ -56,8 +56,8 @@ define("LAN_ADMIN_HELP_7", "<i>the edit link category page allows you to edit an
 
 define("LAN_ADMIN_HELP_8", "<i>this page shows all existing links in the selected category.</i><br /><br /><b>detailed list</b><br />You see a list of the links with their image, name, options, and sorting options.<br /><br /><b>explanation of icons</b><br />
 ".LINK_ICON_LINK." : link to the website<br /><br />
-".LINK_ICON_EDIT." : edit the link<br /><br />
-".LINK_ICON_DELETE." : delete the link<br /><br />
+".ADMIN_LINK_ICON_EDIT." : edit the link<br /><br />
+".ADMIN_LINK_ICON_DELETE." : delete the link<br /><br />
 ".LINK_ICON_ORDER_UP." : the up button allows you to move a link up one in the list.<br /><br />
 ".LINK_ICON_ORDER_DOWN." : the down button allows you to move a link down one in the list.<br />
 <br />
