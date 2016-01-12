@@ -43,6 +43,7 @@ class links_page_adminArea extends e_admin_dispatcher
 		'main/create'		=> array('caption'=> LCLAN_ADMINMENU_5, 'perm' => 'P'),
 		'cat/list'			=> array('caption'=> LCLAN_ADMINMENU_2, 'perm' => 'P'),
 		'cat/create'		=> array('caption'=> LCLAN_ADMINMENU_3, 'perm' => 'P'),
+		'main/custom'		=> array('caption'=> LCLAN_SL_1, 'perm' => 'P'),       
 		'main/prefs' 		=> array('caption'=> LCLAN_ADMINMENU_6, 'perm' => 'P'),	
  
 		// 'main/custom'		=> array('caption'=> 'Custom Page', 'perm' => 'P')
@@ -230,7 +231,7 @@ class links_page_ui extends e_admin_ui
 		protected $prefs = array(
 			'link_page_categories'		=> array('title'=> LCLAN_OPT_7, 'tab'=>0, 'type'=>'boolean', 'data' => 'str', 'help'=>'Help Text goes here'),
 			'link_submit'		=> array('title'=> LCLAN_OPT_8, 'tab'=>0, 'type'=>'boolean', 'data' => 'str', 'help'=>'Help Text goes here'),
-			'link_submit_class'		=> array('title'=> LCLAN_OPT_9, 'tab'=>0, 'type'=>'boolean', 'data' => 'str', 'help'=>'Help Text goes here'),
+			'link_submit_class'		=> array('title'=> LCLAN_OPT_9, 'tab'=>0, 'type'=>'userclass', 'data' => 'str', 'help'=>'Help Text goes here'),
 			'link_submit_directpost'		=> array('title'=> LCLAN_OPT_48, 'tab'=>0, 'type'=>'boolean', 'data' => 'str', 'help'=>'if enabled links are submitted directly, else a site admin needs to approve them'),
 			//link_nextprev
       'link_nextprev'		=> array('title'=> LCLAN_OPT_10, 'tab'=>0, 'type'=>'boolean', 'data' => 'str', 'help'=>'Help Text goes here'),
@@ -409,15 +410,21 @@ class links_page_ui extends e_admin_ui
 		}		
 		
 			
-	/*	
+ 	
 		// optional - a custom page.  
 		public function customPage()
 		{
-			$text = 'Hello World!';
+      global $rs;
+      require_once(e_HANDLER."form_handler.php");
+      $rs = new form;			
+      require_once(e_PLUGIN.'links_page/link_class.php');
+      $lc = new linkclass;
+      $text = $lc->show_submitted();
+ 
 			return $text;
 			
 		}
-	*/
+ 
 			
 }
 				

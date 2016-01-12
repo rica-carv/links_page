@@ -29,6 +29,7 @@ CREATE TABLE links_page_cat (
   link_category_order int(10) unsigned NOT NULL default '0',
   link_category_class varchar(100) NOT NULL default '0',
   link_category_datestamp int(10) unsigned NOT NULL default '0',
+  link_category_sef varchar(100) NOT NULL default '',
   PRIMARY KEY  (link_category_id)
 ) ENGINE=MyISAM;
 # --------------------------------------------------------
@@ -48,6 +49,7 @@ CREATE TABLE links_page (
   link_class tinyint(3) unsigned NOT NULL default '0',
   link_datestamp int(10) unsigned NOT NULL default '0',
   link_author varchar(255) NOT NULL default '',
+	link_active tinyint(1) unsigned NOT NULL default '0',    
   PRIMARY KEY  (link_id)
 ) ENGINE=MyISAM;
 # --------------------------------------------------------

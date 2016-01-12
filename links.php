@@ -59,7 +59,8 @@ if(e_QUERY){
 		$from = "0";
 	}
 }
-include_lan(e_PLUGIN."links_page/languages/".e_LANGUAGE.".php");
+
+//include_lan(e_PLUGIN."links_page/languages/".e_LANGUAGE.".php");
 e107::lan('links_page');
 $lc -> setPageTitle();
 
@@ -92,7 +93,8 @@ if (isset($qs[0]) && $qs[0] == "view" && isset($qs[1]) && is_numeric($qs[1]))
 
 require_once(HEADERF);
 
-
+ 
+ 
 if (is_readable(THEME."links_template.php")) {
 	require_once(THEME."links_template.php");
 	} else {
@@ -132,7 +134,7 @@ if (isset($_POST['add_link'])) {
 }
 //message submitted link
 if(isset($qs[0]) && $qs[0] == "s"){
-	$lc->show_message(LAN_LINKS_29, LAN_LINKS_28);
+  $mes->addError(LAN_LINKS_29.' - '. LAN_LINKS_28);
 }
 $qsorder = FALSE;
 if(isset($qs[0]) && substr($qs[0],0,5) == "order"){
@@ -197,7 +199,7 @@ if (isset($qs[0]) && $qs[0] == "submit")
   }
   else
   {
-	$lc->show_message(LAN_LINKS_50);
+  $mes->addError(LAN_LINKS_50);
   }
 }
 
@@ -223,7 +225,7 @@ function displayTopRated(){
 	if(!is_object($sql)){ $sql = new db; }
 	$linktotalrated = $sql -> db_Select_gen($qry);
 	if (!$ratedlinks = $sql->db_Select_gen($qry2)){
-		$lc -> show_message(LAN_LINKS_33, LAN_LINKS_11);
+    $mes->addError(LAN_LINKS_33.' - '.LAN_LINKS_11);
 	}else{
 		$link_rated_table_string = "";
 		$list = $sql -> db_getList();
@@ -271,7 +273,7 @@ function displayTopRefer(){
 	if(!is_object($sql2)){ $sql2 = new db; }
 	$link_total = $sql2 -> db_Select_gen($qry);
 	if(!$sql2 -> db_Select_gen($qry2)){
-		$lc -> show_message(LAN_LINKS_42, LAN_LINKS_10);
+    $mes->addError(LAN_LINKS_42.' - '.LAN_LINKS_10);
 	}else{
 		$link_top_table_string = "";
 		$list = $sql2 -> db_getList();
@@ -293,8 +295,8 @@ function displayTopRefer(){
 function displayPersonalManager()
 {
 	global $qs, $sql, $sql2, $lc, $link_shortcodes, $cobj, $row, $from, $tp,  $linkspage_pref;
-	global $LINK_TABLE_MANAGE_START, $LINK_TABLE_MANAGE, $LINK_TABLE_MANAGE_END;
-
+  $template = e107::getTemplate('links_page', 'links_page');
+    
 	if(!(isset($linkspage_pref['link_manager']) && $linkspage_pref['link_manager']))
 	{
 	  js_location(e_SELF);
@@ -325,15 +327,11 @@ function displayPersonalManager()
 		}
 		if ($sql->db_Delete("links_page", "link_id='".intval($del_id)."'")) 
 		{
-		  $lc->show_message(LCLAN_ADMIN_10." #".$del_id." ".LCLAN_ADMIN_11);
+      $mes->addError(LCLAN_ADMIN_10." #".$del_id." ".LCLAN_ADMIN_11);
 		}
 	  }
 	}
-	//upload link icon
-	if(isset($_POST['uploadlinkicon'])){
-		$lc -> uploadLinkIcon();
-	}
-
+ 
 	//show existing links
 	if(!(check_class($linkspage_pref['link_manager_class']))){
 		js_location(e_SELF);
@@ -349,11 +347,11 @@ function displayPersonalManager()
 		if(!$manager_total = $sql -> db_Select_gen($qry)){
 			$text = LAN_LINKS_MANAGER_4;
 		}else{
-			$link_table_manage_start	= $tp -> parseTemplate($LINK_TABLE_MANAGE_START, FALSE, $link_shortcodes);
+			$link_table_manage_start	= $tp -> parseTemplate($template['LINK_TABLE_MANAGE_START'], FALSE, $link_shortcodes);
 			while($row = $sql -> db_Fetch()){
-				$link_table_manage .= $tp -> parseTemplate($LINK_TABLE_MANAGE, FALSE, $link_shortcodes);
+				$link_table_manage .= $tp -> parseTemplate($template['LINK_TABLE_MANAGE'], FALSE, $link_shortcodes);
 			}
-			$link_table_manage_end		= $tp -> parseTemplate($LINK_TABLE_MANAGE_END, FALSE, $link_shortcodes);
+			$link_table_manage_end		= $tp -> parseTemplate($template['LINK_TABLE_MANAGE_END'], FALSE, $link_shortcodes);
 			$text = $link_table_manage_start.$link_table_manage.$link_table_manage_end;
 		}
 		e107::getRender()->tablerender(LAN_LINKS_35, $text);
@@ -414,8 +412,10 @@ function displayLinkSubmit(){
 function displayCategory($mode=''){
 //return '';
 	global $sql, $sql2,  $lc, $tp, $qs, $rowl, $link_shortcodes, $linkspage_pref, $total_links, $category_total, $alllinks;
-	global $LINK_MAIN_TABLE_END_ALL, $LINK_MAIN_TABLE, $LINK_MAIN_TABLE_START;
   
+  $mes = e107::getMessage();
+  
+  $template = e107::getTemplate('links_page', 'links_page');
 	$order = $lc -> getOrder('cat');
   
 	$qry = "
@@ -427,8 +427,8 @@ function displayCategory($mode=''){
 
 	if(!is_object($sql)){ $sql = new db; }
 	if(!is_object($sql2)){ $sql2 = new db; }
-	if (!$category_total = $sql->db_Select_gen($qry)){
-		$lc -> show_message(LAN_LINKS_41, LAN_LINKS_30);
+	if (!$category_total = $sql->db_Select_gen($qry)){  
+    $mes->addError(LAN_LINKS_41." - ".LAN_LINKS_30);
 	}else{
 		$link_main_table_string = "";
 		$list = $sql->db_getList();
@@ -436,11 +436,11 @@ function displayCategory($mode=''){
 			$rowl['total_links'] = $sql2 -> db_Count("links_page", "(*)", "WHERE link_category = '".$rowl['link_category_id']."' AND link_class REGEXP '".e_CLASS_REGEXP."' ");
 			if((!isset($linkspage_pref['link_cat_empty']) || $linkspage_pref['link_cat_empty'] == 0 && $rowl['total_links'] > "0") || (isset($linkspage_pref['link_cat_empty']) && $linkspage_pref['link_cat_empty'])){
 				$alllinks = $alllinks + $rowl['total_links'];
-				$link_main_table_string .= $tp -> parseTemplate($LINK_MAIN_TABLE, FALSE, $link_shortcodes);
+				$link_main_table_string .= $tp -> parseTemplate($template['LINK_MAIN_TABLE'], FALSE, $link_shortcodes);
 			}
 		}
-		$link_main_table_start = $tp -> parseTemplate($LINK_MAIN_TABLE_START, FALSE, $link_shortcodes);
-		$link_main_table_end = $tp -> parseTemplate($LINK_MAIN_TABLE_END_ALL, FALSE, $link_shortcodes);
+		$link_main_table_start = $tp -> parseTemplate($template['LINK_MAIN_TABLE_START'], FALSE, $link_shortcodes);
+		$link_main_table_end = $tp -> parseTemplate($template['LINK_MAIN_TABLE_END'], FALSE, $link_shortcodes);
 		$text = $link_main_table_start.$link_main_table_string.$link_main_table_end;
     
     $navigator = displayNavigator($mode);      
@@ -491,8 +491,11 @@ function displayNavigator($mode='')
 function displayCategoryLinks($mode=''){
 
 	global $sql2, $lc, $tp, $cobj, $rowl, $qs, $ns, $linkspage_pref, $from, $link_shortcodes, $link_category_total;
-	global $LINK_TABLE_START,$linkbutton_count, $LINK_TABLE,$link_category_total, $LINK_TABLE_CAPTION, $LINK_TABLE_END, $LINK_APPEND;
+	global  $linkbutton_count,  $link_category_total,  $LINK_APPEND;
   
+  $mes      = e107::getMessage();
+  $template = e107::getTemplate('links_page', 'links_page');
+ 
 	$order			= $lc -> getOrder();
 	$number			= ($linkspage_pref["link_nextprev_number"] ? $linkspage_pref["link_nextprev_number"] : "20");
 	$nextprevquery	= ($mode && $linkspage_pref["link_nextprev"] ? "LIMIT ".intval($from).",".intval($number) : "");
@@ -513,7 +516,7 @@ function displayCategoryLinks($mode=''){
 	$link_total = $sql2 -> db_Count("links_page as l", "(*)", "WHERE l.link_class REGEXP '".e_CLASS_REGEXP."' ".$cat." ");
   
 	if (!$sql2->db_Select_gen($qry)){
-		$lc -> show_message(LAN_LINKS_34, LAN_LINKS_39);
+    $mes->addError(LAN_LINKS_34.' - '.LAN_LINKS_39);
 	} else{    
 		$linkbutton_count = 0;
 		$list = $sql2 -> db_getList();
@@ -523,7 +526,7 @@ function displayCategoryLinks($mode=''){
 				$cat_name			= $rowl['link_category_name'];
 				$cat_desc			= $rowl['link_category_description'];
 				$LINK_APPEND		= $lc -> parse_link_append($rowl);
-				$link_table_string .= $tp -> parseTemplate($LINK_TABLE, FALSE, $link_shortcodes);
+				$link_table_string .= $tp -> parseTemplate($template['LINK_TABLE'], FALSE, $link_shortcodes);
 			}else{
 				$arr[$rowl['link_category_id']][] = $rowl;
 			}
@@ -531,8 +534,8 @@ function displayCategoryLinks($mode=''){
 		if($mode)
 		{          
 			$link_category_total	= $link_total;
-			$link_table_start		= $tp -> parseTemplate($LINK_TABLE_START, FALSE, $link_shortcodes);
-			$link_table_end			= $tp -> parseTemplate($LINK_TABLE_END, FALSE, $link_shortcodes);
+			$link_table_start		= $tp -> parseTemplate($template['LINK_TABLE_START'], FALSE, $link_shortcodes);
+			$link_table_end			= $tp -> parseTemplate($template['LINK_TABLE_END'], FALSE, $link_shortcodes);
 			$text = $link_table_start.$link_table_string.$link_table_end;
 			$caption = LAN_LINKS_32." ".$cat_name." ".($cat_desc ? " <i>[".$cat_desc."]</i>" : "");
 			//number of links      
@@ -565,9 +568,9 @@ function displayCategoryLinks($mode=''){
 				}
 
 				$link_category_total = count($value);
-				$link_table_caption 	= $tp -> parseTemplate($LINK_TABLE_CAPTION, FALSE, $link_shortcodes);
-				$link_table_start		= $tp -> parseTemplate($LINK_TABLE_START, FALSE, $link_shortcodes);
-				$link_table_end			= $tp -> parseTemplate($LINK_TABLE_END, FALSE, $link_shortcodes);
+				$link_table_caption 	= $tp -> parseTemplate($template['LINK_TABLE_CAPTION'], FALSE, $link_shortcodes);
+				$link_table_start		= $tp -> parseTemplate($template['$LINK_TABLE_START'], FALSE, $link_shortcodes);
+				$link_table_end			= $tp -> parseTemplate($template['$LINK_TABLE_END'], FALSE, $link_shortcodes);
 				$text .= $link_table_start.$link_table_string.$link_table_end;
 
 			}        

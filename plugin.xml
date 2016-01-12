@@ -19,7 +19,7 @@
 	<pluginPrefs>
 		<pref name='link_page_categories'>1</pref>
 		<pref name='link_submit'>0</pref> 
-		<pref name='link_submit_class'></pref>   
+		<pref name='link_submit_class'>255</pref>   
 		<pref name='link_submit_directpost'>0</pref>      
 		<pref name='link_nextprev'>1</pref>
 		<pref name='link_nextprev_number'>20</pref>

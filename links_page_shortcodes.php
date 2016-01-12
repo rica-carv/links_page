@@ -25,7 +25,7 @@ class links_page_shortcodes extends e_shortcode
   global  $rs;
 
   $mains = "";   
-  $baseurl = e_PLUGIN_ABS."links_page/links.php";
+
 if(isset($this->plugPrefs['link_navigator_frontpage']) && $this->plugPrefs['link_navigator_frontpage']){
  
   $mains .= $rs -> form_option(LAN_LINKS_14, "0", e107::url('links_page', 'index', $this->var, 'full'), "");
@@ -123,7 +123,11 @@ if($mains){
     global $LINK_MANAGE_OPTIONS, $row, $tp;
  
     $linkid = $row['link_id'];
-    $LINK_MANAGE_OPTIONS = "<a href='".e_SELF."?manage.edit.".$linkid."' title='".LCLAN_ITEM_31."'>".LINK_ICON_EDIT."</a>";
+   // $LINK_MANAGE_OPTIONS = "<a href='".e_SELF."?manage.edit.".$linkid."' title='".LCLAN_ITEM_31."'>".LINK_ICON_EDIT."</a>";
+  
+   $LINK_MANAGE_EDIT= e107::url('links_page', 'manageedit', $row, 'full');
+   $LINK_MANAGE_OPTIONS = "<a href='".$LINK_MANAGE_EDIT."' title='".LCLAN_ITEM_31."'>".LINK_ICON_EDIT."</a>";
+   
     if (isset($this->plugPrefs['link_directdelete']) && $this->plugPrefs['link_directdelete']){
     	$LINK_MANAGE_OPTIONS .= " <input type='image' title='delete' name='delete[main_{$linkid}]' alt='".LCLAN_ITEM_32."' src='".LINK_ICON_DELETE_BASE."' onclick=\"return jsconfirm('".$tp->toJS(LCLAN_ITEM_33." [ ".$row['link_name']." ]")."')\" style='vertical-align:top;' />";
     }
@@ -137,9 +141,12 @@ if($mains){
   }  
 
   function sc_link_manage_newlink($parm='')
-	{ 
-    global $LINK_MANAGE_NEWLINK;
-    return "<a href='".e_SELF."?manage'>".LAN_LINKS_MANAGER_3."</a>";
+	{    
+    //return "<a href='".e_SELF."?manage'>".LAN_LINKS_MANAGER_3."</a>";
+    
+    $LINK_MANAGE_CREATE= e107::url('links_page', 'managecreate', $row, 'full');   
+    //return "<a href='".$LINK_MANAGE_CREATE."'>".LAN_LINKS_MANAGER_3."</a>";
+    return  $LINK_MANAGE_CREATE;
   } 
   
   function sc_link_main_heading($parm='')

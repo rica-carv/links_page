@@ -3,7 +3,9 @@
 **WARNING. This plugin is under rewriting** 
 
 
-
+added sef url field for categories
+added active field for links
+added e_notify.php 
  
 **09.01.2016 Version 2.0.1:** 
 

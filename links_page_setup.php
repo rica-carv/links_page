@@ -6,7 +6,7 @@
  * @file
  * Custom install/uninstall/update routines.
  */
- 
+if (!defined('e107_INIT')) { exit; } 
 class links_page_setup
 {
 	/**
@@ -87,6 +87,33 @@ class links_page_setup
 	}
 	function upgrade_post($var)
 	{
+		$sql = e107::getDb();
+		$currentVersion = $var->current_plug['plugin_version'];
+ 
+		if($currentVersion == '1.0')
+		{    
+      /* to fill SEF URL FOR categories*/    
+      $sql = e107::getDb(); 
+      if($allRows = $sql->retrieve('SELECT * FROM #links_page_cat', TRUE)) {
+      	foreach($allRows as $row)
+      	{
+            $id = $row["link_category_id"];
+            $where = 'link_category_id = '.$id; 
+            $update = array(
+            'link_category_sef' => eHelper::title2sef($row['link_category_name']),
+             'WHERE' => $where
+            );       
+            $sql->update('links_page_cat', $update);   
+        }      
+      } 
+      /* to set all existing links as active */
+      $db = e107::getDb('links_page');
+      $update = array(
+      'link_active' => 1
+      );
+       
+      $sql->update('links_page', $update);           
+		}		     
 	}
 	
 }
