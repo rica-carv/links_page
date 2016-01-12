@@ -6,8 +6,11 @@
 added sef url field for categories
 added active field for links
 added e_notify.php 
- 
-**09.01.2016 Version 2.0.1:** 
+added e_list.php 
+added frontend media manager
+
+
+**09.01.2016 Version 2.0.0:** 
 
 - replaced $linkspage_prefs with new way
 - added Sort and Order functionality
@@ -32,7 +35,7 @@ Except submitted links. They use tmp table. Maybe better idea would be add field
 ~~Todo: add plugin_setup.php, plugin.xml is not enough.~~ 
  
 *What is missing for now*
-- e_ functionality (e_search, ~~e_latest~~, ~~e_frontpage~~,  e_list, e_notify, ~~e_rss~~, ~~e_status~~, e_comment)
+- e_ functionality (e_search, ~~e_latest~~, ~~e_frontpage~~,  ~~e_list~~, ~~e_notify~~, ~~e_rss~~, ~~e_status~~, e_comment)
 - ~~new way with images on frontend~~
 - personal manager
 - new languages files
