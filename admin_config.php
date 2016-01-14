@@ -356,9 +356,9 @@ class links_page_ui extends e_admin_ui
       '0'=>LCLAN_OPT_75); 
       
       
-  	$sql = e107::getDb();
+  	$db = e107::getDb();
     $this->link_category[] = LCLAN_ITEM_3 ;
-  	if($sql->select('links_page_cat', '*' )) { while ($row = $sql->fetch()) { 
+  	if($db->select('links_page_cat', '*' )) { while ($row = $db->fetch()) { 
      $this->link_category[$row['link_category_id']] = $row['link_category_name']; } 	} 
      $this->fields['link_category']['writeParms']['optArray'] = $this->link_category;
 	 
@@ -519,9 +519,9 @@ class links_submitted_ui extends e_admin_ui
       '0'=>LCLAN_OPT_75); 
       
       
-  	$sql = e107::getDb();
+  	$db = e107::getDb();
     $this->link_category[] = LCLAN_ITEM_3 ;
-  	if($sql->select('links_page_cat', '*' )) { while ($row = $sql->fetch()) { 
+  	if($db->select('links_page_cat', '*' )) { while ($row = $db->fetch()) { 
      $this->link_category[$row['link_category_id']] = $row['link_category_name']; } 	} 
      $this->fields['link_category']['writeParms']['optArray'] = $this->link_category;
 	 

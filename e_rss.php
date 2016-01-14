@@ -23,10 +23,10 @@ WHERE l.link_class REGEXP '".e_CLASS_REGEXP."' AND c.link_category_class REGEXP 
 ORDER BY l.link_datestamp DESC LIMIT 0,".$this->limit;
 
 $rss = array();
-$sqlrss = new db;
-if($items = $sqlrss->db_Select_gen($qry)){
+$dbrss = new db;
+if($items = $dbrss->db_Select_gen($qry)){
 	$i=0;
-	while($rowrss = $sqlrss -> db_Fetch()){
+	while($rowrss = $dbrss -> db_Fetch()){
 		$tmp						= '';
 		$rss[$i]['author']			= $tmp[1];
 		$rss[$i]['author_email']	= $tmp[2];

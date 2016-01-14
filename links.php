@@ -36,6 +36,8 @@ require_once(e_PLUGIN.'links_page/link_defines.php');
 require_once(e_HANDLER."userclass_class.php");
  
 $eArrayStorage = e107::getArrayStorage();
+$db = e107::getDb();
+
 require_once(e_HANDLER."form_handler.php");
 $rs = new form;
 require_once(e_HANDLER."file_class.php");
@@ -66,11 +68,11 @@ $lc -> setPageTitle();
 
 //submit comment
 if (isset($_POST['commentsubmit'])) {
-	if (!$sql->db_Select("links_page", "link_id", "link_id = '".intval($qs[1])."' ")) {
+	if (!$db->select("links_page", "link_id", "link_id = '".intval($qs[1])."' ")) {
 		header("location:".e_BASE."index.php");
 		exit;
 	} else {
-		$row = $sql->db_Fetch();
+		$row = $db->fetch();
 		if ($row[0] && (ANON === TRUE || USER === TRUE)) {
 
 			$cobj->enter_comment($_POST['author_name'], $_POST['comment'], "links_page", $qs[1], $pid, $_POST['subject']);
@@ -82,10 +84,10 @@ if (isset($_POST['commentsubmit'])) {
 //update refer
 if (isset($qs[0]) && $qs[0] == "view" && isset($qs[1]) && is_numeric($qs[1]))
 {
-	if($sql->db_Select("links_page", "*", "link_id='".intval($qs[1])."' AND link_class REGEXP '".e_CLASS_REGEXP."' "))
+	if($db->select("links_page", "*", "link_id='".intval($qs[1])."' AND link_class REGEXP '".e_CLASS_REGEXP."' "))
 	{
-		$row = $sql->db_Fetch();
-		$sql->db_Update("links_page", "link_refer=link_refer+1 WHERE link_id='".intval($qs[1])."' ");
+		$row = $db->fetch();
+		$db->update("links_page", "link_refer=link_refer+1 WHERE link_id='".intval($qs[1])."' ");
 		//header("location:".$row['link_url']); exit;
 		js_location($row['link_url']);
 	}
@@ -207,9 +209,10 @@ if (isset($qs[0]) && $qs[0] == "submit")
 
 
 function displayTopRated(){
-	global $qs, $sql, $lc, $tp, $rowl, $link_shortcodes, $from,   $linkspage_pref;
+	global $qs, $lc, $tp, $rowl, $link_shortcodes, $from,   $linkspage_pref;
 	global $LINK_RATED_TABLE_START, $LINK_RATED_TABLE, $LINK_RATED_TABLE_END, $LINK_RATED_RATING, $LINK_RATED_APPEND;
-
+  $db = e107::getDb();
+  $mes = e107::getMessage();
 	$number		= (isset($linkspage_pref["link_nextprev_number"]) && $linkspage_pref["link_nextprev_number"] ? $linkspage_pref["link_nextprev_number"] : "20");
 	$np			= ($linkspage_pref["link_nextprev"] ? "LIMIT ".intval($from).",".intval($number) : "");
 	$catrate	= (isset($qs[1]) && is_numeric($qs[1]) ? " AND l.link_category='".$qs[1]."' " : "");
@@ -224,13 +227,13 @@ function displayTopRated(){
 	";
 	$qry2 = $qry." ".$np;
 
-	if(!is_object($sql)){ $sql = new db; }
-	$linktotalrated = $sql -> db_Select_gen($qry);
-	if (!$ratedlinks = $sql->db_Select_gen($qry2)){
+	if(!is_object($db)){ $db = new db; }
+	$linktotalrated = $db -> gen($qry);
+	if (!$ratedlinks = $db-> gen($qry2)){
     $mes->addError(LAN_LINKS_33.' - '.LAN_LINKS_11);
 	}else{
 		$link_rated_table_string = "";
-		$list = $sql -> db_getList();
+		$list = $db -> rows();
   	    foreach($list as $rowl) {
 			if( ($rowl['rate_avg'] > $ratemin) ){
 			$cat = $rowl['link_category_name'];
@@ -254,9 +257,11 @@ function displayTopRated(){
 }
 
 function displayTopRefer(){
-	global $qs, $sql2, $lc, $link_shortcodes, $cobj, $rowl, $from, $tp,  $linkspage_pref;
+	global $qs,  $lc, $link_shortcodes, $cobj, $rowl, $from, $tp,  $linkspage_pref;
 	global $LINK_TABLE_START, $LINK_TABLE, $LINK_TABLE_END, $LINK_APPEND;
 
+  $db2 = e107::getDb('db2');
+  
 	$number	= ($linkspage_pref["link_nextprev_number"] ? $linkspage_pref["link_nextprev_number"] : "20");
 	$np		= ($linkspage_pref["link_nextprev"] ? "LIMIT ".intval($from).",".intval($number) : "");
 	$min	= (isset($linkspage_pref['link_refer_minimum']) && $linkspage_pref['link_refer_minimum'] ? " AND l.link_refer > ".$linkspage_pref['link_refer_minimum'] : "");
@@ -272,13 +277,13 @@ function displayTopRefer(){
 	";
 	$qry2 = $qry." ".$np;
 
-	if(!is_object($sql2)){ $sql2 = new db; }
-	$link_total = $sql2 -> db_Select_gen($qry);
-	if(!$sql2 -> db_Select_gen($qry2)){
+ 
+	$link_total = $db2 -> gen($qry);
+	if(!$db2 -> gen($qry2)){
     $mes->addError(LAN_LINKS_42.' - '.LAN_LINKS_10);
 	}else{
 		$link_top_table_string = "";
-		$list = $sql2 -> db_getList();
+		$list = $db2 -> rows();
   	    foreach($list as $rowl) {
 			$category				= $rowl['link_category_id'];
 			$LINK_APPEND			= $lc -> parse_link_append($rowl);
@@ -296,7 +301,10 @@ function displayTopRefer(){
 
 function displayPersonalManager()
 {
-	global $qs, $sql, $sql2, $lc, $link_shortcodes, $cobj, $row, $from, $tp,  $linkspage_pref;
+	global $qs,  $lc, $link_shortcodes, $cobj, $row, $from, $tp,  $linkspage_pref;
+ 
+  $db       = e107::getDb();
+  $db2      = e107::getDb('db2');
   $template = e107::getTemplate('links_page', 'links_page');
     
 	if(!(isset($linkspage_pref['link_manager']) && $linkspage_pref['link_manager']))
@@ -313,23 +321,22 @@ function displayPersonalManager()
 	  }
 	  if (isset($delete) && $delete == 'main') 
 	  {
-		$sql->db_Select("links_page", "link_category, link_order, link_author", "link_id='".intval($del_id)."'");		// Get the position of target in the order
+		$db->select("links_page", "link_category, link_order, link_author", "link_id='".intval($del_id)."'");		// Get the position of target in the order
 		
-		$row = $sql->db_Fetch();
+		$row = $db->fetch();
 	    if($row['link_author'] != USERID) {
 			header('Location: '.SITEURL);
 			exit;
 	    }
 			
-		if (!is_object($sql2)){ $sql2 = new db; }
-		$sql->db_Select("links_page", "link_id", "link_order>'".$row['link_order']."' && link_category='".intval($row['link_category'])."'");
-		while ($row = $sql->db_Fetch()) 
+		$db->select("links_page", "link_id", "link_order>'".$row['link_order']."' && link_category='".intval($row['link_category'])."'");
+		while ($row = $db->fetch()) 
 		{
-		  $sql2->db_Update("links_page", "link_order=link_order-1 WHERE link_id='".$row['link_id']."'");
+		  $db2->update("links_page", "link_order=link_order-1 WHERE link_id='".$row['link_id']."'");
 		}
-		if ($sql->db_Delete("links_page", "link_id='".intval($del_id)."'")) 
+		if ($db->delete("links_page", "link_id='".intval($del_id)."'")) 
 		{
-      $mes->addError(LCLAN_ADMIN_10." #".$del_id." ".LCLAN_ADMIN_11);
+      $mes->addSuccess(LCLAN_ADMIN_10." #".$del_id." ".LCLAN_ADMIN_11);
 		}
 	  }
 	}
@@ -346,11 +353,11 @@ function displayPersonalManager()
 		ORDER BY l.link_name
 		";
 		$link_table_manage = "";
-		if(!$manager_total = $sql -> db_Select_gen($qry)){
+		if(!$manager_total = $db -> gen($qry)){
 			$text = LAN_LINKS_MANAGER_4;
 		}else{
 			$link_table_manage_start	= $tp -> parseTemplate($template['LINK_TABLE_MANAGE_START'], FALSE, $link_shortcodes);
-			while($row = $sql -> db_Fetch()){
+			while($row = $db -> fetch()){
 				$link_table_manage .= $tp -> parseTemplate($template['LINK_TABLE_MANAGE'], FALSE, $link_shortcodes);
 			}
 			$link_table_manage_end		= $tp -> parseTemplate($template['LINK_TABLE_MANAGE_END'], FALSE, $link_shortcodes);
@@ -366,7 +373,9 @@ function displayPersonalManager()
 
 //comments on links
 function displayLinkComment(){
-	global $qs, $cobj, $tp, $sql, $linkbutton_count, $lc, $rowl, $link_shortcodes,  $linkspage_pref, $LINK_TABLE_START, $LINK_TABLE, $LINK_TABLE_END, $LINK_APPEND;
+	global $qs, $cobj, $tp,   $linkbutton_count, $lc, $rowl, $link_shortcodes,  $linkspage_pref, $LINK_TABLE_START, $LINK_TABLE, $LINK_TABLE_END, $LINK_APPEND;
+
+  $db = e107::getDb();
 	if(!(isset($linkspage_pref["link_comment"]) && $linkspage_pref["link_comment"])){
 		js_location(e_SELF);
 	}else{
@@ -378,10 +387,10 @@ function displayLinkComment(){
 		WHERE l.link_id = '".intval($qs[1])."' AND lc.link_category_class REGEXP '".e_CLASS_REGEXP."' AND l.link_class REGEXP '".e_CLASS_REGEXP."'
 		GROUP BY l.link_id";
 		$link_comment_table_string = "";
-		if(!$linkcomment = $sql -> db_Select_gen($qry)){
+		if(!$linkcomment = $db -> gen($qry)){
 			js_location(e_SELF);
 		}else{
-			$rowl = $sql->db_Fetch();
+			$rowl = $db->fetch();
 			$linkbutton_count   = ($rowl['link_button']) ?  $linkbutton_count + 1 : $linkbutton_count;
 			$LINK_APPEND	= $lc -> parse_link_append($rowl);
 			$subject		= $rowl['link_name'];
@@ -397,10 +406,11 @@ function displayLinkComment(){
 }
 
 function displayLinkSubmit(){
-	global $qs, $sql, $tp, $rs,   $linkspage_pref, $link_shortcodes, $LINK_SUBMIT_TABLE, $LINK_SUBMIT_CAT;
-	if ($link_cats = $sql->db_Select("links_page_cat", "*", " link_category_class REGEXP '".e_CLASS_REGEXP."' ")) {
+	global $qs, $tp, $rs,   $linkspage_pref, $link_shortcodes, $LINK_SUBMIT_TABLE, $LINK_SUBMIT_CAT;
+  $db = e107::getDb();
+	if ($link_cats = $db->select("links_page_cat", "*", " link_category_class REGEXP '".e_CLASS_REGEXP."' ")) {
 		$LINK_SUBMIT_CAT = $rs -> form_select_open("cat_id");
-		while (list($cat_id, $cat_name, $cat_description) = $sql->db_Fetch()) {
+		while (list($cat_id, $cat_name, $cat_description) = $db->fetch()) {
 			$LINK_SUBMIT_CAT .= $rs -> form_option($cat_name, "0", $cat_id);
 		}
 		$LINK_SUBMIT_CAT .= $rs -> form_select_close();
@@ -413,10 +423,11 @@ function displayLinkSubmit(){
 
 function displayCategory($mode=''){
 //return '';
-	global $sql, $sql2,  $lc, $tp, $qs, $rowl, $link_shortcodes, $linkspage_pref, $total_links, $category_total, $alllinks;
+	global  $lc, $tp, $qs, $rowl, $link_shortcodes, $linkspage_pref, $total_links, $category_total, $alllinks;
   
   $mes = e107::getMessage();
-  
+  $db  = e107::getDb();
+  $db2 = e107::getDb('db2');
   $template = e107::getTemplate('links_page', 'links_page');
 	$order = $lc -> getOrder('cat');
   
@@ -427,15 +438,14 @@ function displayCategory($mode=''){
 	".$order."
 	";
 
-	if(!is_object($sql)){ $sql = new db; }
-	if(!is_object($sql2)){ $sql2 = new db; }
-	if (!$category_total = $sql->db_Select_gen($qry)){  
+ 
+	if (!$category_total = $db->gen($qry)){  
     $mes->addError(LAN_LINKS_41." - ".LAN_LINKS_30);
 	}else{
 		$link_main_table_string = "";
-		$list = $sql->db_getList();
+		$list = $db->rows();
 		foreach($list as $rowl) {
-			$rowl['total_links'] = $sql2 -> db_Count("links_page", "(*)", "WHERE link_category = '".$rowl['link_category_id']."' AND link_class REGEXP '".e_CLASS_REGEXP."' ");
+			$rowl['total_links'] = $db2 -> db_Count("links_page", "(*)", "WHERE link_category = '".$rowl['link_category_id']."' AND link_class REGEXP '".e_CLASS_REGEXP."' ");
 			if((!isset($linkspage_pref['link_cat_empty']) || $linkspage_pref['link_cat_empty'] == 0 && $rowl['total_links'] > "0") || (isset($linkspage_pref['link_cat_empty']) && $linkspage_pref['link_cat_empty'])){
 				$alllinks = $alllinks + $rowl['total_links'];
 				$link_main_table_string .= $tp -> parseTemplate($template['LINK_MAIN_TABLE'], FALSE, $link_shortcodes);
@@ -455,7 +465,7 @@ function displayCategory($mode=''){
 
 function displayNavigator($mode='')
 {
-	global $sql2,   $lc, $tp, $cobj, $rowl, $qs, $linkspage_pref, $from, $link_shortcodes;
+	global  $lc, $tp, $cobj, $rowl, $qs, $linkspage_pref, $from, $link_shortcodes;
 	global $LINK_NAVIGATOR_TABLE, $LINK_SORTORDER, $LINK_NAVIGATOR, $LINK_NAVIGATOR_TABLE_PRE, $LINK_NAVIGATOR_TABLE_POST;
 	static $hasBeenShown = FALSE;
 	
@@ -492,9 +502,10 @@ function displayNavigator($mode='')
 
 function displayCategoryLinks($mode=''){
 
-	global $sql2, $lc, $tp, $cobj, $rowl, $qs, $ns, $linkspage_pref, $from, $link_shortcodes, $link_category_total;
+	global  $lc, $tp, $cobj, $rowl, $qs, $ns, $linkspage_pref, $from, $link_shortcodes, $link_category_total;
 	global  $linkbutton_count,  $link_category_total,  $LINK_APPEND;
   
+  $db2     = e107::getDb('sql2'); 
   $mes      = e107::getMessage();
   $template = e107::getTemplate('links_page', 'links_page');
  
@@ -514,14 +525,13 @@ function displayCategoryLinks($mode=''){
 	";
 
 	$link_table_string = "";
-	if(!is_object($sql2)){ $sql2 = new db; }
-	$link_total = $sql2 -> db_Count("links_page as l", "(*)", "WHERE l.link_class REGEXP '".e_CLASS_REGEXP."' ".$cat." ");
+	$link_total = $db2 -> count("links_page as l", "(*)", "WHERE l.link_class REGEXP '".e_CLASS_REGEXP."' ".$cat." ");
   
-	if (!$sql2->db_Select_gen($qry)){
+	if (!$db2->gen($qry)){
     $mes->addError(LAN_LINKS_34.' - '.LAN_LINKS_39);
 	} else{    
 		$linkbutton_count = 0;
-		$list = $sql2 -> db_getList();
+		$list = $db2 -> rows();
   	    foreach($list as $rowl) {
 			$linkbutton_count   = ($rowl['link_button']) ?  $linkbutton_count + 1 : $linkbutton_count;
 			if($mode){

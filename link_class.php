@@ -70,8 +70,8 @@ class linkclass
 
     function setPageTitle()
 	{
-        global $sql, $qs;
-
+        global $qs;
+        $db = e107::getDb();
         //show all categories
         if(!isset($qs[0]) && $this->plugPrefs['link_page_categories']){
             $page = LCLAN_PAGETITLE_1." / ".LCLAN_PAGETITLE_2;
@@ -86,8 +86,8 @@ class linkclass
         }
         //show all links in one categories
         if(isset($qs[0]) && $qs[0] == "cat" && isset($qs[1]) && is_numeric($qs[1])){
-            $sql -> db_Select("links_page_cat", "link_category_name", "link_category_id='".$qs[1]."' ");
-            $row2 = $sql -> db_Fetch();
+            $db -> select("links_page_cat", "link_category_name", "link_category_id='".$qs[1]."' ");
+            $row2 = $db -> fetch();
             $page = LCLAN_PAGETITLE_1." / ".LCLAN_PAGETITLE_4." / ".$row2['link_category_name'];
         }
         //view top rated
@@ -300,11 +300,11 @@ class linkclass
 
 	function verify_link_manage($id)
 	{
-		global $sql;
 
-		if ($sql->db_Select("links_page", "link_author", "link_id='".intval($id)."' "))
+    $db = e107::getDb();
+		if ($db->db_Select("links_page", "link_author", "link_id='".intval($id)."' "))
 		{
-			$row = $sql->db_Fetch();
+			$row = $db->fetch();
 		}
 
 		if(varset($row['link_author']) != USERID)
@@ -466,10 +466,10 @@ class linkclass
 
 	function show_link_create()
 	{
-        global $sql, $rs, $qs, $ns, $fl;
+        global $rs, $qs, $ns, $fl;
         
         $frm = e107::getForm();
-        $sql = e107::getDb();          
+        $db = e107::getDb();          
          
         $row['link_category']       = "";
         $row['link_name']           = "";
@@ -482,16 +482,16 @@ class linkclass
 
         if (isset($qs[1]) && $qs[1] == 'edit' && !isset($_POST['submit'])) 
         {
-          if ($sql->select("links_page", "*", "link_id='".intval($qs[2])."' ")) 
+          if ($db->select("links_page", "*", "link_id='".intval($qs[2])."' ")) 
           {
-          $row = $sql->fetch();
+          $row = $db->fetch();
           }
         }
 
         if (isset($qs[1]) && $qs[1] == 'sn') 
 		    {
-            if ($sql->db_Select("tmp", "*", "tmp_time='".intval($qs[2])."'")) {
-                $row = $sql->db_Fetch();
+            if ($db->select("tmp", "*", "tmp_time='".intval($qs[2])."'")) {
+                $row = $db->fetch();
                 $submitted                  = explode("^", $row['tmp_info']);
                 $row['link_category']       = $submitted[0];
                 $row['link_name']           = $submitted[1];
@@ -517,8 +517,8 @@ class linkclass
 
         $text .= $frm -> open('linkform',"post", e_REQUEST_URI, array('autocomplete' => 'on', 'class' => 'form-horizontal')); 
 
-        $sql = e107::getDb();
-        if($allRows = $sql->retrieve("SELECT * FROM #links_page_cat ", TRUE))
+        $db = e107::getDb();
+        if($allRows = $db->retrieve("SELECT * FROM #links_page_cat ", TRUE))
         {
         	foreach($allRows as $catrow)
         	{                                
@@ -576,7 +576,8 @@ class linkclass
 	 */
     function show_links() 
 	{
-        global $sql, $qs, $rs, $ns, $tp, $from;
+        global  $qs, $rs, $ns, $tp, $from;
+        $db = e107::getDb();
         $number = "20";
 		$LINK_CAT_NAME = '';			// May be appropriate to add a shortcode later
 
@@ -587,16 +588,16 @@ class linkclass
         }
 		else
 		{	// Show single category
-            if ($sql->db_Select("links_page_cat", "link_category_name", "link_category_id='".intval($qs[2])."' " )) 
+            if ($db->select("links_page_cat", "link_category_name", "link_category_id='".intval($qs[2])."' " )) 
 			{
-                $row = $sql->db_Fetch();
+                $row = $db->fetch();
                 $caption = LCLAN_ITEM_2." ".$row['link_category_name'];
             }
             $qry = " link_category=".intval($qs[2])." ORDER BY link_order, link_id ASC";
         }
 
-        $link_total = $sql->db_Select("links_page", "*", " ".$qry." ");
-        if (!$sql->db_Select("links_page", "*", " ".$qry." LIMIT ".intval($from).",".intval($number)." ")) 
+        $link_total = $db->select("links_page", "*", " ".$qry." ");
+        if (!$db->select("links_page", "*", " ".$qry." LIMIT ".intval($from).",".intval($number)." ")) 
 		{
           js_location(e_SELF."?link");
         }
@@ -612,7 +613,7 @@ class linkclass
             <td class='fcaption' style='width:10%'>".LCLAN_ITEM_28."</td>
             <td class='fcaption' style='width:10%'>".LCLAN_ITEM_29."</td>
             </tr>";
-            while ($row = $sql->db_Fetch()) 
+            while ($row = $db->fetch()) 
 			{
                 $linkid = $row['link_id'];
                 $img = "";

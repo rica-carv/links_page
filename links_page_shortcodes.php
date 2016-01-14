@@ -68,10 +68,10 @@ if($mains){
   function sc_link_nav_allcats($parm='')
 	{ 
     global  $rs;
- 
+    
     if(isset($this->plugPrefs['link_navigator_allcat']) && $this->plugPrefs['link_navigator_allcat']){     
-    	$sqlc = new db;
-    	if ($sqlc->db_Select("links_page_cat", "link_category_id, link_category_name", "link_category_class REGEXP '".e_CLASS_REGEXP."' ORDER BY link_category_name")){
+    	$dbc = e107::getDb('dbc');
+    	if ($dbc->select("links_page_cat", "link_category_id, link_category_name", "link_category_class REGEXP '".e_CLASS_REGEXP."' ORDER BY link_category_name")){
     		$mains .= $rs -> form_option("&nbsp;", "0", "", "");
     		$mains .= $rs -> form_option(LAN_LINKS_48, "0", "", "");
     		while ($rowc = $sqlc->db_Fetch()){
@@ -208,7 +208,7 @@ if($mains){
  
   function sc_link_main_total($parm='')
 	{ 
-    global $LINK_MAIN_TOTAL, $sql, $category_total,  $alllinks;
+    global $LINK_MAIN_TOTAL,  $category_total,  $alllinks;
     if(isset($this->plugPrefs['link_cat_total']) && $this->plugPrefs['link_cat_total']){
     $LINK_MAIN_TOTAL = LAN_LINKS_21." ".($alllinks == 1 ? LAN_LINKS_22 : LAN_LINKS_23)." ".$alllinks." ".($alllinks == 1 ? LAN_LINKS_17 : LAN_LINKS_18)." ".LAN_LINKS_24." ".$category_total." ".($category_total == 1 ? LAN_LINKS_20 : LAN_LINKS_19);
     }else{

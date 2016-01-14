@@ -28,11 +28,11 @@ class links_page_setup
 	function install_post($var)
 	{
 
-    $sql = e107::getDb();
+    $db = e107::getDb();
     $mes = e107::getMessage();
 		$categories = array();
     /* TODO to add question if load demo content */
-    if($sql->count('links_page_cat') == 0) {
+    if($db->count('links_page_cat') == 0) {
       $categories[] = array(
       			'link_category_id'     => 1,
       			'link_category_name'  => 'Default Link Category',
@@ -46,7 +46,7 @@ class links_page_setup
      	foreach($categories as $category)
   		{
   			
-        $status = ($sql->insert('links_page_cat', $category)) ? E_MESSAGE_SUCCESS : E_MESSAGE_ERROR;
+        $status = ($db->insert('links_page_cat', $category)) ? E_MESSAGE_SUCCESS : E_MESSAGE_ERROR;
 		    $mes->add("Adding Default table data to table: links_page_cat",$status);
   		}
  
@@ -68,7 +68,7 @@ class links_page_setup
      	foreach($links as $link)
   		{
   			
-        $status = ($sql->insert('links_page', $link)) ? E_MESSAGE_SUCCESS : E_MESSAGE_ERROR;
+        $status = ($db->insert('links_page', $link)) ? E_MESSAGE_SUCCESS : E_MESSAGE_ERROR;
 		    $mes->add("Adding Default table data to table: links_page",$status);
   		}    
       
@@ -87,14 +87,14 @@ class links_page_setup
 	}
 	function upgrade_post($var)
 	{
-		$sql = e107::getDb();
+		$db = e107::getDb();
 		$currentVersion = $var->current_plug['plugin_version'];
  
 		if($currentVersion == '1.0')
 		{    
       /* to fill SEF URL FOR categories*/    
-      $sql = e107::getDb(); 
-      if($allRows = $sql->retrieve('SELECT * FROM #links_page_cat', TRUE)) {
+      $db = e107::getDb(); 
+      if($allRows = $db->retrieve('SELECT * FROM #links_page_cat', TRUE)) {
       	foreach($allRows as $row)
       	{
             $id = $row["link_category_id"];
@@ -103,7 +103,7 @@ class links_page_setup
             'link_category_sef' => eHelper::title2sef($row['link_category_name']),
              'WHERE' => $where
             );       
-            $sql->update('links_page_cat', $update);   
+            $db->update('links_page_cat', $update);   
         }      
       } 
       /* to set all existing links as active */
@@ -112,7 +112,7 @@ class links_page_setup
       'link_active' => 1
       );
        
-      $sql->update('links_page', $update);           
+      $db->update('links_page', $update);           
 		}		     
 	}
 	
