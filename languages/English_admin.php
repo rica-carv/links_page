@@ -185,22 +185,4 @@ define("LCLAN_ITEM_37", "view all links");
 define("LCLAN_ITEM_38", "All Links");
 define("LCLAN_ITEM_39", "Rating");
 
-
 define("LCLAN_SL_1", "Submitted Links");
-define("LCLAN_SL_2", "No submitted links");
-define("LCLAN_SL_3", "Link");
-define("LCLAN_SL_4", "Submitted by");
-define("LCLAN_SL_5", "Options");
-define("LCLAN_SL_6", "Post");
-define("LCLAN_SL_7", "Delete");
-define("LCLAN_SL_8", "Are you sure you want to delete this submitted link?");
-define("LCLAN_SL_9", "After submitting your link it will be reviewed by a site admin and if appropriate it will be added to the main links page.");
-define("LCLAN_SL_10", "Category:");
-define("LCLAN_SL_11", "name");
-define("LCLAN_SL_12", "url");
-define("LCLAN_SL_13", "description");
-define("LCLAN_SL_14", "URL to link button:");
-define("LCLAN_SL_15", "Underlined fields are required.");
-define("LCLAN_SL_16", "Submit Link");
-define("LCLAN_SL_17", "");
-define("LCLAN_SL_18", "");

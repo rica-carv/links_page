@@ -106,5 +106,33 @@ $LINKS_PAGE_TEMPLATE['LINK_TABLE_MANAGE_END'] =
     </div>    
 	</div>
   </form><br />";
+  
+// SUBMIT -----------------------------------------------------------------------------------
+$LINKS_PAGE_TEMPLATE['LINK_SUBMIT_TABLE'] = "
+	<div class=' text-center'> 
+	<form method='post' action='".e_REQUEST_URI."' class='form-horizontal'>
+    <div class='well'>{LINK_SUBMIT_PRETEXT}</div>
+    <div class='form-group'> <label for='cat_id' class='col-sm-2 control-label'><span class='required'>*&nbsp;</span>".LCLAN_SL_10."</label> 
+      <div class='col-sm-10'>{LINK_SUBMIT_CAT}</div>
+    </div>  
+    <div class='form-group'> <label for='cat_id' class='col-sm-2 control-label'><span class='required'>*&nbsp;</span>".LCLAN_ITEM_4."</label>
+      <div class='col-sm-10'>{LINK_SUBMIT_NAME}</div>
+    </div>
+    <div class='form-group'> <label for='link_url' class='col-sm-2 control-label'><span class='required'>*&nbsp;</span>".LCLAN_ITEM_5."</label>
+      <div class='col-sm-10'>{LINK_SUBMIT_URL}</div>
+    </div>          
+    <div class='form-group'> <label for='link_description' class='col-sm-2 control-label'><span class='required'>*&nbsp;</span>".LCLAN_ITEM_6."</label>
+      <div class='col-sm-10'>{LINK_SUBMIT_DESCRIPTION}</div>
+    </div>
+    <div class='form-group'> <label for='link_button' class='col-sm-2 control-label'>".LCLAN_ITEM_7."</label>
+    <div class='col-sm-10'>{LINK_SUBMIT_IMAGE}</div></div>    
+    
+    <button type='submit' name='add_link' value='1' id='add-link' class='btn submit btn-success' data-original-title=''><span>".LCLAN_SL_16."</span></button>
+   
+	</form>
+  </div>    
+ 
+	";
+
 ?>                                                      
   

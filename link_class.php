@@ -317,7 +317,7 @@ class linkclass
   function dbLinkCreate($mode='') 
 	{
     global $ns, $tp, $qs,  $e107cache, $e_event;
-        
+     
     $db = e107::getDb('links_page');
     $mes = e107::getMessage();
 
@@ -400,6 +400,7 @@ class linkclass
         
       }
       else {
+        
         e107::getMessage()->addError('Something went wrong. Contact admin.' );
         echo e107::getMessage()->render();
       }
@@ -526,12 +527,12 @@ class linkclass
             $catlist[$id] = $name;
         	}
         }
-        
+             
 
         $text .= "<div class='form-group'> <label for='cat_id' class='col-sm-2 control-label'>".LCLAN_ITEM_2."</label>";
         $text .= "<div class='col-sm-10'>".$frm->select('cat_id',$catlist,$row['link_category'])."</div></div>";
   
-        $text .= "<div class='form-group'> <label for='cat_id' class='col-sm-2 control-label'>".LCLAN_ITEM_4."</label>";
+        $text .= "<div class='form-group'> <label for='link_name' class='col-sm-2 control-label'>".LCLAN_ITEM_4."</label>";
         $text .= "<div class='col-sm-10'>".$frm->text('link_name',$row['link_name'],100)."</div></div>";
 
         $text .= "<div class='form-group'> <label for='link_url' class='col-sm-2 control-label'>".LCLAN_ITEM_5."</label>";

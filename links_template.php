@@ -103,42 +103,6 @@ $LINK_RATED_TABLE_END = "
 $sc_style['LINK_SUBMIT_PRETEXT']['pre'] = "<tr><td colspan='2' style='text-align:center' class='forumheader2'>";
 $sc_style['LINK_SUBMIT_PRETEXT']['post'] = "</td></tr>";
 
-// SUBMIT -----------------------------------------------------------------------------------
-$LINK_SUBMIT_TABLE = "
-	<div class='panel panel-default'>xxxxxLINK_SUBMIT_TABLE
-	<form method='post' action='".e_SELF.(e_QUERY ? "?".e_QUERY : "")."'>
-	<table class='table  table-bordered  fborder' style='width:100%' cellspacing='0' cellpadding='0'>
-	{LINK_SUBMIT_PRETEXT}
-	<tr>
-		<td class='forumheader3' style='width:30%'>".LCLAN_SL_10."xxx</td>
-		<td class='forumheader3' style='width:70%'>{LINK_SUBMIT_CAT}</td>
-	</tr>
-	<tr>
-		<td class='forumheader3' style='width:30%'><u>".LCLAN_SL_11."</u></td>
-		<td class='forumheader3' style='width:30%'><input class='tbox' type='text' name='link_name' size='60' value='' maxlength='100' /></td>
-	</tr>
-	<tr>
-		<td class='forumheader3' style='width:30%'><u>".LCLAN_SL_12."</u></td>
-		<td class='forumheader3' style='width:30%'><input class='tbox' type='text' name='link_url' size='60' value='' maxlength='200' /></td>
-	</tr>
-	<tr>
-		<td class='forumheader3' style='width:30%'><u>".LCLAN_SL_13."</u></td>
-		<td class='forumheader3' style='width:30%'><textarea class='tbox' name='link_description' cols='59' rows='3'></textarea></td>
-	</tr>
-	<tr>
-		<td class='forumheader3' style='width:30%'>".LCLAN_SL_14."</td>
-		<td class='forumheader3' style='width:30%'><input class='tbox' type='text' name='link_but' size='60' value='' maxlength='200' /></td>
-	</tr>
-	<tr>
-		<td colspan='2' style='text-align:center' class='forumheader3'><span class='smalltext'>".LCLAN_SL_15."</span></td>
-	</tr>
-	<tr>
-		<td colspan='2' style='text-align:center' class='forumheader'><input class='button' type='submit' name='add_link' value='".LCLAN_SL_16."' /></td>
-	</tr>
-	</table>
-	</form>
-	</div>
-	";
 
 
 ?>

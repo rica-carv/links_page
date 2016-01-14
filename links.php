@@ -36,8 +36,9 @@ require_once(e_PLUGIN.'links_page/link_defines.php');
 require_once(e_HANDLER."userclass_class.php");
  
 $eArrayStorage = e107::getArrayStorage();
-$db = e107::getDb();
-
+$db  = e107::getDb();
+$mes = e107::getMessage();
+  
 require_once(e_HANDLER."form_handler.php");
 $rs = new form;
 require_once(e_HANDLER."file_class.php");
@@ -102,8 +103,8 @@ if (is_readable(THEME."links_template.php")) {
 	} else {
 	require_once(e_PLUGIN."links_page/links_template.php");
 }
-print_a($qs);
-//submit / manage link
+ 
+//submit / manage link  link_submit_directpost - there is not this prefs
 if (isset($_POST['add_link'])) {
 	if($qs[0] == "submit"){
 		if(check_class($linkspage_pref['link_submit_class'])){
@@ -113,22 +114,30 @@ if (isset($_POST['add_link'])) {
 				$lc -> dbLinkCreate("submit");
 			}
 		}else{
-			js_location(e_SELF);
+			e107::getRedirect()->go(e_REQUEST_URI);
 		}
 	}
 	if($qs[0] == "manage"){
 		if(check_class($linkspage_pref['link_manager_class'])){
 			
 			if(isset($qs[2]) && is_numeric($qs[2]))
-			{
-				$lc->verify_link_manage($qs[2]);
-			}
-			
-			if(isset($linkspage_pref['link_directpost']) && $linkspage_pref['link_directpost']){
-				$lc -> dbLinkCreate();
-			}else{
-				$lc -> dbLinkCreate("edit");
-			}
+			{  // edit   
+  			$lc->verify_link_manage($qs[2]);     			
+  			    //  link_directpost = allow direct editing
+  			if(isset($linkspage_pref['link_directpost']) && $linkspage_pref['link_directpost']){
+  				$lc -> dbLinkCreate();
+  			}else{           //not allowed direct posting
+  				$lc -> dbLinkCreate("edit");
+  			}
+      }
+      else {    //create
+  			if(isset($linkspage_pref['link_directpost']) && $linkspage_pref['link_directpost']){
+  				$lc -> dbLinkCreate();
+  			}else{           //not allowed direct posting
+  				$lc -> dbLinkCreate("submit");
+  			}      
+      
+      }
 		}else{
       e107::getRedirect()->go(e_REQUEST_URI);
 		}
@@ -406,16 +415,12 @@ function displayLinkComment(){
 }
 
 function displayLinkSubmit(){
-	global $qs, $tp, $rs,   $linkspage_pref, $link_shortcodes, $LINK_SUBMIT_TABLE, $LINK_SUBMIT_CAT;
-  $db = e107::getDb();
-	if ($link_cats = $db->select("links_page_cat", "*", " link_category_class REGEXP '".e_CLASS_REGEXP."' ")) {
-		$LINK_SUBMIT_CAT = $rs -> form_select_open("cat_id");
-		while (list($cat_id, $cat_name, $cat_description) = $db->fetch()) {
-			$LINK_SUBMIT_CAT .= $rs -> form_option($cat_name, "0", $cat_id);
-		}
-		$LINK_SUBMIT_CAT .= $rs -> form_select_close();
-	}
-	$text = $tp -> parseTemplate($LINK_SUBMIT_TABLE, FALSE, $link_shortcodes);
+	global $qs, $linkspage_pref, $link_shortcodes, $LINK_SUBMIT_TABLE ;
+ 
+  $tp  = e107::getParser();
+  $template = e107::getTemplate('links_page', 'links_page');
+	 
+	$text = $tp -> parseTemplate($template['LINK_SUBMIT_TABLE'], FALSE, $link_shortcodes);
 
 	e107::getRender()->tablerender(LAN_LINKS_31, $text);
 	return;

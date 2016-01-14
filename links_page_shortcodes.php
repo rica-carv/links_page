@@ -25,7 +25,7 @@ class links_page_shortcodes extends e_shortcode
   global  $rs;
 
   $mains = "";   
-
+                     
 if(isset($this->plugPrefs['link_navigator_frontpage']) && $this->plugPrefs['link_navigator_frontpage']){
  
   $mains .= $rs -> form_option(LAN_LINKS_14, "0", e107::url('links_page', 'index', $this->var, 'full'), "");
@@ -460,7 +460,18 @@ return (isset($this->plugPrefs['link_desc']) && $this->plugPrefs['link_desc'] ? 
   // LINK_SUBMIT_TABLE ------------------------------------------------    
   function sc_link_submit_cat($parm='')
 	{ 
-    global $LINK_SUBMIT_CAT;
+    $db  = e107::getDb();
+    $frm = e107::getForm();
+    
+    if($allRows = $db->retrieve("links_page_cat", "*", " link_category_class REGEXP '".e_CLASS_REGEXP."' ", TRUE))
+    {
+    	foreach($allRows as $catrow)
+    	{                                
+    		$id =  $catrow['link_category_id']; $name = $catrow['link_category_name']; 
+        $catlist[$id] = $name;
+    	}
+    } 
+    $LINK_SUBMIT_CAT .= $frm->select('cat_id',$catlist,$row['link_category']);         
     return $LINK_SUBMIT_CAT;
   }    
   
@@ -473,6 +484,30 @@ return (isset($this->plugPrefs['link_desc']) && $this->plugPrefs['link_desc'] ? 
     return LCLAN_SL_9;
   }     
  }
+ 
+  function sc_link_submit_name($parm='')
+	{ 
+    $frm = e107::getForm();
+    return $frm->text('link_name',$this->var['link_name'],100,array('required'=>'1'));
+  } 
+  
+  function sc_link_submit_url($parm='')
+	{ 
+    $frm = e107::getForm();
+    return $frm->text('link_url',$this->var['link_url'],100,array('required'=>'1'));
+  } 
+      
+  function sc_link_submit_description($parm='')
+	{ 
+    $frm = e107::getForm();
+    return $frm->textarea('link_description',$this->var['link_description'],3,59,array('size'=>'xxlarge','required'=>'1'));
+  }   
+  
+  function sc_link_submit_image($parm='')
+	{ 
+    $frm = e107::getForm();
+    return $frm->imagepicker("link_button",  $this->var['link_button'] , LCLAN_ITEM_7, "media=linkspage");
+  }
 }
  
 ?>

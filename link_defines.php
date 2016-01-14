@@ -17,13 +17,15 @@
 */
 
 if (!defined('e107_INIT')) { exit; }
+
 $imagenewcode = "<img class='linkspage_new' src='".THEME."images/new.png' alt='' style='vertical-align:middle' />";
 $imagedir = e_IMAGE_ABS."admin_images/";
+
 if (!defined("IMAGE_NEW")){ define("IMAGE_NEW", (file_exists(THEME."images/new.png") ? $imagenewcode : '<i class="fa fa-plus fa-2x"></i>')); }
 if (!defined('LINK_ICON_EDIT'))        { define("LINK_ICON_EDIT", '<i class="fa fa-edit"></i>'); }
 
 if (!defined('ADMIN_LINK_ICON_EDIT'))  { define("ADMIN_LINK_ICON_EDIT", ADMIN_EDIT_ICON); } 
-if (!defined('ADMIN_LINK_ICON_DELETE')){ define("LINK_ICON_DELETE", ADMIN_DELETE_ICON); }
+if (!defined('ADMIN_LINK_ICON_DELETE')){ define("ADMIN_LINK_ICON_DELETE", ADMIN_DELETE_ICON); }
  
 
 if (!defined('LINK_ICON_DELETE'))      { define("LINK_ICON_DELETE", $imagedir.'delete_32.png'); }

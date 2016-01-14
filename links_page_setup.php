@@ -63,6 +63,7 @@ class links_page_setup
       			'link_class'  => '0',
       			'link_datestamp'  => time(),                                                
             'link_author'  => '1',
+            'link_active'  => '1',
       );     
       
      	foreach($links as $link)
