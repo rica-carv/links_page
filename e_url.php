@@ -47,6 +47,24 @@ class links_page_url
 			// File-path of what to load when the regex returns true.
 			'redirect' => '{e_PLUGIN}links_page/links.php?manage.edit.$1'
 		);
+
+    $config['submitted'] = array(
+			// Matched against url, and if true, redirected to 'redirect' below.
+			'regex'    => '^links_page/link-submitted$',
+			// Used by e107::url(); to create a url from the db table.
+			'sef'      => 'links_page/link-submitted',
+			// File-path of what to load when the regex returns true.
+			'redirect' => '{e_PLUGIN}links_page/links.php?s$1'
+		);
+    
+    $config['submit'] = array(
+			// Matched against url, and if true, redirected to 'redirect' below.
+			'regex'    => '^links_page/links/submit$',
+			// Used by e107::url(); to create a url from the db table.
+			'sef'      => 'links_page/links/submit',
+			// File-path of what to load when the regex returns true.
+			'redirect' => '{e_PLUGIN}links_page/links.php?submit'
+		);
     
     $config['manage'] = array(
 			// Matched against url, and if true, redirected to 'redirect' below.
@@ -57,15 +75,6 @@ class links_page_url
 			'redirect' => '{e_PLUGIN}links_page/links.php?manage$1'
 		);
  
-    $config['submit'] = array(
-			// Matched against url, and if true, redirected to 'redirect' below.
-			'regex'    => '^links_page/links/submit$',
-			// Used by e107::url(); to create a url from the db table.
-			'sef'      => 'links_page/links/submit',
-			// File-path of what to load when the regex returns true.
-			'redirect' => '{e_PLUGIN}links_page/links.php?submit'
-		);
-    
     $config['cat'] = array(
 			// Matched against url, and if true, redirected to 'redirect' below.
 			'regex'    => '^links_page/links/cat$',

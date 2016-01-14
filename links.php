@@ -100,7 +100,7 @@ if (is_readable(THEME."links_template.php")) {
 	} else {
 	require_once(e_PLUGIN."links_page/links_template.php");
 }
-
+print_a($qs);
 //submit / manage link
 if (isset($_POST['add_link'])) {
 	if($qs[0] == "submit"){
@@ -125,16 +125,18 @@ if (isset($_POST['add_link'])) {
 			if(isset($linkspage_pref['link_directpost']) && $linkspage_pref['link_directpost']){
 				$lc -> dbLinkCreate();
 			}else{
-				$lc -> dbLinkCreate("submit");
+				$lc -> dbLinkCreate("edit");
 			}
 		}else{
-			js_location(e_SELF);
+      e107::getRedirect()->go(e_REQUEST_URI);
 		}
 	}
 }
+ 
 //message submitted link
 if(isset($qs[0]) && $qs[0] == "s"){
-  $mes->addError(LAN_LINKS_29.' - '. LAN_LINKS_28);
+  e107::getMessage()->addSuccess('<b>'.LAN_LINKS_28.'</b> '.LAN_LINKS_29 );
+  echo e107::getMessage()->render();
 }
 $qsorder = FALSE;
 if(isset($qs[0]) && substr($qs[0],0,5) == "order"){

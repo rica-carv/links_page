@@ -23,7 +23,7 @@ class links_page_dashboard // include plugin-folder in the name.
 	function status()
 	{
 		$sql = e107::getDb();
-		$alllinks = $sql->count("links_page");
+		$alllinks = $sql->count("links_page", "(*)", "WHERE link_active != 0 " );
 		
 		$var[0]['icon'] 	= "<img src='".e_PLUGIN_ABS."links_page/images/linkspage_16.png' style='width: 16px; height: 16px; vertical-align: bottom' alt='' /> ";
 		$var[0]['title'] 	= LAN_LINKS_1;
@@ -43,7 +43,7 @@ class links_page_dashboard // include plugin-folder in the name.
 	function latest()
 	{
 		$sql = e107::getDb();
-	  $submitted_links = $sql->count("tmp", "*", "tmp_ip='submitted_link' ");
+	  $submitted_links = $sql->count("links_page", "(*)", "WHERE link_active = 0 " );
 		
 		$var[0]['icon'] 	= "<img src='".e_PLUGIN_ABS."links_page/images/linkspage_16.png' style='width: 16px; height: 16px; vertical-align: bottom' alt='' /> ";
 		$var[0]['title'] 	= ADLAN_LAT_5;

@@ -314,15 +314,17 @@ class linkclass
 	}
 
 	// Create a new link. If $mode == 'submit', link has to go through the approval process; else its admin entry
-    function dbLinkCreate($mode='') 
+  function dbLinkCreate($mode='') 
 	{
-        global $ns, $tp, $qs, $sql, $e107cache, $e_event;
-
+    global $ns, $tp, $qs,  $e107cache, $e_event;
+        
+    $db = e107::getDb('links_page');
     $mes = e107::getMessage();
-        $link_name          = $tp->toDB($_POST['link_name']);
-        $link_url           = $tp->toDB($_POST['link_url']);
-        $link_description   = $tp->toDB($_POST['link_description']);
-        $link_button        = $tp->toDB($_POST['link_button']);
+
+    $link_name          = $tp->toDB($_POST['link_name']);
+    $link_url           = $tp->toDB($_POST['link_url']);
+    $link_description   = $tp->toDB($_POST['link_description']);
+    $link_button        = $tp->toDB($_POST['link_button']);
 
 		if (!$link_name || !$link_url || !$link_description) 
 		{
@@ -330,54 +332,137 @@ class linkclass
 		  return;
 		} 
 
-        if ($link_url && !strstr($link_url, "http")) 
+    if ($link_url && !strstr($link_url, "http")) 
 		{
           $link_url = "http://".$link_url;
-        }
-
-        //create link, submit area, tmp table
+    }
+ 
+    //create link, submit area , not allowed direct post
 		if(isset($mode) && $mode == "submit")
 		{
 		  $username           = (defined('USERNAME')) ? USERNAME : LAN_LINKS_3;
-
-		  $submitted_link     = intval($_POST['cat_id'])."^".$link_name."^".$link_url."^".$link_description."^".$link_button."^".$username;
-		  $sql->db_Insert("tmp", "'submitted_link', '".time()."', '$submitted_link' ");
+      $insert = array(
+					'link_id'          => NULL,
+					'link_name'        => $link_name,
+					'link_url'         => $link_url,
+					'link_description' => $link_description,
+					'link_button'      => $link_button ,
+					'link_category'    => intval($_POST['cat_id']),
+					'link_order'       => $link_t+1,
+					'link_refer'       => 0,
+					'link_open'        => intval($_POST['linkopentype']),
+					'link_class'       => intval($_POST['link_class']),
+					'link_datestamp'   => time(),
+					'link_author'      => USERID,                                                 
+					'link_active'      => 0,
+				);
+      if($db->insert("links_page", $insert)) { $mes->addSuccess(LAN_LINKS_29); $mes->render();};    
 
 		  $edata_ls = array("link_category" => $_POST['cat_id'], "link_name" => $link_name, "link_url" => $link_url, "link_description" => $link_description, "link_button" => $link_button, "username" => $username, "submitted_link" => $submitted_link);
 		  $e_event->trigger("linksub", $edata_ls);
 		  //header("location:".e_SELF."?s");
-		  js_location(e_SELF."?s");
+		  //js_location(e_SELF."?s");
+      $url = e107::url('links_page','submitted','full');
+     // e107::getRedirect()->go($url);
+    }   
+    // edit link, not allowed direct posting      
+		elseif(isset($mode) && $mode == "edit")
+		{    
+      if (is_numeric($qs[2]) && $qs[1] != "sn") {
+        $link_class = $_POST['link_class'];
+        if($qs[1] == "manage"){
+          $link_author = USERID;
+        }else{  // not needed anymore, left for future
+          $link_author = ($_POST['link_author'] && $_POST['link_author']!='' ? $tp -> toDB($_POST['link_author']) : USERID);
         }
-		else
+        $id = intval($qs[2]);
+        $where = 'link_id = '.$id; 
+        $update = array(
+  					'link_name'        => $link_name,
+  					'link_url'         => $link_url,
+  					'link_description' => $link_description,
+  					'link_button'      => $link_button ,
+  					'link_category'    => intval($_POST['cat_id']),
+  					'link_open'        => intval($_POST['linkopentype']),
+  					'link_class'       => intval($link_class),
+  					'link_datestamp'   => intval($time),
+  					'link_author'      => $link_author,                                                 
+  					'link_active'      => 0,
+        'WHERE' => $where
+        );      
+   
+        if($db->update('links_page', $update))  {
+           $mes->addSuccess(LCLAN_ADMIN_3.' '.LAN_LINKS_29);
+           echo $mes->render();          
+        }  
+        $e107cache->clear("sitelinks");
+        
+        
+      }
+      else {
+        e107::getMessage()->addError('Something went wrong. Contact admin.' );
+        echo e107::getMessage()->render();
+      }
+    } 
+    // direct posting allowed   
+    else 
 		{
-            $link_t = $sql->db_Count("links_page", "(*)", "WHERE link_category='".intval($_POST['cat_id'])."'");
-            $time   = ($_POST['update_datestamp'] ? time() : ($_POST['link_datestamp'] != "0" ? $_POST['link_datestamp'] : time()) );
-
-            //update link
+      $link_t = $db->db_Count("links_page", "(*)", "WHERE link_category='".intval($_POST['cat_id'])."'");
+      $time   = ($_POST['update_datestamp'] ? time() : ($_POST['link_datestamp'] != "0" ? $_POST['link_datestamp'] : time()) );
+      //update link
 			if (is_numeric($qs[2]) && $qs[1] != "sn") {
 				$link_class = $_POST['link_class'];
 				if($qs[1] == "manage"){
-                    $link_author = USERID;
-                }else{
-                    $link_author = ($_POST['link_author'] && $_POST['link_author']!='' ? $tp -> toDB($_POST['link_author']) : USERID);
-                }
+            $link_author = USERID;
+        }else{
+            $link_author = ($_POST['link_author'] && $_POST['link_author']!='' ? $tp -> toDB($_POST['link_author']) : USERID);
+        }
 
-                $sql->db_Update("links_page", "link_name='$link_name', link_url='$link_url', link_description='$link_description', link_button= '$link_button', link_category='".intval($_POST['cat_id'])."', link_open='".intval($_POST['linkopentype'])."', link_class='".intval($link_class)."', link_datestamp='".intval($time)."', link_author='".$link_author."' WHERE link_id='".intval($qs[2])."'");
-                $e107cache->clear("sitelinks");
-                $mes->addSuccess(LCLAN_ADMIN_3);
+        $update = array(
+					'link_name'        => $link_name,
+					'link_url'         => $link_url,
+					'link_description' => $link_description,
+					'link_button'      => $link_button ,
+					'link_category'    => intval($_POST['cat_id']),
+					'link_open'        => intval($_POST['linkopentype']),
+					'link_class'       => intval($link_class),
+					'link_datestamp'   => intval($time),
+					'link_author'      => $link_author,                                                 
+					'link_active'      => 1,
+        'WHERE' => $where
+        );         
+        $e107cache->clear("sitelinks");
+        if($db->update('links_page', $update))  {
+           $mes->addSuccess(LCLAN_ADMIN_3);
+           echo $mes->render();          
+        }
+ 
             //create link
 			} else {
-
-                $sql->db_Insert("links_page", "0, '$link_name', '$link_url', '$link_description', '$link_button', '".intval($_POST['cat_id'])."', '".($link_t+1)."', '0', '".intval($_POST['linkopentype'])."', '".intval($_POST['link_class'])."', '".time()."', '".USERID."' ");
+      
+      $insert = array(
+					'link_id'          => NULL,
+					'link_name'        => $link_name,
+					'link_url'         => $link_url,
+					'link_description' => $link_description,
+					'link_button'      => $link_button ,
+					'link_category'    => intval($_POST['cat_id']),
+					'link_order'       => $link_t+1,
+					'link_refer'       => 0,
+					'link_open'        => intval($_POST['linkopentype']),
+					'link_class'       => intval($_POST['link_class']),
+					'link_datestamp'   => time(),
+					'link_author'      => USERID,                                                 
+					'link_active'      => 1,
+				);
+      if($db->insert("links_page", $insert)) { $mes->addSuccess(LCLAN_ADMIN_2); $mes->render();};
                 $e107cache->clear("sitelinks");
                 $mes->addSuccess(LCLAN_ADMIN_2);
-            }
-            //delete from tmp table after approval
-			if (is_numeric($qs[2]) && $qs[1] == "sn") {
-                $sql->db_Delete("tmp", "tmp_time='".intval($qs[2])."' ");
-            }
-        }
+                echo $mes->render();
+       }
+ 
     }
+  }
 
 	function show_link_create()
 	{
@@ -606,49 +691,6 @@ class linkclass
         $ns->tablerender($caption, $text);
 		$this->ShowNextPrev($from, $number, $link_total);
     }
- 
-
- 
-
-    function show_submitted() {
-        global $rs, $qs,  $tp;
-        
-        $sql = e107::getDb();
-        if (!$submitted_total = $sql->select("tmp", "*", "tmp_ip='submitted_link' ")) {
-            $text = "<div style='text-align:center'>".LCLAN_SL_2."</div>";
-        }else{
-            $text = "
-            ".$rs->form_open("post", e_SELF."?sn", "submitted_links")."
-            <table class='fborder' style='".ADMIN_WIDTH."'>
-            <tr>
-            <td style='width:60%' class='fcaption'>".LCLAN_SL_3."</td>
-            <td style='width:30%' class='fcaption'>".LCLAN_SL_4."</td>
-            <td style='width:10%; white-space:nowrap; text-align:center' class='fcaption'>".LCLAN_SL_5."</td>
-            </tr>";
-            while ($row = $sql->fetch()) {
-                $tmp_time = $row['tmp_time'];
-                $submitted = explode("^", $row['tmp_info']);
-                if (!strstr($submitted[2], "http")) {
-                    $submitted[2] = "http://".$submitted[2];
-                }
-                $text .= "<tr>
-                <td style='width:60%' class='forumheader3'><a href='".$submitted[2]."' rel='external'>".$submitted[2]."</a></td>
-                <td style='width:30%' class='forumheader3'>".$submitted[5]."</td>
-                <td style='width:10%; white-space:nowrap; text-align:center; vertical-align:top' class='forumheader3'>
-                    <a href='".e_SELF."?link.sn.".$tmp_time."' title='".LCLAN_SL_6."'>".LINK_ICON_EDIT."</a>
-                    <input type='image' title='delete' name='delete[sn_{$tmp_time}]' alt='".LCLAN_SL_7."' src='".LINK_ICON_DELETE_BASE."' onclick=\"return jsconfirm('".$tp->toJS(LCLAN_SL_8." [ ".$tmp_time." ]")."')\" />
-                </td>
-                </tr>\n";
-            }
-            $text .= "</table>".$rs->form_close();
-        }
-        return $text;
-    }
-
- 
-
-
-
 }
 
 ?>
