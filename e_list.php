@@ -42,7 +42,7 @@ class list_links_page
    
  
 
-		$links_pages = $this->parent->e107->sql->db_Select_gen($qry);
+		$links_pages = $this->parent->e107->sql->gen($qry);
 		if($links_pages == 0)
 		{
 			$list_data = LIST_LINKS_2;
@@ -50,7 +50,7 @@ class list_links_page
 		else
 		{
 			$list_data = array();
-			while($row = $this->parent->e107->sql->db_Fetch())
+			while($row = $this->parent->e107->sql->fetch())
 			{
 				$record = array();
 				$rowheading = $this->parent->parse_heading($row['link_name']);

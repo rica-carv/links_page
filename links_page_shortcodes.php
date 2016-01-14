@@ -74,7 +74,7 @@ if($mains){
     	if ($dbc->select("links_page_cat", "link_category_id, link_category_name", "link_category_class REGEXP '".e_CLASS_REGEXP."' ORDER BY link_category_name")){
     		$mains .= $rs -> form_option("&nbsp;", "0", "", "");
     		$mains .= $rs -> form_option(LAN_LINKS_48, "0", "", "");
-    		while ($rowc = $sqlc->db_Fetch()){
+    		while ($rowc = $dbc->fetch()){
     			$mains .= $rs -> form_option($rowc['link_category_name'], "0", e107::url('links_page', 'category', $rowc, 'full'), "");
     		}
     	}

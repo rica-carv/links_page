@@ -302,7 +302,7 @@ class linkclass
 	{
 
     $db = e107::getDb();
-		if ($db->db_Select("links_page", "link_author", "link_id='".intval($id)."' "))
+		if ($db->select("links_page", "link_author", "link_id='".intval($id)."' "))
 		{
 			$row = $db->fetch();
 		}
@@ -407,7 +407,7 @@ class linkclass
     // direct posting allowed   
     else 
 		{
-      $link_t = $db->db_Count("links_page", "(*)", "WHERE link_category='".intval($_POST['cat_id'])."'");
+      $link_t = $db->count("links_page", "(*)", "WHERE link_category='".intval($_POST['cat_id'])."'");
       $time   = ($_POST['update_datestamp'] ? time() : ($_POST['link_datestamp'] != "0" ? $_POST['link_datestamp'] : time()) );
       //update link
 			if (is_numeric($qs[2]) && $qs[1] != "sn") {

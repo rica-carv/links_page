@@ -24,9 +24,9 @@ ORDER BY l.link_datestamp DESC LIMIT 0,".$this->limit;
 
 $rss = array();
 $dbrss = new db;
-if($items = $dbrss->db_Select_gen($qry)){
+if($items = $dbrss->gen($qry)){
 	$i=0;
-	while($rowrss = $dbrss -> db_Fetch()){
+	while($rowrss = $dbrss -> fetch()){
 		$tmp						= '';
 		$rss[$i]['author']			= $tmp[1];
 		$rss[$i]['author_email']	= $tmp[2];
