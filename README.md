@@ -3,11 +3,15 @@
 **WARNING. This plugin is under rewriting** 
 
 
-added sef url field for categories
-added active field for links
-added e_notify.php 
-added e_list.php 
-added frontend media manager
+- working approving links
+- working submitting links
+- working personal manager
+- working ordering with SEF URLs
+- added sef url field for categories
+- added active field for links
+- added e_notify.php 
+- added e_list.php 
+- added frontend media manager
 
 
 **09.01.2016 Version 2.0.0:** 
@@ -37,10 +41,10 @@ Except submitted links. They use tmp table. Maybe better idea would be add field
 *What is missing for now*
 - e_ functionality (e_search, ~~e_latest~~, ~~e_frontpage~~,  ~~e_list~~, ~~e_notify~~, ~~e_rss~~, ~~e_status~~, e_comment)
 - ~~new way with images on frontend~~
-- personal manager
+- ~~personal manager~~
 - new languages files
-- direct submitting links
-- approving submitted links 
+- ~~direct submitting links~~
+- ~~approving submitted links~~ 
 - ~~sort and order functionality~~
 - new templating system
 - tabless templates / responsive tables are not enough
