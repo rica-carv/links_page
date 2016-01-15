@@ -99,11 +99,14 @@ class links_page_cat_ui extends e_admin_ui
 		  'link_category_datestamp' =>   array ( 'title' => LAN_DATESTAMP, 'type' => 'datestamp', 
         'data' => 'int', 'parms' => 'mask=%A %d %B %Y', 'width' => 'auto', 'filter' => true, 
         'help' => '', 'readParms' => '', 'writeParms' => 'type=datetime', 'class' => 'left', 'thclass' => 'left',  ),
+      'link_category_sef' => array ( 'title' => LAN_SEFURL, 'type' => 'text', 'inline'=>true, 'width' => 'auto', 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left', ), 
+
+
 		  'options' =>   array ( 'title' => LAN_OPTIONS, 'type' => null, 'data' => null, 'width' => '10%', 
       'thclass' => 'center last', 'class' => 'center last', 'forced' => '1', 'readParms'=>'sort=1' ),
 		);		
 		
-		protected $fieldpref = array('link_category_name', 'link_category_class', 'link_category_datestamp');
+		protected $fieldpref = array('link_category_name', 'link_category_class', 'link_category_sef', 'link_category_datestamp');
 		
 	
 		public function init()
@@ -122,6 +125,22 @@ class links_page_cat_ui extends e_admin_ui
   		{
   			$new_data['link_category_datestamp'] = time();
   		}
+      
+      if(empty($new_data['link_category_sef']))
+      {
+          $new_data['link_category_sef'] = eHelper::title2sef($new_data['link_category_name']);
+      }
+      else 
+      {
+          $new_data['link_category_sef'] = eHelper::secureSef($new_data['link_category_sef']);
+      }
+      $sef = e107::getParser()->toDB($new_data['link_category_sef']);
+
+      if(e107::getDb()->count('link_category', '(*)', "link_category_sef='{$sef}'"))
+      {
+          e107::getMessage()->addError('Your SEF URL already exists');
+          return false;
+      }  
       			
       return $new_data;
 		}
@@ -145,6 +164,17 @@ class links_page_cat_ui extends e_admin_ui
   		{
   			$new_data['link_category_datestamp'] = time();
   		}
+      
+     if(empty($new_data['link_category_sef']))
+      {
+          $new_data['link_category_sef'] = eHelper::title2sef($new_data['link_category_name']);
+      }
+      $sef = e107::getParser()->toDB($new_data['link_category_sef']);
+      if(e107::getDb()->count('link_category', '(*)', "link_category_sef='{$sef}' AND link_category_id!=".intval($id)))
+      {
+          e107::getMessage()->addError('Your SEF URL already exists');
+          return false;
+      }
 
 			return $new_data;
 		}
