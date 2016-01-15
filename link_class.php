@@ -152,7 +152,15 @@ class linkclass
     function showLinkSort($mode='')
 	{
         global $rs, $ns, $qs;
-        $frm = e107::getForm();
+        $frm = e107::getForm(); 
+        $db  = e107::getDb();
+
+        if($mode == "cat") {
+          $path = e107::url('links_page', 'index');  
+        }
+        else {
+          $path = e107::url('links_page', 'index');
+        }
         $check = "";
         if($qs){
             for($i=0;$i<count($qs);$i++){
@@ -170,11 +178,15 @@ class linkclass
             $checks = "";
             $checko = "";
         }
-        $baseurl = SITEURL."links_page/links";
- 
-         $qry = (isset($qs[0]) && substr($qs[0],0,5) != "order" ? $qs[0] : "").(isset($qs[1]) && substr($qs[1],0,5) != "order" ? ".".$qs[1] : "").(isset($qs[2]) && substr($qs[2],0,5) != "order" ? ".".$qs[2] : "").(isset($qs[3]) && substr($qs[3],0,5) != "order" ? ".".$qs[3] : "");
-         $path = $baseurl."/".($qry ? $qry : "");
-       
+        $baseurl = e107::url('links_page', 'index');  
+        
+        $qry = '';
+         $qry = (isset($qs[0]) && substr($qs[0],0,5) != "order" ? '/'.$qs[0] : "")
+         .(isset($qs[1]) && substr($qs[1],0,5) != "order" ? "/".$qs[1] : "")
+         .(isset($qs[2]) && substr($qs[2],0,5) != "order" ? "/".$qs[2] : "")
+         .(isset($qs[3]) && substr($qs[3],0,5) != "order" ? "/".$qs[3] : "");
+   
+         $path = $baseurl.$qry;     
          $order_options_cat = array(
             "heading"        => LAN_LINKS_4,
             "id" => LAN_LINKS_44,
@@ -189,16 +201,16 @@ class linkclass
          );        
          
          $sort_options = array(
-            $path."ordera"    => LAN_LINKS_8,
-            $path."orderd"   => LAN_LINKS_9
+            $path."/ordera"    => LAN_LINKS_8,
+            $path."/orderd"   => LAN_LINKS_9
          );
          
           
         $sotext  = "<div class='panel panel-default panel-body'>";
-        $sotext .= $frm->open('linkorder','post',e_SELF, 'class=form-inline'); 
+        $sotext .= $frm->open('linkorder','post',e_REQUEST_URI, 'class=form-inline'); 
         $sotext .= "<div class='form-group col-md-6'> <label for='link_sorter' class='control-label'>".LAN_LINKS_15."</label>";
         if($mode == "cat"){
-            $sotext .= $frm->select('link_sorter', $order_options, $checks);               
+            $sotext .= $frm->select('link_sorter', $order_options_cat, $checks);               
         }else{
             $sotext .= $frm->select('link_sorter',  $order_options_link, $checks); 
         }
@@ -256,13 +268,14 @@ class linkclass
             $orderby        = "link_order";
             $orderby2       = ", link_name ASC";
         }
+ 
         return $orderby." ".(substr($orderstring,5,1) == "a" ? "ASC" : "DESC")." ".$orderby2;
     }
 
 	function getOrder($mode='')
 	{
         global $qs;
-
+ 
         if(isset($qs[0]) && substr($qs[0],0,5) == "order"){
             $orderstring    = $qs[0];
         }elseif(isset($qs[1]) && substr($qs[1],0,5) == "order"){
@@ -280,7 +293,7 @@ class linkclass
                 $orderstring    = "order".($this->plugPrefs["link_order"] == "ASC" ? "a" : "d" ).($this->plugPrefs["link_sort"] ? $this->plugPrefs["link_sort"] : "date" );
             }
         }
-
+ 
         if($mode == "cat"){
             $str = $this -> parseOrderCat($orderstring);
         }else{
@@ -291,8 +304,8 @@ class linkclass
                 $str = $this -> parseOrderLink($orderstring);
             }
         }
-
-        $order = " ORDER BY ".$str;
+        
+        $order = " ORDER BY ".$str; 
         return $order;
     }
  

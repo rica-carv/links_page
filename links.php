@@ -143,9 +143,9 @@ if (isset($_POST['add_link'])) {
 		}
 	}
 }
- 
+  
 //message submitted link
-if(isset($qs[0]) && $qs[0] == "s"){
+if(isset($qs[0]) && $qs[1] == "s"){
   e107::getMessage()->addSuccess('<b>'.LAN_LINKS_28.'</b> '.LAN_LINKS_29 );
   echo e107::getMessage()->render();
 }
@@ -154,30 +154,31 @@ if(isset($qs[0]) && substr($qs[0],0,5) == "order"){
 	$qsorder = TRUE;
 }
  
-//show all categories
+// Frontpage separated to categories
 if((!isset($qs[0]) || $qsorder) && $linkspage_pref['link_page_categories']){
- 	
 	displayCategory();
 }
-//show all categories
-if(isset($qs[0]) && $qs[0] == "cat" && !isset($qs[1]) ){
-  //echo displayNavigator('cat');     
+//show all categories added working ordering
+if(isset($qs[1]) && substr($qs[1],0,5) == "order"){
+	$qsorder = TRUE;
+}
+if(isset($qs[0]) && $qs[0] == "cat" && !isset($qs[1]) ){    
+	displayCategory('cat');
+}
+if(isset($qs[0]) && $qs[0] == "cat" && (!isset($qs[0]) || $qsorder)  ){
 	displayCategory('cat');
 }
 
-
-//show all links in all categories
+//show all links in all categories  or Frontpage without categories
 if( ((!isset($qs[0]) || $qsorder) && !$linkspage_pref['link_page_categories']) || 
-(isset($qs[0]) && $qs[1] == "all") )
-{        
-  //	displayNavigator('');
+(isset($qs[0]) && $qs[0] == "all") )
+{      
 	displayCategoryLinks();
 }
 
-//show all links in one category
+//show all links in one category  
 if(isset($qs[0]) && $qs[0] == "cat" && isset($qs[1]) && is_numeric($qs[1]))
-{                 
-//	echo displayNavigator('');       
+{                       
 	displayCategoryLinks($qs[1]);
 }
 //view top rated
@@ -460,7 +461,7 @@ function displayCategory($mode=''){
 		$link_main_table_end = $tp -> parseTemplate($template['LINK_MAIN_TABLE_END'], FALSE, $link_shortcodes);
 		$text = $link_main_table_start.$link_main_table_string.$link_main_table_end;
     
-    $navigator = displayNavigator($mode);      
+    $navigator = displayNavigator('cat');      
     $text = $navigator.$text;
 		$caption = LAN_LINKS_30;
 		e107::getRender()->tablerender($caption, $text);
@@ -509,7 +510,7 @@ function displayCategoryLinks($mode=''){
 
 	global  $lc, $tp, $cobj, $rowl, $qs, $ns, $linkspage_pref, $from, $link_shortcodes, $link_category_total;
 	global  $linkbutton_count,  $link_category_total,  $LINK_APPEND;
-  
+
   $db2     = e107::getDb('sql2'); 
   $mes      = e107::getMessage();
   $template = e107::getTemplate('links_page', 'links_page');
@@ -534,10 +535,11 @@ function displayCategoryLinks($mode=''){
   
 	if (!$db2->gen($qry)){
     $mes->addError(LAN_LINKS_34.' - '.LAN_LINKS_39);
-	} else{    
+    echo $mes->render();
+	} else{              
 		$linkbutton_count = 0;
 		$list = $db2 -> rows();
-  	    foreach($list as $rowl) {
+  	  foreach($list as $rowl) {
 			$linkbutton_count   = ($rowl['link_button']) ?  $linkbutton_count + 1 : $linkbutton_count;
 			if($mode){
 				$cat_name			= $rowl['link_category_name'];
@@ -547,7 +549,7 @@ function displayCategoryLinks($mode=''){
 			}else{
 				$arr[$rowl['link_category_id']][] = $rowl;
 			}
-		}
+		}  
 		if($mode)
 		{          
 			$link_category_total	= $link_total;
@@ -566,7 +568,7 @@ function displayCategoryLinks($mode=''){
 			}   
 		}
 		else
-		{      
+		{          
 			$text = '';            
 			foreach($arr as $key => $value)
 			{
@@ -581,7 +583,7 @@ function displayCategoryLinks($mode=''){
 					$cat_name			= $rowl['link_category_name'];
 					$cat_desc			= $rowl['link_category_description'];
 				 	$LINK_APPEND		= $lc -> parse_link_append($rowl);
-					$link_table_string .= $tp -> parseTemplate($LINK_TABLE, FALSE, $link_shortcodes);
+					$link_table_string .= $tp -> parseTemplate($template['LINK_TABLE'], FALSE, $link_shortcodes);
 				}
 
 				$link_category_total = count($value);
@@ -590,10 +592,10 @@ function displayCategoryLinks($mode=''){
 				$link_table_end			= $tp -> parseTemplate($template['$LINK_TABLE_END'], FALSE, $link_shortcodes);
 				$text .= $link_table_start.$link_table_string.$link_table_end;
 
-			}        
-//			$nav = $tp->parseTemplate("{NAVIGATOR}", FALSE, $link_shortcodes);		Navigator now positioned in template
-//			$ns->tablerender($link_table_caption, $nav.$text);
-		   e107::getRender()->tablerender($link_table_caption, $text);
+			}
+      $navigator = displayNavigator();  
+      $text = $navigator.$text;       
+		  e107::getRender()->tablerender($link_table_caption, $text);
 		}
 	}  
 	return;

@@ -21,13 +21,22 @@ class links_page_url
   
 		$config = array();
 
-    $config['category'] = array(
+    $config['catorder'] = array(
 			// Matched against url, and if true, redirected to 'redirect' below.
-			'regex'    => '^links_page/category/(.*)/(.*)?(.*)$',
+			'regex'    => '^links_page/category/(.*)/(.*)/(.*)$',
 			// Used by e107::url(); to create a url from the db table.
 			'sef'      => 'links_page/category/{link_category_id}/{link_category_sef}',
 			// File-path of what to load when the regex returns true.
 			'redirect' => '{e_PLUGIN}links_page/links.php?cat.$1.$3'
+		); 
+    
+    $config['category'] = array(
+			// Matched against url, and if true, redirected to 'redirect' below.
+			'regex'    => '^links_page/category/(.*)/(.*)$',
+			// Used by e107::url(); to create a url from the db table.
+			'sef'      => 'links_page/category/{link_category_id}/{link_category_sef}',
+			// File-path of what to load when the regex returns true.
+			'redirect' => '{e_PLUGIN}links_page/links.php?cat.$1'
 		); 
 
     $config['managecreate'] = array(
@@ -74,23 +83,32 @@ class links_page_url
 			// File-path of what to load when the regex returns true.
 			'redirect' => '{e_PLUGIN}links_page/links.php?manage$1'
 		);
- 
-    $config['cat'] = array(
+
+    $config['allcatsorder'] = array(
 			// Matched against url, and if true, redirected to 'redirect' below.
-			'regex'    => '^links_page/links/cat$',
+			'regex'    => '^links_page/links/(.*)/(.*)$',
 			// Used by e107::url(); to create a url from the db table.
 			'sef'      => 'links_page/links/cat',
 			// File-path of what to load when the regex returns true.
-			'redirect' => '{e_PLUGIN}links_page/links.php?cat'
+			'redirect' => '{e_PLUGIN}links_page/links.php?$1.$2'
 		);
+     
+    $config['allcats'] = array(
+			// Matched against url, and if true, redirected to 'redirect' below.
+			'regex'    => '^links_page/links/cat(.*)$',
+			// Used by e107::url(); to create a url from the db table.
+			'sef'      => 'links_page/links/cat',
+			// File-path of what to load when the regex returns true.
+			'redirect' => '{e_PLUGIN}links_page/links.php?cat$1'      
+		);   
         
-    $config['all'] = array(
+    $config['alllinks'] = array(
 			// Matched against url, and if true, redirected to 'redirect' below.
 			'regex'    => '^links_page/links/all$',
 			// Used by e107::url(); to create a url from the db table.
 			'sef'      => 'links_page/links/all',
 			// File-path of what to load when the regex returns true.
-			'redirect' => '{e_PLUGIN}links_page/links.php?cat.all'
+			'redirect' => '{e_PLUGIN}links_page/links.php?all'
 		);
           
     $config['top'] = array(
