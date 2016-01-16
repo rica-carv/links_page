@@ -22,9 +22,9 @@ $LINKS_PAGE_TEMPLATE['LINK_TABLE_START'] = '{NAVIGATOR}
 	<div class="panel panel-default linktablestart"> 
   	<div class="panel-heading" style="word-wrap: break-word;">
         <div class="row">
-         <div class="col-md-9">'.LAN_LINKS_32.'<h3 class="panel-title" style=" display:inline-block;"> {LINK_CAT_NAME}</h3> 
+         <div class="col-md-8">'.LAN_LINKS_32.'<h3 class="panel-title" style=" display:inline-block;"> {LINK_CAT_NAME}</h3> 
          {LINK_CAT_TOTAL} {LINK_CAT_DESC}</div>
-         <div class="col-md-1 hidden-xs hidden-sm">{LINK_RATING_LAN}</div>
+         <div class="col-md-2 hidden-xs hidden-sm">{LINK_RATING_LAN}</div>
          <div class="col-md-1 hidden-xs hidden-sm">{LINK_COMMENT_LAN}</div>       
          <div class="col-md-1 hidden-xs hidden-sm">{LINK_REFER_LAN}</div>       
         </div> 
@@ -35,12 +35,12 @@ $LINKS_PAGE_TEMPLATE['LINK_TABLE_START'] = '{NAVIGATOR}
 $LINKS_PAGE_TEMPLATE['LINK_TABLE'] = '
       <div class="row" >
        <div class="col-md-1 col-xs-2">{LINK_BUTTON}</div>
-       <div class="col-md-8 col-xs-10">
+       <div class="col-md-7 col-xs-10">
           {LINK_NEW} {LINK_APPEND} {LINK_NAME} </a><br />
           {LINK_URL=link}
 	        {LINK_DESC}</div>
-       <div class="hidden-sm col-xs-6 visible-xs">{LINK_RATING_LAN}l1</div>   
-       <div class="col-md-1 col-xs-6">{LINK_RATING}x1</div>
+       <div class="hidden-sm col-xs-6 visible-xs">{LINK_RATING_LAN}</div>   
+       <div class="col-md-2 col-xs-6">{LINK_RATING}</div>
        <div class="hidden-sm col-xs-6 visible-xs">{LINK_COMMENT_LAN}l2</div>
        <div class="col-md-1 col-xs-6">{LINK_COMMENT}x2</div>  
        <div class="hidden-sm hidden-md hidden-lg col-xs-6 visible-xs ">{LINK_REFER_LAN}</div>     
@@ -91,9 +91,9 @@ $LINKS_PAGE_TEMPLATE['LINK_TABLE_MANAGE'] = '
        <div class="hidden-sm col-xs-6 visible-xs">'.LAN_LINKS_MANAGER_5.':&nbsp; {LINK_MANAGE_CAT} </div>   
        <div class="col-sm-3 hidden-xs">{LINK_MANAGE_CAT}</div>
        <div class="hidden-sm col-xs-6 visible-xs">'.LAN_LINKS_MANAGER_1.':&nbsp; {LINK_MANAGE_NAME} </div>   
-       <div class="col-sm-7 hidden-xs">{LINK_MANAGE_ICON} {LINK_MANAGE_NAME}</div>       
-       <div class="hidden-sm col-xs-6 visible-xs">'.LAN_LINKS_MANAGER_2.':&nbsp; {LINK_MANAGE_OPTIONS} </div>   
-       <div class="col-sm-2 hidden-xs">{LINK_MANAGE_OPTIONS}</div>                
+       <div class="col-sm-7 hidden-xs">{LINK_MANAGE_ICON} {LINK_MANAGE_NAME}</div>      
+       <div class="hidden-sm col-xs-6 visible-xs">'.LAN_LINKS_MANAGER_2.':&nbsp; {LINK_MANAGE_ACTIVE}{LINK_MANAGE_OPTIONS} </div>   
+       <div class="col-sm-2 hidden-xs">{LINK_MANAGE_ACTIVE}{LINK_MANAGE_OPTIONS}</div>                
       </div>    
 ';       
 
@@ -134,5 +134,26 @@ $LINKS_PAGE_TEMPLATE['LINK_SUBMIT_TABLE'] = "
  
 	";
 
+// RATE PAGE ----------------------------------------------
+$LINKS_PAGE_TEMPLATE['LINK_RATED_TABLE_START'] = '
+	<div class="panel panel-default">    
+    <div class="panel-body">
+	';
+
+$LINKS_PAGE_TEMPLATE['LINK_RATED_TABLE'] = '
+<div class="row" >    
+  <div class="col-sm-2 col-xs-6">{LINK_RATED_BUTTON}</div>   
+  <div class="col-sm-8 col-xs-6">{LINK_RATED_APPEND} {LINK_RATED_NAME}
+    <br> 	
+  {LINK_RATED_URL}
+	{LINK_RATED_CATEGORY}
+	{LINK_RATED_DESC}
+  </div>          
+  <div class="col-sm-2 col-xs-6">{LINK_RATED_RATING}</div>                
+</div> 
+   ';
+
+$LINKS_PAGE_TEMPLATE['LINK_RATED_TABLE_END'] = "
+	</div><div class='panel-footer'></div></div>";
 ?>                                                      
   

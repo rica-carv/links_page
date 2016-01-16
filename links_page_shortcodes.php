@@ -28,25 +28,25 @@ class links_page_shortcodes extends e_shortcode
                      
 if(isset($this->plugPrefs['link_navigator_frontpage']) && $this->plugPrefs['link_navigator_frontpage']){
  
-  $mains .= $rs -> form_option(LAN_LINKS_14, "0", e107::url('links_page', 'index', $this->var, 'full'), "");
+  $mains .= $rs -> form_option(LAN_LINKS_14, "0", e107::url('links_page', 'index'), "");
 }
 if(isset($this->plugPrefs['link_navigator_refer']) && $this->plugPrefs['link_navigator_refer']){
-	$mains .= $rs -> form_option(LAN_LINKS_12, "0", e107::url('links_page', 'top', $this->var, 'full'), "");
+	$mains .= $rs -> form_option(LAN_LINKS_12, "0", e107::url('links_page', 'top'), "");
 }
 if(isset($this->plugPrefs['link_navigator_rated']) && $this->plugPrefs['link_navigator_rated']){
-	$mains .= $rs -> form_option(LAN_LINKS_13, "0", e107::url('links_page', 'rated', $this->var, 'full'), "");
+	$mains .= $rs -> form_option(LAN_LINKS_13, "0", e107::url('links_page', 'rated'), "");
 }
 if(isset($this->plugPrefs['link_navigator_category']) && $this->plugPrefs['link_navigator_category']){
-	$mains .= $rs -> form_option(LAN_LINKS_43, "0", $baseurl."?cat", "");
+	$mains .= $rs -> form_option(LAN_LINKS_43, "0", e107::url('links_page', 'allcats'), "");
 }
 if(isset($this->plugPrefs['link_navigator_links']) && $this->plugPrefs['link_navigator_links']){
-	$mains .= $rs -> form_option(LAN_LINKS_51, "0", e107::url('links_page', 'all', $rowc, 'full'), "");
+	$mains .= $rs -> form_option(LAN_LINKS_51, "0", e107::url('links_page', 'alllinks'), "");
 }
 if(isset($this->plugPrefs['link_navigator_submit']) && $this->plugPrefs['link_navigator_submit'] && isset($this->plugPrefs['link_submit']) && $this->plugPrefs['link_submit'] && check_class($this->plugPrefs['link_submit_class'])){
-	$mains .= $rs -> form_option(LAN_LINKS_27, "0", e107::url('links_page', 'submit', $this->var, 'full'), "");
+	$mains .= $rs -> form_option(LAN_LINKS_27, "0", e107::url('links_page', 'submit'), "");
 }
 if(isset($this->plugPrefs['link_navigator_manager']) && $this->plugPrefs['link_navigator_manager'] && isset($this->plugPrefs['link_manager']) && $this->plugPrefs['link_manager'] && check_class($this->plugPrefs['link_manager_class'])){
-	$mains .= $rs -> form_option(LCLAN_ITEM_35, "0", e107::url('links_page', 'manage', $this->var, 'full'), "");
+	$mains .= $rs -> form_option(LCLAN_ITEM_35, "0", e107::url('links_page', 'manage'), "");
 }
 
 
@@ -149,6 +149,18 @@ if($mains){
     return  $LINK_MANAGE_CREATE;
   } 
   
+  function sc_link_manage_active($parm='')
+	{    
+    global $LINK_MANAGE_ACTIVE, $tp, $row;
+    if($row['link_category_active']) {  
+      $LINK_MANAGE_ACTIVE = '<i class="S16 e-true-16"></i>';
+    } else {
+    $LINK_MANAGE_ACTIVE = 'noooo';
+    };
+    return  $LINK_MANAGE_CREATE;
+  } 
+    
+    
   function sc_link_main_heading($parm='')
 	{ 
     global $LINK_MAIN_HEADING, $rowl, $tp;
@@ -306,10 +318,12 @@ if($mains){
   
   function sc_link_rating($parm='')
 	{ 
-    global $LINK_RATING, $LINK_RATED_RATING, $rater, $rowl, $qs;
-    $LINK_RATING = "";
+    global $LINK_RATING,  $rowl, $qs; 
+        
     if(isset($this->plugPrefs['link_rating']) && $this->plugPrefs['link_rating']){
-    $LINK_RATING = $rater->composerating("links_page", $rowl['link_id'], $enter=TRUE, $userid=FALSE);
+      $frm = e107::getForm();
+      $options = array('label'=>' ','template'=>'RATE|VOTES|STATUS');
+      $LINK_RATING = $frm->rate("links_page", $rowl['link_id'], $options);
     }
     return $LINK_RATING;
   }     
@@ -371,20 +385,12 @@ if($mains){
   function sc_link_rated_rating($parm='')
 	{ 
     global $LINK_RATED_RATING, $rowl;
-    $tmp = explode(".", $rowl['rate_avg']);
-    $one = $tmp[0];
-    $two = round($tmp[1],1);
-    $rating = $one.".".$two." ";
-    for($c=1; $c<= $one; $c++){
-    	$rating .= "<img src='".e_IMAGE_ABS."rate/box.png' alt='' style='height:8px; vertical-align:middle' />";
+    if(isset($this->plugPrefs['link_rating']) && $this->plugPrefs['link_rating']){
+      $frm = e107::getForm();
+      $options = array('label'=>' ','template'=>'RATE|VOTES|STATUS');
+      $LINK_RATED_RATING = $frm->rate("links_page", $rowl['link_id'], $options);
     }
-    if($one < 10){
-    	for($c=9; $c>=$one; $c--){
-    		$rating .= "<img src='".e_IMAGE_ABS."rate/empty.png' alt='' style='height:8px; vertical-align:middle' />";
-    	}
-    }
-    $rating .= "<img src='".e_IMAGE_ABS."rate/boxend.png' alt='' style='height:8px; vertical-align:middle' />";
-    return $rating;
+    return $LINK_RATED_RATING;
   } 
   
   function sc_link_rated_button($parm='')
@@ -508,6 +514,8 @@ return (isset($this->plugPrefs['link_desc']) && $this->plugPrefs['link_desc'] ? 
     $frm = e107::getForm();
     return $frm->imagepicker("link_button",  $this->var['link_button'] , LCLAN_ITEM_7, "media=linkspage");
   }
+  
+
 }
  
 ?>

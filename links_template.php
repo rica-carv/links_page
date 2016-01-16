@@ -55,53 +55,7 @@ $sc_style['LINK_NAV_ALLCATS']['post'] = "</div></div>";
 $LINK_NAVIGATOR_TABLE = "{LINK_NAVIGATOR} {LINK_NAV_ALLCATS} {LINK_SORTORDER} ";
  
 
-
-// RATED -----------------------------------------------------------------------------------
-$sc_style['LINK_RATED_BUTTON']['pre'] = "<td rowspan='5'>";
-$sc_style['LINK_RATED_BUTTON']['post'] = "</td>";
-
-$sc_style['LINK_RATED_NAME']['pre'] = "";
-$sc_style['LINK_RATED_NAME']['post'] = "";
-
-$sc_style['LINK_RATED_URL']['pre'] = "<tr><td colspan='2'><i>";
-$sc_style['LINK_RATED_URL']['post'] = "</i></td></tr>";
-
-$sc_style['LINK_RATED_REFER']['pre'] = "<td style='white-space:nowrap;'>";
-$sc_style['LINK_RATED_REFER']['post'] = "</td>";
-
-$sc_style['LINK_RATED_DESC']['pre'] = "<tr><td colspan='2'style='line-height:130%;'>";
-$sc_style['LINK_RATED_DESC']['post'] = "</td></tr>";
-
-$sc_style['LINK_RATED_RATING']['pre'] = "<td colspan='2'  style='line-height:130%;  white-space:nowrap; text-align:right;'>";
-$sc_style['LINK_RATED_RATING']['post'] = "</td>";
-
-$sc_style['LINK_RATED_CATEGORY']['pre'] = "<tr><td colspan='2' style='line-height:130%;'><i>";
-$sc_style['LINK_RATED_CATEGORY']['post'] = "</i></td></tr>";
-
-$LINK_RATED_TABLE_START = "
-	<div class='panel panel-default'>LINK_RATED_TABLE_START 
-	";
-
-$LINK_RATED_TABLE = "
-	<table class='table  table-bordered  fborder' style='width:100%; margin-bottom:20px;' cellspacing='0' cellpadding='0'>
-	<tr>
-		{LINK_RATED_BUTTON}
-		<td class='fcaption'  >
-			{LINK_RATED_APPEND} {LINK_RATED_NAME} </a>
-		</td>
-		{LINK_RATED_RATING}
-	</tr>
-	{LINK_RATED_URL}
-	{LINK_RATED_CATEGORY}
-	{LINK_RATED_DESC}
-	</table>";
-
-$LINK_RATED_TABLE_END = "
-	</div>";
-
-
-$sc_style['LINK_SUBMIT_PRETEXT']['pre'] = "<tr><td colspan='2' style='text-align:center' class='forumheader2'>";
-$sc_style['LINK_SUBMIT_PRETEXT']['post'] = "</td></tr>";
+ 
 
 
 

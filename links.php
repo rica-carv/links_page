@@ -28,8 +28,7 @@ if (!isset($pref['plug_installed']['links_page']))
 	exit;
 }
 
-require_once(e_HANDLER."rate_class.php");
-$rater = new rater;
+ 
 $link_shortcodes = e107::getScBatch('links_page',TRUE);
   
 require_once(e_PLUGIN.'links_page/link_defines.php');
@@ -219,10 +218,13 @@ if (isset($qs[0]) && $qs[0] == "submit")
 
 
 function displayTopRated(){
-	global $qs, $lc, $tp, $rowl, $link_shortcodes, $from,   $linkspage_pref;
+	global $qs, $lc,   $rowl, $link_shortcodes, $from,   $linkspage_pref;
 	global $LINK_RATED_TABLE_START, $LINK_RATED_TABLE, $LINK_RATED_TABLE_END, $LINK_RATED_RATING, $LINK_RATED_APPEND;
-  $db = e107::getDb();
-  $mes = e107::getMessage();
+  $db       = e107::getDb();
+  $mes      = e107::getMessage();
+  $template = e107::getTemplate('links_page', 'links_page');
+  $tp       = e107::getParser();
+    
 	$number		= (isset($linkspage_pref["link_nextprev_number"]) && $linkspage_pref["link_nextprev_number"] ? $linkspage_pref["link_nextprev_number"] : "20");
 	$np			= ($linkspage_pref["link_nextprev"] ? "LIMIT ".intval($from).",".intval($number) : "");
 	$catrate	= (isset($qs[1]) && is_numeric($qs[1]) ? " AND l.link_category='".$qs[1]."' " : "");
@@ -249,11 +251,11 @@ function displayTopRated(){
 			$cat = $rowl['link_category_name'];
 			$LINK_RATED_APPEND			= $lc -> parse_link_append($rowl);
 			$LINK_RATED_RATING			= $tp -> parseTemplate('{LINK_RATED_RATING}', FALSE, $link_shortcodes);
-			$link_rated_table_string	.= $tp -> parseTemplate($LINK_RATED_TABLE, FALSE, $link_shortcodes);
+			$link_rated_table_string	.= $tp -> parseTemplate($template['LINK_RATED_TABLE'], FALSE, $link_shortcodes);
 			}
 		}
-		$link_rated_table_start = $tp -> parseTemplate($LINK_RATED_TABLE_START, FALSE, $link_shortcodes);
-		$link_rated_table_end = $tp -> parseTemplate($LINK_RATED_TABLE_END, FALSE, $link_shortcodes);
+		$link_rated_table_start = $tp -> parseTemplate($template['LINK_RATED_TABLE_START'], FALSE, $link_shortcodes);
+		$link_rated_table_end = $tp -> parseTemplate($template['LINK_RATED_TABLE_END'], FALSE, $link_shortcodes);
 
 		if(isset($qs[1])){
 			$captioncat = " : ".LAN_LINKS_40." : ".$cat;
@@ -268,9 +270,10 @@ function displayTopRated(){
 
 function displayTopRefer(){
 	global $qs,  $lc, $link_shortcodes, $cobj, $rowl, $from, $tp,  $linkspage_pref;
-	global $LINK_TABLE_START, $LINK_TABLE, $LINK_TABLE_END, $LINK_APPEND;
+	global $LINK_APPEND;
 
-  $db2 = e107::getDb('db2');
+  $db2      = e107::getDb('db2');
+  $template = e107::getTemplate('links_page', 'links_page');
   
 	$number	= ($linkspage_pref["link_nextprev_number"] ? $linkspage_pref["link_nextprev_number"] : "20");
 	$np		= ($linkspage_pref["link_nextprev"] ? "LIMIT ".intval($from).",".intval($number) : "");
@@ -294,13 +297,13 @@ function displayTopRefer(){
 	}else{
 		$link_top_table_string = "";
 		$list = $db2 -> rows();
-  	    foreach($list as $rowl) {
+  	foreach($list as $rowl) {
 			$category				= $rowl['link_category_id'];
 			$LINK_APPEND			= $lc -> parse_link_append($rowl);
-			$link_top_table_string .= $tp -> parseTemplate($LINK_TABLE, FALSE, $link_shortcodes);
+			$link_top_table_string .= $tp -> parseTemplate($template['LINK_TABLE'], FALSE, $link_shortcodes);
 		}
-		$link_top_table_start		= $tp -> parseTemplate($LINK_TABLE_START, FALSE, $link_shortcodes);
-		$link_top_table_end			= $tp -> parseTemplate($LINK_TABLE_END, FALSE, $link_shortcodes);
+		$link_top_table_start		= $tp -> parseTemplate($template['LINK_TABLE_START'], FALSE, $link_shortcodes);
+		$link_top_table_end			= $tp -> parseTemplate($template['LINK_TABLE_END'], FALSE, $link_shortcodes);
 
 		$text = $link_top_table_start.$link_top_table_string.$link_top_table_end;
 		$caption = LAN_LINKS_10;
@@ -383,9 +386,11 @@ function displayPersonalManager()
 
 //comments on links
 function displayLinkComment(){
-	global $qs, $cobj, $tp,   $linkbutton_count, $lc, $rowl, $link_shortcodes,  $linkspage_pref, $LINK_TABLE_START, $LINK_TABLE, $LINK_TABLE_END, $LINK_APPEND;
+	global $qs, $cobj, $tp,   $linkbutton_count, $lc, $rowl, $link_shortcodes,  $linkspage_pref, $LINK_APPEND;
 
-  $db = e107::getDb();
+  $db       = e107::getDb();
+  $template = e107::getTemplate('links_page', 'links_page');
+  
 	if(!(isset($linkspage_pref["link_comment"]) && $linkspage_pref["link_comment"])){
 		js_location(e_SELF);
 	}else{
@@ -404,9 +409,9 @@ function displayLinkComment(){
 			$linkbutton_count   = ($rowl['link_button']) ?  $linkbutton_count + 1 : $linkbutton_count;
 			$LINK_APPEND	= $lc -> parse_link_append($rowl);
 			$subject		= $rowl['link_name'];
-			$text = $tp -> parseTemplate($LINK_TABLE_START, FALSE, $link_shortcodes);
-			$text .= $tp -> parseTemplate($LINK_TABLE, FALSE, $link_shortcodes);
-			$text .= $tp -> parseTemplate($LINK_TABLE_END, FALSE, $link_shortcodes);
+			$text = $tp -> parseTemplate($template['LINK_TABLE_START'], FALSE, $link_shortcodes);
+			$text .= $tp -> parseTemplate($template['LINK_TABLE'], FALSE, $link_shortcodes);
+			$text .= $tp -> parseTemplate($template['LINK_TABLE_END'], FALSE, $link_shortcodes);
 			e107::getRender()->tablerender(LAN_LINKS_36, $text);
 
 			$cobj->compose_comment("links_page", "comment", $qs[1], $width, $subject, $showrate=FALSE);
@@ -588,8 +593,8 @@ function displayCategoryLinks($mode=''){
 
 				$link_category_total = count($value);
 				$link_table_caption 	= $tp -> parseTemplate($template['LINK_TABLE_CAPTION'], FALSE, $link_shortcodes);
-				$link_table_start		= $tp -> parseTemplate($template['$LINK_TABLE_START'], FALSE, $link_shortcodes);
-				$link_table_end			= $tp -> parseTemplate($template['$LINK_TABLE_END'], FALSE, $link_shortcodes);
+				$link_table_start		= $tp -> parseTemplate($template['LINK_TABLE_START'], FALSE, $link_shortcodes);
+				$link_table_end			= $tp -> parseTemplate($template['LINK_TABLE_END'], FALSE, $link_shortcodes);
 				$text .= $link_table_start.$link_table_string.$link_table_end;
 
 			}
