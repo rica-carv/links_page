@@ -62,7 +62,7 @@ if(e_QUERY){
 	}
 }
 
-//include_lan(e_PLUGIN."links_page/languages/".e_LANGUAGE.".php");
+ 
 e107::lan('links_page');
 $lc -> setPageTitle();
 
