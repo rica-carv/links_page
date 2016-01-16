@@ -13,6 +13,7 @@
 - added e_list.php 
 - added frontend media manager
 - added rating system
+- added comment system
 
 
 **09.01.2016 Version 2.0.0:** 
