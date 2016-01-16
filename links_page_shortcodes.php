@@ -22,73 +22,49 @@ class links_page_shortcodes extends e_shortcode
   
   function sc_link_navigator($parm='')
 	{ 
-  global  $rs;
-
-  $mains = "";   
+    global  $rs;
+    $frm = e107::getForm(); 
+    $mains = "";   
                      
-if(isset($this->plugPrefs['link_navigator_frontpage']) && $this->plugPrefs['link_navigator_frontpage']){
- 
-  $mains .= $rs -> form_option(LAN_LINKS_14, "0", e107::url('links_page', 'index'), "");
-}
-if(isset($this->plugPrefs['link_navigator_refer']) && $this->plugPrefs['link_navigator_refer']){
-	$mains .= $rs -> form_option(LAN_LINKS_12, "0", e107::url('links_page', 'top'), "");
-}
-if(isset($this->plugPrefs['link_navigator_rated']) && $this->plugPrefs['link_navigator_rated']){
-	$mains .= $rs -> form_option(LAN_LINKS_13, "0", e107::url('links_page', 'rated'), "");
-}
-if(isset($this->plugPrefs['link_navigator_category']) && $this->plugPrefs['link_navigator_category']){
-	$mains .= $rs -> form_option(LAN_LINKS_43, "0", e107::url('links_page', 'allcats'), "");
-}
-if(isset($this->plugPrefs['link_navigator_links']) && $this->plugPrefs['link_navigator_links']){
-	$mains .= $rs -> form_option(LAN_LINKS_51, "0", e107::url('links_page', 'alllinks'), "");
-}
-if(isset($this->plugPrefs['link_navigator_submit']) && $this->plugPrefs['link_navigator_submit'] && isset($this->plugPrefs['link_submit']) && $this->plugPrefs['link_submit'] && check_class($this->plugPrefs['link_submit_class'])){
-	$mains .= $rs -> form_option(LAN_LINKS_27, "0", e107::url('links_page', 'submit'), "");
-}
-if(isset($this->plugPrefs['link_navigator_manager']) && $this->plugPrefs['link_navigator_manager'] && isset($this->plugPrefs['link_manager']) && $this->plugPrefs['link_manager'] && check_class($this->plugPrefs['link_manager_class'])){
-	$mains .= $rs -> form_option(LCLAN_ITEM_35, "0", e107::url('links_page', 'manage'), "");
-}
-
-
-if($mains){
-	$main = "";
-
-	$selectjs = " onchange=\"if(this.options[this.selectedIndex].value.indexOf('-') &amp;&amp; this.options[this.selectedIndex].value != '' &amp;&amp; this.options[this.selectedIndex].value != '&nbsp;'){ return document.location=this.options[this.selectedIndex].value; }\" ";
-
-//	$selectjs = " onchange=\"if(this.options[this.selectedIndex].value != '-- view category --' || this.options[this.selectedIndex].value != '&nbsp;'){ return document.location=this.options[this.selectedIndex].value; }\" ";
-	$main .= $rs -> form_select_open("navigator", $selectjs);
-	$main .= $rs -> form_option(LAN_LINKS_47, "0", "", "");
-	$main .= $mains;
-	$main .= $rs -> form_select_close();
-	return $main;
-}
+    if(isset($this->plugPrefs['link_navigator_frontpage']) && $this->plugPrefs['link_navigator_frontpage']){
+      $mains .= '<li><a class="btn btn-default" href="'.e107::url('links_page', 'index').'">'.LAN_LINKS_14.'</a></li>';  
+    }
+    if(isset($this->plugPrefs['link_navigator_refer']) && $this->plugPrefs['link_navigator_refer']){
+      $mains .= '<li><a class="btn btn-default" href="'.e107::url('links_page', 'top').'">'.LAN_LINKS_12.'</a></li>';
+    }
+    if(isset($this->plugPrefs['link_navigator_rated']) && $this->plugPrefs['link_navigator_rated']){
+      $mains .= '<li><a class="btn btn-default" href="'.e107::url('links_page', 'rated').'">'.LAN_LINKS_13.'</a></li>';
+    }
+    if(isset($this->plugPrefs['link_navigator_category']) && $this->plugPrefs['link_navigator_category']){
+      $mains .= '<li><a class="btn btn-default" href="'.e107::url('links_page', 'allcats').'">'.LAN_LINKS_43.'</a></li>';
+    }
+    if(isset($this->plugPrefs['link_navigator_links']) && $this->plugPrefs['link_navigator_links']){
+      $mains .= '<li><a class="btn btn-default" href="'.e107::url('links_page', 'alllinks').'">'.LAN_LINKS_51.'</a></li>';
+    }
+    if(isset($this->plugPrefs['link_navigator_submit']) && $this->plugPrefs['link_navigator_submit'] && isset($this->plugPrefs['link_submit']) && $this->plugPrefs['link_submit'] && check_class($this->plugPrefs['link_submit_class'])){
+      $mains .= '<li><a class="btn btn-default" href="'.e107::url('links_page', 'submit').'">'.LAN_LINKS_27.'</a></li>';
+    }
+    if(isset($this->plugPrefs['link_navigator_manager']) && $this->plugPrefs['link_navigator_manager'] && isset($this->plugPrefs['link_manager']) && $this->plugPrefs['link_manager'] && check_class($this->plugPrefs['link_manager_class'])){
+      $mains .= '<li><a class="btn btn-default" href="'.e107::url('links_page', 'manage').'">'.LAN_LINKS_35.'</a></li>';
+    }
+    return $mains; 
  
 }
 
   function sc_link_nav_allcats($parm='')
 	{ 
     global  $rs;
-    
+    $mains = "";
     if(isset($this->plugPrefs['link_navigator_allcat']) && $this->plugPrefs['link_navigator_allcat']){     
     	$dbc = e107::getDb('dbc');
     	if ($dbc->select("links_page_cat", "link_category_id, link_category_name", "link_category_class REGEXP '".e_CLASS_REGEXP."' ORDER BY link_category_name")){
-    		$mains .= $rs -> form_option("&nbsp;", "0", "", "");
-    		$mains .= $rs -> form_option(LAN_LINKS_48, "0", "", "");
     		while ($rowc = $dbc->fetch()){
-    			$mains .= $rs -> form_option($rowc['link_category_name'], "0", e107::url('links_page', 'category', $rowc, 'full'), "");
+          $mains .= '<li><a class="btn btn-default" href="'.e107::url('links_page', 'category', $rowc, 'full').'">'.$rowc['link_category_name'].'</a></li>';
     		}
     	}
-	$main = "";
-
-	$selectjs = " onchange=\"if(this.options[this.selectedIndex].value.indexOf('-') &amp;&amp; this.options[this.selectedIndex].value != '' &amp;&amp; this.options[this.selectedIndex].value != '&nbsp;'){ return document.location=this.options[this.selectedIndex].value; }\" ";
-
-    $main .= $rs -> form_select_open("link_navigator_allcat", $selectjs);
-  	$main .= $rs -> form_option(LAN_LINKS_48, "0", "", "");
-  	$main .= $mains;
-  	$main .= $rs -> form_select_close();
-  	return $main;
     }
-}
+    return $mains;
+  }
 
   function sc_link_sortorder($parm='')
 	{ 

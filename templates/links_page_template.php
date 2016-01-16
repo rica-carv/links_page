@@ -15,36 +15,44 @@ $sc_style['LINK_URL']['post'] = "</span>";
 
 $sc_style['LINK_DESC']['pre'] = "<span class='smalltext'>";
 $sc_style['LINK_DESC']['post'] = "</span>";
-
-$sc_style['LINK_NAVIGATOR']['pre'] = '<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">'.LAN_LINKS_47.'</h3>
-  </div>
-  <div class="panel-body">';
-$sc_style['LINK_NAVIGATOR']['post'] = "</div></div>";
-
-$sc_style['LINK_NAV_ALLCATS']['pre'] = '<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">'.LAN_LINKS_48.'</h3>
-  </div>
-  <div class="panel-body">';
-$sc_style['LINK_NAV_ALLCATS']['post'] = "</div></div>";
+ 
+ 
 
 // ##### NEXT PREV -------------------------------------------------------------
 if(!isset($LINK_NP_TABLE)){
 	$LINK_NP_TABLE = "<div class='nextprev'>{LINK_NEXTPREV}</div>";
 }
-
  
-//general : order menu
-$sc_style['LINK_SORTORDER']['pre'] = "<td style='text-align:left;'>";
-$sc_style['LINK_SORTORDER']['post'] = "</td>";
-
 $sc_style['LINK_CATMENU']['pre'] = "<td style='text-align:left;'>";
 $sc_style['LINK_CATMENU']['post'] = "</td>";
 
+$LINKS_PAGE_TEMPLATE['LINK_PAGE_NAVIGATOR'] = '
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">'.LAN_LINKS_47.'</h3>
+  </div>
+  <div class="panel-body">
+    <ul id="navigator" class="nav nav-pills btn-group">
+      {LINK_NAVIGATOR} 
+    </ul>
+  </div>
+</div>
+ ';
+ 
+$LINKS_PAGE_TEMPLATE['LINK_PAGE_CAT_NAVIGATOR'] = '
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">'.LAN_LINKS_48.'</h3>
+  </div>
+  <div class="panel-body">
+    <ul id="navigator" class="nav nav-pills btn-group">
+      {LINK_NAV_ALLCATS} 
+    </ul>
+  </div>
+</div>
+ '; 
 
-$LINKS_PAGE_TEMPLATE['LINK_NAVIGATOR_TABLE'] = "{LINK_NAVIGATOR} {LINK_NAV_ALLCATS} {LINK_SORTORDER} ";
+$LINKS_PAGE_TEMPLATE['LINK_SORTORDER'] = "{LINK_SORTORDER} ";
 
 $LINKS_PAGE_TEMPLATE['LINK_TABLE_CAPTION'] = LCLAN_ITEM_24;
 

@@ -16,10 +16,7 @@ define("LCLAN_OPT_MENU_4", "links display");
 define("LCLAN_OPT_MENU_5", "refer page");
 define("LCLAN_OPT_MENU_6", "rating page");
 define("LCLAN_OPT_MENU_7", "menu");
-
- 
-
-
+define("LCLAN_OPT_MENU_8", "Page Setting");
 
 define("LCLAN_ADMINMENU_1", "Link Options");
 define("LCLAN_ADMINMENU_2", "Manage Link Categories");
@@ -29,6 +26,15 @@ define("LCLAN_ADMINMENU_5", "Create Link");
 define("LCLAN_ADMINMENU_6", "Options");
 define("LCLAN_ADMINMENU_7", "Submitted Links");
 define("LCLAN_ADMINMENU_8", "Categories");
+
+/* NEW */
+
+define("LCLAN_DISP_NAVPAG",     "Display Navigator on Page");
+define("LCLAN_DISP_CATNAV", "Display Category Navigator on Page");
+
+define("LCLAN_DISP_NAVPAG_HELP", "General setting for Navigator. With disabled, settings bellow are ingnored.");
+define("LCLAN_DISP_CATNAV_HELP", "General setting for Navigator. With disabled, settings bellow are ingnored.");
+
 
 define("LCLAN_CAT_1", "Image");
 define("LCLAN_CAT_2", "Category");

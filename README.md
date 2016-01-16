@@ -14,6 +14,9 @@
 - added frontend media manager
 - added rating system
 - added comment system
+- done new templating system
+- done new language system
+- rewritten navigation system on pages, new prefs
 
 
 **09.01.2016 Version 2.0.0:** 
@@ -44,7 +47,7 @@ written as new and it works. It uses old e_help, there are still missing some cu
 - e_ functionality (e_search, ~~e_latest~~, ~~e_frontpage~~,  ~~e_list~~, ~~e_notify~~, ~~e_rss~~, ~~e_status~~, ~~e_comment~~)
 - ~~new way with images on frontend~~
 - ~~personal manager~~
-- new languages files
+- ~~new languages files~~
 - ~~direct submitting links~~
 - ~~approving submitted links~~ 
 - ~~sort and order functionality~~
@@ -54,10 +57,13 @@ written as new and it works. It uses old e_help, there are still missing some cu
 - link menu
 - top refer page display always first category - it's in 1.0.4 too
 - to add test for active field to queries
+- check title for some pages, different position
 
 *What doesn't work for now:*
 - ~~legacy rating system (With rating enabled page is displayed but immediately url is changed and result is 404 page) ~~
 - ~~ordering by date~~
+- link menu
+
 
 
 

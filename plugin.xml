@@ -24,7 +24,8 @@
 		<pref name='link_nextprev'>1</pref>
 		<pref name='link_nextprev_number'>20</pref>
 		<pref name='link_comment'>0</pref>
-		<pref name='link_rating'>0</pref>    
+		<pref name='link_rating'>0</pref> 
+ 		<pref name='link_display_navigator'>1</pref>     
 		<pref name='link_navigator_frontpage'>1</pref>  
 		<pref name='link_navigator_submit'>1</pref>    
 		<pref name='link_navigator_manager'>1</pref>    

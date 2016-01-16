@@ -469,38 +469,37 @@ function displayCategory($mode=''){
 
 function displayNavigator($mode='')
 {
-	global  $lc, $tp, $cobj, $rowl, $qs, $linkspage_pref, $from, $link_shortcodes;
-	global $LINK_NAVIGATOR_TABLE, $LINK_SORTORDER, $LINK_NAVIGATOR, $LINK_NAVIGATOR_TABLE_PRE, $LINK_NAVIGATOR_TABLE_POST;
+	global  $lc, $tp, $cobj, $rowl, $qs,  $from, $link_shortcodes;
+	global $LINK_SORTORDER;
 	static $hasBeenShown = FALSE;
 	$tp       = e107::getParser();
   $template = e107::getTemplate('links_page', 'links_page'); 	
 	if ($hasBeenShown) return '';
 	$hasBeenShown = TRUE;
-
+ 
 	if($mode == "cat")
 	{
-		if(isset($linkspage_pref['link_cat_sortorder']) && $linkspage_pref['link_cat_sortorder'])
+		if(e107::pref('links_page','link_cat_sortorder')) 
 		{
 			$LINK_SORTORDER = $lc->showLinkSort('cat');
 		}
 	}
 	else
 	{
-		if(isset($linkspage_pref['link_sortorder']) && $linkspage_pref['link_sortorder'])
+    if(e107::pref('links_page','link_sortorder')) 
 		{
 			$LINK_SORTORDER = $lc->showLinkSort();
 		}
 	}
-	$nav	= $tp -> parseTemplate('{LINK_NAVIGATOR}', FALSE, $link_shortcodes);
-	$so		= $tp -> parseTemplate('{LINK_SORTORDER}', FALSE, $link_shortcodes);
-	$LINK_NAVIGATOR_TABLE_PRE = FALSE;
-	$LINK_NAVIGATOR_TABLE_POST = FALSE;
-	if ($nav!="" || $so!="" ) {
-		$LINK_NAVIGATOR_TABLE_PRE = TRUE;
-		$LINK_NAVIGATOR_TABLE_POST = TRUE;
-	}
-	$text = $tp -> parseTemplate($template['LINK_NAVIGATOR_TABLE'], FALSE, $link_shortcodes); 
-	return $text;
+  if(e107::pref('links_page','link_display_navigator')) {
+   $text1 = $tp -> parseTemplate($template['LINK_PAGE_NAVIGATOR'], FALSE, $link_shortcodes); 
+  }
+  if(e107::pref('links_page','link_navigator_allcat')) {
+   $text2 = $tp -> parseTemplate($template['LINK_PAGE_CAT_NAVIGATOR'], FALSE, $link_shortcodes); 
+  }  
+  $text3 = $tp -> parseTemplate($template['LINK_SORTORDER'], FALSE, $link_shortcodes);  
+	
+	return $text1.$text2.$text3;
 }
 
 function displayCategoryLinks($mode=''){

@@ -222,7 +222,7 @@ class linkclass
         " onclick=\"document.location.href=link_order.options[link_order.selectedIndex].value+link_sorter.options[link_sorter.selectedIndex].value;\"", "", "");                    
         $sotext .="</div> ";         
         $sotext .=$frm -> close()."</div>";
-             
+           
         return $sotext;
     }
 
