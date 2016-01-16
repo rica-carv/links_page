@@ -94,14 +94,7 @@ if (isset($qs[0]) && $qs[0] == "view" && isset($qs[1]) && is_numeric($qs[1]))
 }
 
 require_once(HEADERF);
-
  
- 
-if (is_readable(THEME."links_template.php")) {
-	require_once(THEME."links_template.php");
-	} else {
-	require_once(e_PLUGIN."links_page/links_template.php");
-}
  
 //submit / manage link  link_submit_directpost - there is not this prefs
 if (isset($_POST['add_link'])) {
@@ -479,7 +472,8 @@ function displayNavigator($mode='')
 	global  $lc, $tp, $cobj, $rowl, $qs, $linkspage_pref, $from, $link_shortcodes;
 	global $LINK_NAVIGATOR_TABLE, $LINK_SORTORDER, $LINK_NAVIGATOR, $LINK_NAVIGATOR_TABLE_PRE, $LINK_NAVIGATOR_TABLE_POST;
 	static $hasBeenShown = FALSE;
-	
+	$tp       = e107::getParser();
+  $template = e107::getTemplate('links_page', 'links_page'); 	
 	if ($hasBeenShown) return '';
 	$hasBeenShown = TRUE;
 
@@ -505,9 +499,7 @@ function displayNavigator($mode='')
 		$LINK_NAVIGATOR_TABLE_PRE = TRUE;
 		$LINK_NAVIGATOR_TABLE_POST = TRUE;
 	}
-	$text = $tp -> parseTemplate($LINK_NAVIGATOR_TABLE, FALSE, $link_shortcodes); 
-   
-	$text = $tp -> parseTemplate($LINK_NAVIGATOR_TABLE, FALSE, $link_shortcodes);
+	$text = $tp -> parseTemplate($template['LINK_NAVIGATOR_TABLE'], FALSE, $link_shortcodes); 
 	return $text;
 }
 

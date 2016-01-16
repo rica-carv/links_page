@@ -8,7 +8,7 @@
 - working personal manager
 - working ordering with SEF URLs
 - added sef url field for categories
-- added active field for links
+- added active field for links  // not using tmp table anymore
 - added e_notify.php 
 - added e_list.php 
 - added frontend media manager
@@ -31,7 +31,7 @@
 
 *Admin area:*
 written as new and it works. It uses old e_help, there are still missing some custom buttons (view link, view category). Are they needed?
-Except submitted links. They use tmp table. Maybe better idea would be add field active?  
+~~Except submitted links. They use tmp table. Maybe better idea would be add field active?  ~~
 
 *Frontend uses legacy code* 
 (shortcodes rewritten but they use global variables). A lot of work in this area, but it works.
@@ -48,8 +48,12 @@ Except submitted links. They use tmp table. Maybe better idea would be add field
 - ~~direct submitting links~~
 - ~~approving submitted links~~ 
 - ~~sort and order functionality~~
-- new templating system
-- tabless templates / responsive tables are not enough
+- ~~new templating system~~
+- ~~tabless templates / responsive tables are not enough~~
+- next/prev 
+- link menu
+- top refer page display always first category - it's in 1.0.4 too
+- to add test for active field to queries
 
 *What doesn't work for now:*
 - ~~legacy rating system (With rating enabled page is displayed but immediately url is changed and result is 404 page) ~~

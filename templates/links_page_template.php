@@ -6,6 +6,7 @@
 
 global $sc_style;
 
+// ##### -----------------------------------------------------------------------
 $sc_style['LINK_CAT_DESC']['pre'] = "<br /><span class='smalltext'><i>";
 $sc_style['LINK_CAT_DESC']['post'] = "</i></span>";
 
@@ -15,6 +16,35 @@ $sc_style['LINK_URL']['post'] = "</span>";
 $sc_style['LINK_DESC']['pre'] = "<span class='smalltext'>";
 $sc_style['LINK_DESC']['post'] = "</span>";
 
+$sc_style['LINK_NAVIGATOR']['pre'] = '<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">'.LAN_LINKS_47.'</h3>
+  </div>
+  <div class="panel-body">';
+$sc_style['LINK_NAVIGATOR']['post'] = "</div></div>";
+
+$sc_style['LINK_NAV_ALLCATS']['pre'] = '<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">'.LAN_LINKS_48.'</h3>
+  </div>
+  <div class="panel-body">';
+$sc_style['LINK_NAV_ALLCATS']['post'] = "</div></div>";
+
+// ##### NEXT PREV -------------------------------------------------------------
+if(!isset($LINK_NP_TABLE)){
+	$LINK_NP_TABLE = "<div class='nextprev'>{LINK_NEXTPREV}</div>";
+}
+
+ 
+//general : order menu
+$sc_style['LINK_SORTORDER']['pre'] = "<td style='text-align:left;'>";
+$sc_style['LINK_SORTORDER']['post'] = "</td>";
+
+$sc_style['LINK_CATMENU']['pre'] = "<td style='text-align:left;'>";
+$sc_style['LINK_CATMENU']['post'] = "</td>";
+
+
+$LINKS_PAGE_TEMPLATE['LINK_NAVIGATOR_TABLE'] = "{LINK_NAVIGATOR} {LINK_NAV_ALLCATS} {LINK_SORTORDER} ";
 
 $LINKS_PAGE_TEMPLATE['LINK_TABLE_CAPTION'] = LCLAN_ITEM_24;
 
@@ -52,7 +82,7 @@ $LINKS_PAGE_TEMPLATE['LINK_TABLE_END'] = '
 	 </div>
   </div>';
   
-  
+// ##### FRONTPAGE -------------------------------------------------------------  
 $LINKS_PAGE_TEMPLATE['LINK_MAIN_TABLE_START'] = "
 	<div class='panel panel-default linkmaintablestart'>
    <div class='panel-body'> ";
@@ -72,7 +102,7 @@ $LINKS_PAGE_TEMPLATE['LINK_MAIN_TABLE_END'] = "
     </div>    
 	</div>";   
  
-  
+// ##### PERSONAL MANAGER ------------------------------------------------------  
 $LINKS_PAGE_TEMPLATE['LINK_TABLE_MANAGE_START'] = "
   <form method='post' action='".e_SELF."?".e_QUERY."' id='linkmanagerform' enctype='multipart/form-data'>".
 	'<div class="panel panel-default linkmaintablestart">
@@ -107,7 +137,7 @@ $LINKS_PAGE_TEMPLATE['LINK_TABLE_MANAGE_END'] =
 	</div>
   </form><br />";
   
-// SUBMIT -----------------------------------------------------------------------------------
+// ##### SUBMIT ----------------------------------------------------------------
 $LINKS_PAGE_TEMPLATE['LINK_SUBMIT_TABLE'] = "
 	<div class=' text-center'> 
 	<form method='post' action='".e_REQUEST_URI."' class='form-horizontal'>
@@ -134,7 +164,7 @@ $LINKS_PAGE_TEMPLATE['LINK_SUBMIT_TABLE'] = "
  
 	";
 
-// RATE PAGE ----------------------------------------------
+// ##### RATE PAGE -------------------------------------------------------------
 $LINKS_PAGE_TEMPLATE['LINK_RATED_TABLE_START'] = '
 	<div class="panel panel-default">    
     <div class="panel-body">
