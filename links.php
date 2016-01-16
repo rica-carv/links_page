@@ -176,23 +176,18 @@ if(isset($qs[0]) && $qs[0] == "cat" && isset($qs[1]) && is_numeric($qs[1]))
 //view top rated
 if(isset($qs[0]) && $qs[0] == "rated")
 { 
-	echo displayNavigator('');
 	displayTopRated();
 }
 //view top refer
 if(isset($qs[0]) && $qs[0] == "top"){
-  
-	echo displayNavigator('');
 	displayTopRefer();
 }
 //personal link managers
 if (isset($qs[0]) && $qs[0] == "manage"){
-	echo displayNavigator('');
 	displayPersonalManager();
 }
 //comments on links
 if (isset($qs[0]) && $qs[0] == "comment" && isset($qs[1]) && is_numeric($qs[1]) ){
-	echo displayNavigator('');
 	displayLinkComment();
 }
 //submit link
@@ -200,7 +195,6 @@ if (isset($qs[0]) && $qs[0] == "submit")
 { 
   if (check_class($linkspage_pref['link_submit_class']))
   {
-	echo displayNavigator('');
 	displayLinkSubmit();
   }
   else
@@ -212,7 +206,7 @@ if (isset($qs[0]) && $qs[0] == "submit")
 
 function displayTopRated(){
 	global $qs, $lc,   $rowl, $link_shortcodes, $from,   $linkspage_pref;
-	global $LINK_RATED_TABLE_START, $LINK_RATED_TABLE, $LINK_RATED_TABLE_END, $LINK_RATED_RATING, $LINK_RATED_APPEND;
+	global $LINK_RATED_RATING, $LINK_RATED_APPEND;
   $db       = e107::getDb();
   $mes      = e107::getMessage();
   $template = e107::getTemplate('links_page', 'links_page');
@@ -256,6 +250,8 @@ function displayTopRated(){
 		$caption = LAN_LINKS_11." ".(isset($captioncat) ? $captioncat : "");
 		$text = $link_rated_table_start.$link_rated_table_string.$link_rated_table_end;
 
+    $navigator = displayNavigator();  
+    $text = $navigator.$text; 
 		e107::getRender()->tablerender($caption, $text);
 		$lc->ShowNextPrev($from, $number, $linktotalrated);
 	}
@@ -300,6 +296,10 @@ function displayTopRefer(){
 
 		$text = $link_top_table_start.$link_top_table_string.$link_top_table_end;
 		$caption = LAN_LINKS_10;
+    
+    $navigator = displayNavigator();  
+    $text = $navigator.$text; 
+    
 		e107::getRender()->tablerender($caption, $text);
 		$lc->ShowNextPrev($from, $number, $link_total);
 	}
@@ -369,6 +369,10 @@ function displayPersonalManager()
 			$link_table_manage_end		= $tp -> parseTemplate($template['LINK_TABLE_MANAGE_END'], FALSE, $link_shortcodes);
 			$text = $link_table_manage_start.$link_table_manage.$link_table_manage_end;
 		}
+        
+    $navigator = displayNavigator();  
+    $text = $navigator.$text; 
+    
 		e107::getRender()->tablerender(LAN_LINKS_35, $text);
 
 		//show link create
@@ -406,7 +410,10 @@ function displayLinkComment(){
 			$text .= $tp -> parseTemplate($template['LINK_TABLE'], FALSE, $link_shortcodes);
 			$text .= $tp -> parseTemplate($template['LINK_TABLE_END'], FALSE, $link_shortcodes);
 			e107::getRender()->tablerender(LAN_LINKS_36, $text);
-
+    
+      $navigator = displayNavigator();  
+      $text = $navigator.$text; 
+    
 			$cobj->compose_comment("links_page", "comment", $qs[1], $width, $subject, $showrate=FALSE);
 		}
 	}
@@ -414,13 +421,14 @@ function displayLinkComment(){
 }
 
 function displayLinkSubmit(){
-	global $qs, $linkspage_pref, $link_shortcodes, $LINK_SUBMIT_TABLE ;
+	global $qs, $linkspage_pref, $link_shortcodes;
  
   $tp  = e107::getParser();
   $template = e107::getTemplate('links_page', 'links_page');
 	 
 	$text = $tp -> parseTemplate($template['LINK_SUBMIT_TABLE'], FALSE, $link_shortcodes);
-
+  $navigator = displayNavigator();  
+  $text = $navigator.$text; 
 	e107::getRender()->tablerender(LAN_LINKS_31, $text);
 	return;
 }

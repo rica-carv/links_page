@@ -57,7 +57,8 @@ written as new and it works. It uses old e_help, there are still missing some cu
 - link menu
 - top refer page display always first category - it's in 1.0.4 too
 - to add test for active field to queries
-- check title for some pages, different position
+- ~~check title for some pages, different position~~
+- replace js_location
 
 *What doesn't work for now:*
 - ~~legacy rating system (With rating enabled page is displayed but immediately url is changed and result is 404 page) ~~
