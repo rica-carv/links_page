@@ -40,7 +40,7 @@ Except submitted links. They use tmp table. Maybe better idea would be add field
 ~~Todo: add plugin_setup.php, plugin.xml is not enough.~~ 
  
 *What is missing for now*
-- e_ functionality (e_search, ~~e_latest~~, ~~e_frontpage~~,  ~~e_list~~, ~~e_notify~~, ~~e_rss~~, ~~e_status~~, e_comment)
+- e_ functionality (e_search, ~~e_latest~~, ~~e_frontpage~~,  ~~e_list~~, ~~e_notify~~, ~~e_rss~~, ~~e_status~~, ~~e_comment~~)
 - ~~new way with images on frontend~~
 - ~~personal manager~~
 - new languages files
@@ -51,8 +51,8 @@ Except submitted links. They use tmp table. Maybe better idea would be add field
 - tabless templates / responsive tables are not enough
 
 *What doesn't work for now:*
-- legacy rating system (With rating enabled page is displayed but immediately url is changed and result is 404 page)
-- ordering by date
+- ~~legacy rating system (With rating enabled page is displayed but immediately url is changed and result is 404 page) ~~
+- ~~ordering by date~~
 
 
 

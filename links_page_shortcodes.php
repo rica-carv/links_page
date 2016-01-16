@@ -307,7 +307,9 @@ if($mains){
   function sc_link_comment($parm='')
 	{ 
     global $LINK_COMMENT, $rowl;
-    return (isset($this->plugPrefs['link_comment']) && $this->plugPrefs['link_comment'] ? "<a href='".e_SELF."?comment.".$rowl['link_id']."'>".($rowl['link_comment'] ? $rowl['link_comment'] : "0")."</a>" : "");
+    $LINK_COMMENT =  e107::url('links_page', 'comment', $rowl, 'full');
+    return (isset($this->plugPrefs['link_comment']) && $this->plugPrefs['link_comment'] ? 
+    "<a href='".$LINK_COMMENT."'>".($rowl['link_comment'] ? $rowl['link_comment'] : "0")."</a>" : "");
   }   
  
   function sc_link_desc($parm='')

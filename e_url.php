@@ -21,6 +21,16 @@ class links_page_url
   
 		$config = array();
 
+
+    $config['comment'] = array(
+			// Matched against url, and if true, redirected to 'redirect' below.
+			'regex'    => '^links_page/links/comment/(.*)$',
+			// Used by e107::url(); to create a url from the db table.
+			'sef'      => 'links_page/links/comment/{link_id}',
+			// File-path of what to load when the regex returns true.
+			'redirect' => '{e_PLUGIN}links_page/links.php?comment.$1'
+		); 
+ 
     $config['catorder'] = array(
 			// Matched against url, and if true, redirected to 'redirect' below.
 			'regex'    => '^links_page/category/(.*)/(.*)/(.*)$',

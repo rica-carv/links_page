@@ -41,8 +41,8 @@ $LINKS_PAGE_TEMPLATE['LINK_TABLE'] = '
 	        {LINK_DESC}</div>
        <div class="hidden-sm col-xs-6 visible-xs">{LINK_RATING_LAN}</div>   
        <div class="col-md-2 col-xs-6">{LINK_RATING}</div>
-       <div class="hidden-sm col-xs-6 visible-xs">{LINK_COMMENT_LAN}l2</div>
-       <div class="col-md-1 col-xs-6">{LINK_COMMENT}x2</div>  
+       <div class="hidden-sm col-xs-6 visible-xs">{LINK_COMMENT_LAN}</div>
+       <div class="col-md-1 col-xs-6">{LINK_COMMENT}</div>  
        <div class="hidden-sm hidden-md hidden-lg col-xs-6 visible-xs ">{LINK_REFER_LAN}</div>     
        <div class="col-md-1 col-xs-6 "> {LINK_REFER}</div>       
       </div>
