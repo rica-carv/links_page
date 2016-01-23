@@ -9,10 +9,9 @@ if(!defined('e107_INIT'))
 }
 
 /**
- * Class qna_url.
+ * Class links_page_url.
  *
- * plugin-folder + '_url'
- * there are no sef url fields for now, at future just replace name fields with sef_url 
+ * plugin-folder + '_url' 
  */
 class links_page_url
 {
