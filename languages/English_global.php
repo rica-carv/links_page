@@ -242,3 +242,5 @@ define("LAN_LINKS_50", "You do not have permission to submit links at present");
 define("LAN_LINKS_51", "view all links");
 
 define('LAN_LINKS_SCH_1','Posted in reply to link');
+
+define("LCLAN_ADMIN_14", "Links");
