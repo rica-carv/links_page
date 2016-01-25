@@ -28,7 +28,7 @@ elseif(file_exists(THEME.'images/bullet2.gif'))
 }
 
 global $linkspage_pref;
-$linkspage_pref = $lc -> getLinksPagePref();
+$linkspage_pref = e107::pref('links_page');
 
 //navigator -------------------------
 $mains = "";
