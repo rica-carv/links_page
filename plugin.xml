@@ -14,7 +14,7 @@
     iconSmall="images/linkspage_16.png" primary="true" >LCLAN_PLUGIN_LAN_3</link>
 	</adminLinks>
 	<siteLinks>
-		<link url="links_page/links" perm="everyone"  description="Links Page" >LCLAN_PAGETITLE_1</link>
+		<link url="links_page/links" perm="everyone"  sef="links_page/links" description="Links Page" >LCLAN_PAGETITLE_1</link>
 	</siteLinks>
 	<pluginPrefs>
 		<pref name='link_page_categories'>1</pref>

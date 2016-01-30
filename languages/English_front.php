@@ -6,7 +6,7 @@
  * Definition of english strings for area Frontend.
  */
  
-define("LCLAN_PAGETITLE_1", "Links"); 
+
 define("LCLAN_PAGETITLE_2", "All categories");
 define("LCLAN_PAGETITLE_3", "All Links");
 define("LCLAN_PAGETITLE_4", "category");

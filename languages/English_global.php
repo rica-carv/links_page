@@ -6,7 +6,8 @@
  * $Author: nlstart $ 
  */
  
- 
+define("LCLAN_PAGETITLE_1", "Links");    // needed in plugin.xml 
+
 define("LCLAN_PLUGIN_LAN_1", "Links Page");
 define("LCLAN_PLUGIN_LAN_2", "Links Page For Displaying External Web Links");
 define("LCLAN_PLUGIN_LAN_3", "Configure Links Page");
