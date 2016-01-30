@@ -319,10 +319,11 @@ class links_page_ui extends e_admin_ui
       'link_open_all'		=> array('title'=> LCLAN_OPT_32, 'tab'=>4, 'type'=>'dropdown', 'data' => 'str', 'help'=>'Help Text goes here'),
       'link_cat_resize_value'		=> array('title'=> LCLAN_OPT_33, 'tab'=>4, 'type'=>'text', 'data' => 'str', 'help'=>'Help Text goes here'),        
        
-			'link_rating'		=> array('title'=> LCLAN_OPT_27, 'tab'=>5,'type'=>'boolean','data' => 'str', 'help'=>'Help Text goes here'),
+
       'link_refer_minimum'		=> array('title'=> LCLAN_OPT_56, 'tab'=>5, 'type'=>'text', 'data' => 'str', 
-        'help'=>'only links with a refer count larger then the given value are displayed (0 or empty = all)'),    
-           
+        'help'=>'only links with a refer count larger then the given value are displayed (0 or empty = all)'),  
+          
+			'link_rating'		=> array('title'=> LCLAN_OPT_27, 'tab'=>6,'type'=>'boolean','data' => 'str', 'help'=>'Help Text goes here'),           
       'link_rating_minimum'		=> array('title'=> LCLAN_OPT_63, 'tab'=>6, 'type'=>'text', 'data' => 'str', 
         'help'=>'only links with a rating larger then the given value are displayed (0 or empty = all)'),         
  
