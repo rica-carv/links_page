@@ -2,6 +2,7 @@
 
 **WARNING. This plugin is under rewriting** 
 
+- added issues to need be solved before continuing
 - rewritten e_search.php
 - working approving links
 - working submitting links
@@ -61,7 +62,7 @@ written as new and it works. It uses old e_help, there are still missing some cu
 - replace js_location
 
 *What doesn't work for now:*
-- ~~legacy rating system (With rating enabled page is displayed but immediately url is changed and result is 404 page) ~~
+- ~~legacy rating system~~
 - ~~ordering by date~~
 - link menu
 
