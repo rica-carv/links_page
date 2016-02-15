@@ -471,7 +471,8 @@ function displayCategory($mode=''){
 		$link_main_table_end = $tp -> parseTemplate($template['LINK_MAIN_TABLE_END'], FALSE, $link_shortcodes);
 		$text = $link_main_table_start.$link_main_table_string.$link_main_table_end;
     
-    $navigator = displayNavigator('cat');      
+    $navigator  = displayNavigator('cat'); 
+    $navigator .= displaySortOrder('cat');     
     $text = $navigator.$text;
 		$caption = LAN_LINKS_30;
 		e107::getRender()->tablerender($caption, $text);
@@ -480,6 +481,26 @@ function displayCategory($mode=''){
 }
 
 function displayNavigator($mode='')
+{
+	global  $lc, $tp, $cobj, $rowl, $qs,  $from, $link_shortcodes;
+	global $LINK_SORTORDER;
+	static $hasBeenShown = FALSE;
+	$tp       = e107::getParser();
+  $template = e107::getTemplate('links_page', 'links_page'); 	
+	if ($hasBeenShown) return '';
+	$hasBeenShown = TRUE;
+
+  if(e107::pref('links_page','link_display_navigator')) {             
+   $text1 = $tp -> parseTemplate($template['LINK_PAGE_NAVIGATOR'], FALSE, $link_shortcodes); 
+  }
+  if(e107::pref('links_page','link_navigator_allcat')) {
+   $text2 = $tp -> parseTemplate($template['LINK_PAGE_CAT_NAVIGATOR'], FALSE, $link_shortcodes); 
+  }  
+  	
+	return $text1.$text2;
+}
+
+function displaySortOrder($mode='')
 {
 	global  $lc, $tp, $cobj, $rowl, $qs,  $from, $link_shortcodes;
 	global $LINK_SORTORDER;
@@ -503,15 +524,10 @@ function displayNavigator($mode='')
 			$LINK_SORTORDER = $lc->showLinkSort();
 		}
 	}
-  if(e107::pref('links_page','link_display_navigator')) {             
-   $text1 = $tp -> parseTemplate($template['LINK_PAGE_NAVIGATOR'], FALSE, $link_shortcodes); 
-  }
-  if(e107::pref('links_page','link_navigator_allcat')) {
-   $text2 = $tp -> parseTemplate($template['LINK_PAGE_CAT_NAVIGATOR'], FALSE, $link_shortcodes); 
-  }  
-  $text3 = $tp -> parseTemplate($template['LINK_SORTORDER'], FALSE, $link_shortcodes);  
+ 
+  $text = $tp -> parseTemplate($template['LINK_SORTORDER'], FALSE, $link_shortcodes);  
 	
-	return $text1.$text2.$text3;
+	return $text;
 }
 
 function displayCategoryLinks($mode=''){
@@ -601,7 +617,8 @@ function displayCategoryLinks($mode=''){
 				$text .= $link_table_start.$link_table_string.$link_table_end;
 
 			}
-      $navigator = displayNavigator();  
+      $navigator  = displayNavigator(); 
+      $navigator .= displaySortOrder(); 
       $text = $navigator.$text;       
 		  e107::getRender()->tablerender($link_table_caption, $text);
 		}
