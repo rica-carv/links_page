@@ -159,25 +159,28 @@ class links_page_shortcodes extends e_shortcode
 
   function sc_link_main_icon($parm='')
 	{ 
-    global $LINK_MAIN_ICON, $rowl;
+    global $rowl;
     
     $tp = e107::getParser();
-    $LINK_MAIN_ICON = "";
-    $bullet = '';
-    if(defined('BULLET'))
-    {
-    	$bullet = '<img src="'.THEME.'images/'.BULLET.'" alt="" style="vertical-align: middle;" />';
+    if(!$this->plugPrefs['link_cat_icon']){
+    	return "";
     }
-    elseif(file_exists(THEME.'images/bullet2.gif'))
-    {
-    	$bullet = '<img src="'.THEME.'images/bullet2.gif" alt="" style="vertical-align: middle;" />';
-    }
-    
+    $LINK_MAIN_ICON = "&nbsp;";
+
+		$parms 		  = eHelper::scParams($parm);
+		$w 		     	= vartrue($parms['w']) ? $parms['w'] : $tp->thumbWidth(); // 190; // 160;
+		$h 			    = vartrue($parms['h']) ? $parms['h'] : $tp->thumbHeight(); // 130;	
+    $x          = vartrue($parms['x']) ? $parms['h'] : 0;
+    $crop       = vartrue($parms['crop']) ? $parms['crop'] : 1;    
+		$class 		  = varset($parms['class'],'');
+    $caption    = $tp->toAttribute($rowl['link_cat_name']) ;
+    $att        = array('w'=>$w, 'h'=>$h, 'class'=>$class, 'alt'=>$caption, 'x'=>$x, 'crop'=>$crop);
+        
     if(isset($this->plugPrefs['link_cat_icon']) && isset($this->plugPrefs['link_cat_icon']))
     {
     	if (isset($rowl['link_category_icon']) && $rowl['link_category_icon'])
     	{
-    		$LINK_MAIN_ICON = $tp->toIcon($rowl['link_category_icon']);
+    		$LINK_MAIN_ICON = $tp->toImage($rowl['link_category_icon'],$att);  
     	}
     	if($rowl['total_links'] && $LINK_MAIN_ICON)
     	{
@@ -187,7 +190,6 @@ class links_page_shortcodes extends e_shortcode
     return $LINK_MAIN_ICON;
   }
 
- 
  
   function sc_link_main_total($parm='')
 	{ 
@@ -220,12 +222,14 @@ class links_page_shortcodes extends e_shortcode
     	return "";
     }    
 		$parms 		  = eHelper::scParams($parm);
-		$w 		     	= vartrue($parms['w']) ? $parms['w'] : $tp->thumbWidth();  
-		$h 			    = vartrue($parms['h']) ? $parms['h'] : $tp->thumbHeight();  
-
-		$class 		  =varset($parms['class'],'');
+		$w 		     	= vartrue($parms['w']) ? $parms['w'] : $tp->thumbWidth(); // 190; // 160;
+		$h 			    = vartrue($parms['h']) ? $parms['h'] : $tp->thumbHeight(); // 130;	
+    $x          = vartrue($parms['x']) ? $parms['h'] : 0;
+    $crop       = vartrue($parms['crop']) ? $parms['crop'] : 1;    
+		$class 		  = varset($parms['class'],'');
     $caption    = $tp->toAttribute($rowl['link_name']) ;
-    $att        = array('w'=>$w, 'h'=>$h, 'class'=>$class, 'alt'=>$caption, 'x'=>1, 'crop'=>1);
+    $att        = array('w'=>$w, 'h'=>$h, 'class'=>$class, 'alt'=>$caption, 'x'=>$x, 'crop'=>$crop);
+
     $LINK_BUTTON = "&nbsp;";
     if(isset($this->plugPrefs['link_icon']) && $this->plugPrefs['link_icon']){
     	if ($rowl['link_button']) {                    

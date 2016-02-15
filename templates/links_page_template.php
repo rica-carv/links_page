@@ -95,7 +95,7 @@ $LINKS_PAGE_TEMPLATE['LINK_MAIN_TABLE_START'] = "
    <div class='panel-body'> ";
 $LINKS_PAGE_TEMPLATE['LINK_MAIN_TABLE'] = "
       <div class='row'>
-       <div class='col-md-1'>{LINK_MAIN_ICON}</div>
+       <div class='col-md-1'>{LINK_MAIN_ICON: x=1&w=32&h=32&crop=1&class=linkspage_button img-responsive}</div>
        <div class='col-md-9'>{LINK_MAIN_HEADING}<br>{LINK_MAIN_DESC}</div>
        <div class='col-md-2'>{LINK_MAIN_NUMBER}</div>    
       </div>
