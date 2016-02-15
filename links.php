@@ -295,7 +295,7 @@ function displayTopRefer(){
 			$LINK_APPEND			= $lc -> parse_link_append($rowl);
 			$link_top_table_string .= $tp -> parseTemplate($template['LINK_TABLE'], FALSE, $link_shortcodes);
 		}
-		$link_top_table_start		= $tp -> parseTemplate($template['LINK_TABLE_START'], FALSE, $link_shortcodes);
+		$link_top_table_start		= $tp -> parseTemplate($template['LINK_TABLE_REFER_START'], FALSE, $link_shortcodes);
 		$link_top_table_end			= $tp -> parseTemplate($template['LINK_TABLE_END'], FALSE, $link_shortcodes);
 
 		$text = $link_top_table_start.$link_top_table_string.$link_top_table_end;

@@ -59,8 +59,22 @@ $LINKS_PAGE_TEMPLATE['LINK_TABLE_START'] = '{NAVIGATOR}
 	<div class="panel panel-default linktablestart"> 
   	<div class="panel-heading" style="word-wrap: break-word;">
         <div class="row">
-         <div class="col-md-8">'.LAN_LINKS_32.'<h3 class="panel-title" style=" display:inline-block;"> {LINK_CAT_NAME}</h3> 
+         <div class="col-md-8">'.LAN_LINKS_32.' <h3 class="panel-title" style=" display:inline-block;"> {LINK_CAT_NAME}</h3> 
          {LINK_CAT_TOTAL} {LINK_CAT_DESC}</div>
+         <div class="col-md-2 hidden-xs hidden-sm">{LINK_RATING_LAN}</div>
+         <div class="col-md-1 hidden-xs hidden-sm">{LINK_COMMENT_LAN}</div>       
+         <div class="col-md-1 hidden-xs hidden-sm">{LINK_REFER_LAN}</div>       
+        </div> 
+    </div>
+    <div class="panel-body">
+  ';
+  
+$LINKS_PAGE_TEMPLATE['LINK_TABLE_REFER_START'] = '{NAVIGATOR}
+	<div class="panel panel-default linktablestart"> 
+  	<div class="panel-heading" style="word-wrap: break-word;">
+        <div class="row">
+         <div class="col-md-8"><h3 class="panel-title" style=" display:inline-block;"> '.LAN_LINKS_10.' </h3> 
+         </div>
          <div class="col-md-2 hidden-xs hidden-sm">{LINK_RATING_LAN}</div>
          <div class="col-md-1 hidden-xs hidden-sm">{LINK_COMMENT_LAN}</div>       
          <div class="col-md-1 hidden-xs hidden-sm">{LINK_REFER_LAN}</div>       
@@ -173,7 +187,14 @@ $LINKS_PAGE_TEMPLATE['LINK_SUBMIT_TABLE'] = "
 
 // ##### RATE PAGE -------------------------------------------------------------
 $LINKS_PAGE_TEMPLATE['LINK_RATED_TABLE_START'] = '
-	<div class="panel panel-default">    
+	<div class="panel panel-default"> 
+  	<div class="panel-heading" style="word-wrap: break-word;">
+        <div class="row">
+         <div class="col-md-10"><h3 class="panel-title" style=" display:inline-block;"> '.LAN_LINKS_11.' </h3> 
+         </div>
+         <div class="col-md-2 hidden-xs hidden-sm">{LINK_RATING_LAN}</div>      
+        </div> 
+    </div>   
     <div class="panel-body">
 	';
 
