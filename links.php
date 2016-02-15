@@ -51,17 +51,17 @@ global $tp;
 $linkspage_pref = e107::pref('links_page');
   
 $deltest = array_flip($_POST);
-
+$from = "0";       
 if(e_QUERY){
-	$qs = explode(".", e_QUERY);
-
-	if(is_numeric($qs[0])){
+	$qs = explode(".", e_QUERY);    
+  // needed to have less regex 
+  $qs = array_filter( $qs, 'strlen' );
+	if(is_numeric($qs[0])){    
 		$from = array_shift($qs);
 	}else{
-		$from = "0";
+    $from = "0";
 	}
 }
-
  
 e107::lan('links_page');
 $lc -> setPageTitle();
@@ -172,10 +172,10 @@ if( ((!isset($qs[0]) || $qsorder) && !$linkspage_pref['link_page_categories']) |
 if(isset($qs[0]) && $qs[0] == "cat" && isset($qs[1]) && is_numeric($qs[1]))
 {                       
 	displayCategoryLinks($qs[1]);
-}
+}                        
 //view top rated
 if(isset($qs[0]) && $qs[0] == "rated")
-{ 
+{     
 	displayTopRated();
 }
 //view top refer
@@ -222,11 +222,11 @@ function displayTopRated(){
 	FROM #rate AS r
 	LEFT JOIN #links_page AS l ON l.link_id = r.rate_itemid
 	LEFT JOIN #links_page_cat AS lc ON lc.link_category_id = l.link_category
-	WHERE l.link_class REGEXP '".e_CLASS_REGEXP."' ".$catrate." AND lc.link_category_class REGEXP '".e_CLASS_REGEXP."' AND r.rate_table='links_page'
+	WHERE l.link_active = 1 AND l.link_class REGEXP '".e_CLASS_REGEXP."' ".$catrate." AND lc.link_category_class REGEXP '".e_CLASS_REGEXP."' AND r.rate_table='links_page'
 	ORDER BY rate_avg DESC
 	";
 	$qry2 = $qry." ".$np;
-
+    
 	if(!is_object($db)){ $db = new db; }
 	$linktotalrated = $db -> gen($qry);
 	if (!$ratedlinks = $db-> gen($qry2)){     
@@ -252,10 +252,11 @@ function displayTopRated(){
 		$caption = LAN_LINKS_11." ".(isset($captioncat) ? $captioncat : "");
 		$text = $link_rated_table_start.$link_rated_table_string.$link_rated_table_end;
 
-    $navigator = displayNavigator();  
-    $text = $navigator.$text; 
+    $navigator = displayNavigator(); 
+    $pagination = $lc->ShowNextPrev($from, $number, $linktotalrated);
+    $text = $navigator.$text.$pagination; 
 		e107::getRender()->tablerender($caption, $text);
-		$lc->ShowNextPrev($from, $number, $linktotalrated);
+	 
 	}      
 }
 
@@ -275,7 +276,7 @@ function displayTopRefer(){
 	FROM #links_page AS l
 	LEFT JOIN #links_page_cat AS lc ON lc.link_category_id = l.link_category
 	LEFT JOIN #comments as c ON c.comment_item_id=l.link_id AND comment_type='links_page'
-	WHERE l.link_class REGEXP '".e_CLASS_REGEXP."' ".$min."
+	WHERE l.link_active = 1 AND l.link_class REGEXP '".e_CLASS_REGEXP."' ".$min."
 	GROUP BY l.link_id
 	ORDER BY l.link_refer DESC
 	";
@@ -301,10 +302,9 @@ function displayTopRefer(){
 		$caption = LAN_LINKS_10;
     
     $navigator = displayNavigator();  
-    $text = $navigator.$text; 
-    
+    $pagination = $lc->ShowNextPrev($from, $number, $link_total);
+    $text = $navigator.$text.$pagination;     
 		e107::getRender()->tablerender($caption, $text);
-		$lc->ShowNextPrev($from, $number, $link_total);
 	}
 }
 
@@ -358,7 +358,7 @@ function displayPersonalManager()
 		SELECT l.*, lc.*
 		FROM #links_page AS l
 		LEFT JOIN #links_page_cat AS lc ON lc.link_category_id = l.link_category
-		WHERE l.link_author = '".USERID."'
+		WHERE l.link_active = 1 AND l.link_author = '".USERID."'
 		ORDER BY l.link_name
 		";
 		$link_table_manage = "";
@@ -399,7 +399,7 @@ function displayLinkComment(){
 		FROM #links_page AS l
 		LEFT JOIN #links_page_cat AS lc ON lc.link_category_id = l.link_category
 		LEFT JOIN #comments as c ON c.comment_item_id=l.link_id AND comment_type='links_page'
-		WHERE l.link_id = '".intval($qs[1])."' AND lc.link_category_class REGEXP '".e_CLASS_REGEXP."' AND l.link_class REGEXP '".e_CLASS_REGEXP."'
+		WHERE l.link_active = 1 AND l.link_id = '".intval($qs[1])."' AND lc.link_category_class REGEXP '".e_CLASS_REGEXP."' AND l.link_class REGEXP '".e_CLASS_REGEXP."'
 		GROUP BY l.link_id";
 		$link_comment_table_string = "";
 		if(!$linkcomment = $db -> gen($qry)){
@@ -488,7 +488,7 @@ function displayNavigator($mode='')
   $template = e107::getTemplate('links_page', 'links_page'); 	
 	if ($hasBeenShown) return '';
 	$hasBeenShown = TRUE;
- 
+
 	if($mode == "cat")
 	{
 		if(e107::pref('links_page','link_cat_sortorder')) 
@@ -532,7 +532,7 @@ function displayCategoryLinks($mode=''){
 	FROM #links_page AS l
 	LEFT JOIN #links_page_cat AS lc ON lc.link_category_id = l.link_category
 	LEFT JOIN #comments as c ON c.comment_item_id=l.link_id AND comment_type='links_page'
-	WHERE l.link_class REGEXP '".e_CLASS_REGEXP."' AND lc.link_category_class REGEXP '".e_CLASS_REGEXP."' ".$cat."
+	WHERE l.link_active = 1 AND l.link_class REGEXP '".e_CLASS_REGEXP."' AND lc.link_category_class REGEXP '".e_CLASS_REGEXP."' ".$cat."
 	GROUP BY l.link_id
 	".$order."
 	".$nextprevquery."
@@ -567,13 +567,13 @@ function displayCategoryLinks($mode=''){
 			$caption = LAN_LINKS_32." ".$cat_name." ".($cat_desc ? " <i>[".$cat_desc."]</i>" : "");
 			//number of links      
 			$caption .= " (<b title='".(ADMIN ? LAN_LINKS_2 : LAN_LINKS_1)."' >".$link_total."</b>".(ADMIN ? "/<b title='".(ADMIN ? LAN_LINKS_1 : "" )."' >".$link_total."</b>" : "").") ";
-       
-			e107::getRender()->tablerender($caption, $text);
-      
+          
 			if(is_numeric($mode))
 			{
-				$lc->ShowNextPrev($from, $number, $link_total);
-			}   
+				$pagination = $lc->ShowNextPrev($from, $number, $link_total);
+        $text = $text.$pagination;
+			} 
+      e107::getRender()->tablerender($caption, $text); 
 		}
 		else
 		{          

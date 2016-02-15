@@ -97,11 +97,11 @@ class links_page_shortcodes extends e_shortcode
   function sc_link_manage_options($parm='')
 	{ 
     global $LINK_MANAGE_OPTIONS, $row, $tp;
- 
+    $baseurl = e107::url('links_page', 'index'); 
     $linkid = $row['link_id'];
    // $LINK_MANAGE_OPTIONS = "<a href='".e_SELF."?manage.edit.".$linkid."' title='".LCLAN_ITEM_31."'>".LINK_ICON_EDIT."</a>";
   
-   $LINK_MANAGE_EDIT= e107::url('links_page', 'manageedit', $row, 'full');
+   $LINK_MANAGE_EDIT=  $baseurl."/manage.edit.".$linkid;
    $LINK_MANAGE_OPTIONS = "<a href='".$LINK_MANAGE_EDIT."' title='".LCLAN_ITEM_31."'>".LINK_ICON_EDIT."</a>";
    
     if (isset($this->plugPrefs['link_directdelete']) && $this->plugPrefs['link_directdelete']){
@@ -117,11 +117,8 @@ class links_page_shortcodes extends e_shortcode
   }  
 
   function sc_link_manage_newlink($parm='')
-	{    
-    //return "<a href='".e_SELF."?manage'>".LAN_LINKS_MANAGER_3."</a>";
-    
-    $LINK_MANAGE_CREATE= e107::url('links_page', 'managecreate', $row, 'full');   
-    //return "<a href='".$LINK_MANAGE_CREATE."'>".LAN_LINKS_MANAGER_3."</a>";
+	{        
+    $LINK_MANAGE_CREATE= e107::url('links_page', 'manage');   
     return  $LINK_MANAGE_CREATE;
   } 
   

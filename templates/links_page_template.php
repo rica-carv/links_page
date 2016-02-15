@@ -17,11 +17,10 @@ $sc_style['LINK_DESC']['pre'] = "<span class='smalltext'>";
 $sc_style['LINK_DESC']['post'] = "</span>";
  
  
-
 // ##### NEXT PREV -------------------------------------------------------------
-if(!isset($LINK_NP_TABLE)){
-	$LINK_NP_TABLE = "<div class='nextprev'>{LINK_NEXTPREV}</div>";
-}
+$LINKS_PAGE_TEMPLATE['LINK_NP_TABLE'] = 
+ "<div class='nextprev'>{LINK_NEXTPREV}</div>";
+
  
 $sc_style['LINK_CATMENU']['pre'] = "<td style='text-align:left;'>";
 $sc_style['LINK_CATMENU']['post'] = "</td>";

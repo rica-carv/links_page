@@ -30,40 +30,37 @@ class linkclass
 	 * @var array
 	 */
 	private $plugPrefs = array();
-  
+	private $link_shortcodes = array();
+	private $link_template = array();   
 	/**
 	 * Constructor.
 	 */
 	function __construct()
 	{
 		$this->plugPrefs = e107::getPlugConfig('links_page')->getPref();
+		$this->link_shortcodes = e107::getScBatch('links_page',true); 
+    $this->link_template = e107::getTemplate('links_page', 'links_page'); 
 	}
   
    
 	function ShowNextPrev($from='0', $number, $total)
 	{
-		global  $qs, $tp, $link_shortcodes, $LINK_NEXTPREV, $LINK_NP_TABLE, $pref;
-
-		$number = (e_PAGE == 'admin_linkspage_config.php' ? '20' : $number);
+		global  $qs,  $LINK_NEXTPREV ;
+    $tp   = e107::getParser();  
+ 
 		if($total<=$number)
 		{
 			return;
 		}
-		if(e_PAGE == 'admin_linkspage_config.php' || (isset($this->plugPrefs["link_nextprev"]) && $this->plugPrefs["link_nextprev"]))
-		{
-			$np_querystring = e_SELF."?[FROM]".(isset($qs[0]) ? ".".$qs[0] : "").(isset($qs[1]) ? ".".$qs[1] : "").(isset($qs[2]) ? ".".$qs[2] : "").(isset($qs[3]) ? ".".$qs[3] : "").(isset($qs[4]) ? ".".$qs[4] : "");
-			$parms = $total.",".$number.",".$from.",".$np_querystring."";
-			$LINK_NEXTPREV = $tp->parseTemplate("{NEXTPREV={$parms}}");
-
-			if(!isset($LINK_NP_TABLE)){
-				$template = (e_PAGE == 'admin_linkspage_config.php' ? e_THEME.$pref['sitetheme']."/" : THEME)."links_template.php";
-				if(is_readable($template)){
-					require_once($template);
-				}else{
-					require_once(e_PLUGIN."links_page/links_template.php");
-				}
-			}
-			echo $tp -> parseTemplate($LINK_NP_TABLE, FALSE, $link_shortcodes);
+		if( $this->plugPrefs["link_nextprev"])
+		{ 
+		  $base = e107::url('links_page', 'index');
+      $np_querystring = $base."/[FROM]".(isset($qs[0]) ? ".".$qs[0] : "").(isset($qs[1]) ? ".".$qs[1] : "").(isset($qs[2]) ? ".".$qs[2] : "").(isset($qs[3]) ? ".".$qs[3] : "").(isset($qs[4]) ? ".".$qs[4] : ""); 
+      //$np_querystring = e_REQUEST_SELF.(isset($qs[1]) ? $qs[1] : "");
+      $parms = $total.",".$number.",".$from.",".$np_querystring."";
+			$LINK_NEXTPREV = $tp->parseTemplate("{NEXTPREV={$parms}}"); 
+      $LINK_NP_TABLE = $this->link_template['LINK_NP_TABLE'];           
+			return $tp -> parseTemplate($LINK_NP_TABLE, FALSE, $this->link_shortcodes);
 		}
 	}
 
@@ -146,9 +143,6 @@ class linkclass
     }
 
 
-
-
-
     function showLinkSort($mode='')
 	{
         global $rs, $ns, $qs;
@@ -156,11 +150,12 @@ class linkclass
         $db  = e107::getDb();
 
         if($mode == "cat") {
-          $path = e107::url('links_page', 'index');  
+          $baseurl = e107::url('links_page', 'index'); 
         }
         else {
-          $path = e107::url('links_page', 'index');
+          $baseurl = e107::url('links_page', 'index');
         }
+ 
         $check = "";
         if($qs){
             for($i=0;$i<count($qs);$i++){
@@ -177,14 +172,13 @@ class linkclass
         }else{
             $checks = "";
             $checko = "";
-        }
-        $baseurl = e107::url('links_page', 'index');  
+        }  
         
         $qry = '';
          $qry = (isset($qs[0]) && substr($qs[0],0,5) != "order" ? '/'.$qs[0] : "")
-         .(isset($qs[1]) && substr($qs[1],0,5) != "order" ? "/".$qs[1] : "")
-         .(isset($qs[2]) && substr($qs[2],0,5) != "order" ? "/".$qs[2] : "")
-         .(isset($qs[3]) && substr($qs[3],0,5) != "order" ? "/".$qs[3] : "");
+         .(isset($qs[1]) && substr($qs[1],0,5) != "order" ? ".".$qs[1] : "")
+         .(isset($qs[2]) && substr($qs[2],0,5) != "order" ? ".".$qs[2] : "")
+         .(isset($qs[3]) && substr($qs[3],0,5) != "order" ? ".".$qs[3] : "");
    
          $path = $baseurl.$qry;     
          $order_options_cat = array(
@@ -201,8 +195,8 @@ class linkclass
          );        
          
          $sort_options = array(
-            $path."/ordera"    => LAN_LINKS_8,
-            $path."/orderd"   => LAN_LINKS_9
+            $path.".ordera"    => LAN_LINKS_8,
+            $path.".orderd"   => LAN_LINKS_9
          );
          
           

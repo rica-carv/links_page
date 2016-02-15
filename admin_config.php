@@ -232,13 +232,14 @@ class links_page_ui extends e_admin_ui
 	
 		protected $fields 		= array (  'checkboxes' =>   array ( 'title' => '', 'type' => null, 'data' => null, 'width' => '5%', 'thclass' => 'center', 'forced' => '1', 'class' => 'center', 'toggle' => 'e-multiselect',  ),
 		  'link_id' =>   array ( 'title' => LAN_ID, 'data' => 'int', 'width' => '5%', 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
-		  'link_category' =>   array ( 'title' => LCLAN_ITEM_2, 'type' => 'dropdown', 'data' => 'int', 'width' => 'auto', 'batch' => true, 'filter' => true, 'inline' => true, 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
+		  'link_category' =>   array ( 'title' => LCLAN_ITEM_2, 'type' => 'dropdown', 'data' => 'int', 'width' => 'auto', 'batch' => true, 'filter' => true, 
+         'inline' => true,   'help' => '', 'readParms' => '', 'writeParms' => array('size'=>'block-level', 'required'=>1), 'class' => 'left', 'thclass' => 'left',  ),
       
 
 		  'link_name' =>   array ( 'title' => LCLAN_ITEM_4, 'type' => 'text', 'data' => 'str', 'width' => 'auto', 
-        'inline' => true, 'help' => '', 'readParms' => '', 'writeParms' => array('size'=>'block-level' ), 'class' => 'left', 'thclass' => 'left',  ),
-		  'link_url' =>   array ( 'title' => LCLAN_ITEM_5, 'type' => 'url', 'data' => 'str', 'width' => 'auto', 'inline' => true, 
-        'help' => '', 'readParms' => '', 'writeParms' => array('size'=>'block-level' ), 'class' => 'left', 'thclass' => 'left',  ),
+        'inline' => true, 'help' => '', 'readParms' => '', 'writeParms' => array('size'=>'block-level', 'required'=>1), 'class' => 'left', 'thclass' => 'left',  ),
+		  'link_url' =>   array ( 'title' => LCLAN_ITEM_5, 'type' => 'url', 'data' => 'str', 'width' => 'auto', 'inline' => true,  
+        'help' => '', 'readParms' => '', 'writeParms' => array('size'=>'block-level', 'required'=>1), 'class' => 'left', 'thclass' => 'left',  ),
 		  'link_description' =>   array ( 'title' => LCLAN_ITEM_6, 'type' => 'textarea', 'data' => 'str', 'width' => '40%', 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
 		  'link_button' =>   array ( 'title' => LCLAN_ITEM_14, 'type' => 'icon', 'data' => 'str', 'width' => 'auto', 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
 
@@ -489,7 +490,7 @@ class links_submitted_ui extends e_admin_ui
 
 		  'link_name' =>   array ( 'title' => LCLAN_ITEM_4, 'type' => 'text', 'data' => 'str', 'width' => 'auto', 
         'inline' => true, 'help' => '', 'readParms' => '', 'writeParms' => array('size'=>'block-level' ), 'class' => 'left', 'thclass' => 'left',  ),
-		  'link_url' =>   array ( 'title' => LCLAN_ITEM_5, 'type' => 'url', 'data' => 'str', 'width' => 'auto', 'inline' => true, 
+		  'link_url' =>   array ( 'title' => LCLAN_ITEM_5, 'type' => 'url', 'data' => 'str', 'width' => 'auto', 'inline' => true,  
         'help' => '', 'readParms' => '', 'writeParms' => array('size'=>'block-level' ), 'class' => 'left', 'thclass' => 'left',  ),
 		  'link_description' =>   array ( 'title' => LCLAN_ITEM_6, 'type' => 'textarea', 'data' => 'str', 'width' => '40%', 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
 		  'link_button' =>   array ( 'title' => LCLAN_ITEM_14, 'type' => 'icon', 'data' => 'str', 'width' => 'auto', 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
