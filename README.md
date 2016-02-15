@@ -1,7 +1,12 @@
 #Links page plugin for e107 V2
 
-**WARNING. This plugin is under rewriting** 
+**WARNING. This plugin is under rewriting**    
 
+
+**15.01.2016:**   Needs a lot of testing
+- solved e_search issues
+- solved pagination issues
+- cleaning SEF URLS (removing) 
 - added issues to need be solved before continuing
 - rewritten e_search.php
 - working approving links
