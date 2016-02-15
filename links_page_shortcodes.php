@@ -99,10 +99,8 @@ class links_page_shortcodes extends e_shortcode
     global $LINK_MANAGE_OPTIONS, $row, $tp;
     $baseurl = e107::url('links_page', 'index'); 
     $linkid = $row['link_id'];
-   // $LINK_MANAGE_OPTIONS = "<a href='".e_SELF."?manage.edit.".$linkid."' title='".LCLAN_ITEM_31."'>".LINK_ICON_EDIT."</a>";
-  
-   $LINK_MANAGE_EDIT=  $baseurl."/manage.edit.".$linkid;
-   $LINK_MANAGE_OPTIONS = "<a href='".$LINK_MANAGE_EDIT."' title='".LCLAN_ITEM_31."'>".LINK_ICON_EDIT."</a>";
+    $LINK_MANAGE_EDIT=  $baseurl."/manage.edit.".$linkid;
+    $LINK_MANAGE_OPTIONS = "<a href='".$LINK_MANAGE_EDIT."' title='".LCLAN_ITEM_31."'>".LINK_ICON_EDIT."</a>";
    
     if (isset($this->plugPrefs['link_directdelete']) && $this->plugPrefs['link_directdelete']){
     	$LINK_MANAGE_OPTIONS .= " <input type='image' title='delete' name='delete[main_{$linkid}]' alt='".LCLAN_ITEM_32."' src='".LINK_ICON_DELETE_BASE."' onclick=\"return jsconfirm('".$tp->toJS(LCLAN_ITEM_33." [ ".$row['link_name']." ]")."')\" style='vertical-align:top;' />";
@@ -216,30 +214,56 @@ class links_page_shortcodes extends e_shortcode
 
   function sc_link_button($parm='')
 	{ 
-  global $LINK_BUTTON, $rowl, $LINK_NAME, $LINK_APPEND;
-  $tp = e107::getParser();
-  if(!$this->plugPrefs['link_icon']){
-  	return "";
-  }
-  $LINK_BUTTON = "&nbsp;";
-  if(isset($this->plugPrefs['link_icon']) && $this->plugPrefs['link_icon']){
-  	if ($rowl['link_button']) {    
-       $att = 'aw=190&ah=190';
-       $linkbutton = $tp->thumbUrl($rowl['link_button'],$att);
-  			$LINK_BUTTON = $LINK_APPEND."\n<img class='linkspage_button img-responsive'   src='".$linkbutton."' alt='' /></a>";
-  	} else {
-  		if(isset($this->plugPrefs['link_icon_empty']) && $this->plugPrefs['link_icon_empty']){
-  			$LINK_BUTTON = $LINK_APPEND."\n<img class='linkspage_button' style='width: 88px; height: 31px;' src='".e_PLUGIN_ABS."links_page/images/generic.png' alt='' /></a>";
-  		}
-  	}
-  }else{
-  	if(isset($this->plugPrefs['link_icon_empty']) && $this->plugPrefs['link_icon_empty']){
-  		$LINK_BUTTON = $LINK_APPEND."\n<img class='linkspage_button' style='width: 88px; height: 31px;' src='".e_PLUGIN_ABS."links_page/images/generic.png' alt='' /></a>";
-  	}
-  }
-  return $LINK_BUTTON;
-}
+    global $rowl;
+    $tp = e107::getParser();
+    if(!$this->plugPrefs['link_icon']){
+    	return "";
+    }    
+		$parms 		  = eHelper::scParams($parm);
+		$w 		     	= vartrue($parms['w']) ? $parms['w'] : $tp->thumbWidth();  
+		$h 			    = vartrue($parms['h']) ? $parms['h'] : $tp->thumbHeight();  
 
+		$class 		  =varset($parms['class'],'');
+    $caption    = $tp->toAttribute($rowl['link_name']) ;
+    $att        = array('w'=>$w, 'h'=>$h, 'class'=>$class, 'alt'=>$caption, 'x'=>1, 'crop'=>1);
+    $LINK_BUTTON = "&nbsp;";
+    if(isset($this->plugPrefs['link_icon']) && $this->plugPrefs['link_icon']){
+    	if ($rowl['link_button']) {                    
+         $LINK_BUTTON = $tp->toImage($rowl['link_button'],$att);
+    	}  
+    }
+    return $LINK_BUTTON;
+  }
+
+  /* preparing for moving all APPENDS to templates or using button as link in template */
+	function sc_link_open($parm = '')
+	{
+    global $rowl;
+    if($this->plugPrefs['link_open_all'] && $this->plugPrefs['link_open_all'] == "5"){
+            $link_open_type = $rowl['link_open'];
+    }else{
+            $link_open_type = $this->plugPrefs['link_open_all'];
+    }
+
+		switch($link_open_type)
+		{
+      case 1:
+      $lappend = "onclick=\"open_window('".e_PLUGIN_ABS."links_page/links.php?view.".$rowl['link_id']."','full');return false;\""; // Googlebot won't see it any other way.
+      break;
+      case 2:
+      $lappend = "onclick=\"location.href='".e_PLUGIN_ABS."links_page/links.php?view.".$rowl['link_id']."';return false\"";  // Googlebot won't see it any other way.
+      break;
+      case 3:
+      $lappend = "onclick=\"location.href='".e_PLUGIN_ABS."links_page/links.php?view.".$rowl['link_id']."';return false\"";  // Googlebot won't see it any other way.
+      break;
+      case 4:
+      $lappend = "onclick=\"open_window('".e_PLUGIN_ABS."links_page/links.php?view.".$rowl['link_id']."');return false\""; // Googlebot won't see it any other way.
+      break;
+      default:
+      $lappend = "onclick=\"location.href='".e_PLUGIN_ABS."links_page/links.php?view.".$rowl['link_id']."';return false\"";  // Googlebot won't see it any other way.
+		}
+		return $lappend;
+	}
 
   function sc_button_column($parm='')
 	{ 
@@ -368,36 +392,6 @@ class links_page_shortcodes extends e_shortcode
     return $LINK_RATED_RATING;
   } 
   
-  function sc_link_rated_button($parm='')
-	{ 
-    global $LINK_RATED_BUTTON,  $rowl, $LINK_RATED_NAME, $LINK_RATED_APPEND;
-    if(isset($this->plugPrefs['link_icon']) && $this->plugPrefs['link_icon']){
-    	if ($rowl['link_button']) {
-    		if (strpos($rowl['link_button'], "http://") !== FALSE) {
-    			$LINK_RATED_BUTTON = $LINK_RATED_APPEND."\n<img style='border:0;' src='".$rowl['link_button']."' alt='".$LINK_RATED_NAME."' /></a>";
-    		} else {
-    			if(strstr($rowl['link_button'], "/")){
-    				$LINK_RATED_BUTTON = $LINK_RATED_APPEND."\n<img style='border:0;' src='".e_BASE.$rowl['link_button']."' alt='".$LINK_RATED_NAME."' /></a>";
-    			}else{
-    				$LINK_RATED_BUTTON = $LINK_RATED_APPEND."\n<img style='border:0' src='".e_PLUGIN_ABS."links_page/link_images/".$rowl['link_button']."' alt='".$LINK_RATED_NAME."' /></a>";
-    			}
-    		}
-    	} else {
-    		if(isset($this->plugPrefs['link_icon_empty']) && $this->plugPrefs['link_icon_empty']){
-    			$LINK_RATED_BUTTON = $LINK_RATED_APPEND."\n<img style='border:0; width: 88px; height: 31px;' src='".e_PLUGIN_ABS."links_page/images/generic.png' alt='".$LINK_RATED_NAME."' /></a>";
-    		}else{
-    			$LINK_RATED_BUTTON = "";
-    		}
-    	}
-    }else{
-    	if(isset($this->plugPrefs['link_icon_empty']) && $this->plugPrefs['link_icon_empty']){
-    		$LINK_RATED_BUTTON = $LINK_RATED_APPEND."\n<img style='border:0; width: 88px; height: 31px;' src='".e_PLUGIN_ABS."links_page/images/generic.png' alt='".$LINK_RATED_NAME."' /></a>";
-    	}else{
-    		$LINK_RATED_BUTTON = "";
-    	}
-    }
-    return $LINK_RATED_BUTTON;
-  } 
   
   function sc_link_rated_append($parm='')
 	{ 

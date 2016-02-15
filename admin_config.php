@@ -312,7 +312,6 @@ class links_page_ui extends e_admin_ui
       'link_referal'		=> array('title'=> LCLAN_OPT_17, 'tab'=>4, 'type'=>'boolean', 'data' => 'str', 'help'=>'Help Text goes here'),
       'link_url'		=> array('title'=> LCLAN_OPT_18, 'tab'=>4, 'type'=>'boolean', 'data' => 'str', 'help'=>'Help Text goes here'),
       'link_desc'		=> array('title'=> LCLAN_OPT_15, 'tab'=>4, 'type'=>'boolean', 'data' => 'str', 'help'=>'Help Text goes here'),
-      'link_icon_empty'		=> array('title'=> LCLAN_OPT_22, 'tab'=>4, 'type'=>'boolean', 'data' => 'str', 'help'=>'Help Text goes here'),
       'link_sortorder'		=> array('title'=> LCLAN_OPT_29, 'tab'=>4, 'type'=>'boolean', 'data' => 'str', 'help'=>'Help Text goes here'),        
       'link_sort'		=> array('title'=> LCLAN_OPT_23, 'tab'=>4, 'type'=>'dropdown', 'data' => 'str', 'help'=>'Help Text goes here'),       
       'link_order'		=> array('title'=> LCLAN_OPT_23, 'tab'=>4, 'type'=>'dropdown', 'data' => 'str', 'help'=>'Help Text goes here'),

@@ -71,7 +71,7 @@ $LINKS_PAGE_TEMPLATE['LINK_TABLE_START'] = '{NAVIGATOR}
 
 $LINKS_PAGE_TEMPLATE['LINK_TABLE'] = '
       <div class="row" >
-       <div class="col-md-1 col-xs-2">{LINK_BUTTON}</div>
+       <div class="col-md-1 col-xs-2">{LINK_BUTTON: x=1&w=32&h=32&crop=1&class=linkspage_button img-responsive}</div>
        <div class="col-md-7 col-xs-10">
           {LINK_NEW} {LINK_APPEND} {LINK_NAME} </a><br />
           {LINK_URL=link}
@@ -179,7 +179,7 @@ $LINKS_PAGE_TEMPLATE['LINK_RATED_TABLE_START'] = '
 
 $LINKS_PAGE_TEMPLATE['LINK_RATED_TABLE'] = '
 <div class="row" >    
-  <div class="col-sm-2 col-xs-6">{LINK_RATED_BUTTON}</div>   
+  <div class="col-sm-2 col-xs-6">{LINK_BUTTON: x=1&w=32&h=32&crop=1&class=linkspage_button img-responsive}</div>   
   <div class="col-sm-8 col-xs-6">{LINK_RATED_APPEND} {LINK_RATED_NAME}
     <br> 	
   {LINK_RATED_URL}
