@@ -22,10 +22,10 @@ if(!defined('e107_INIT'))
 	require_once('../../class2.php');
 }
 
-if (!isset($pref['plug_installed']['links_page']))
+if (!e107::isInstalled('links_page')) 
 {
-	header('location:'.e_BASE.'index.php');
-	exit;
+  e107::redirect();
+  exit;
 }
 
  
@@ -95,7 +95,7 @@ if (isset($qs[0]) && $qs[0] == "view" && isset($qs[1]) && is_numeric($qs[1]))
 
 require_once(HEADERF);
  
- 
+  
 //submit / manage link  link_submit_directpost - there is not this prefs
 if (isset($_POST['add_link'])) {
 	if($qs[0] == "submit"){
@@ -107,9 +107,10 @@ if (isset($_POST['add_link'])) {
 			}
 		}else{
 			e107::getRedirect()->go(e_REQUEST_URI);
+      exit;
 		}
 	}
-	if($qs[0] == "manage"){
+	if($qs[0] == "manage"){    
 		if(check_class($linkspage_pref['link_manager_class'])){
 			
 			if(isset($qs[2]) && is_numeric($qs[2]))
@@ -132,6 +133,7 @@ if (isset($_POST['add_link'])) {
       }
 		}else{
       e107::getRedirect()->go(e_REQUEST_URI);
+      exit;
 		}
 	}
 }
@@ -183,7 +185,7 @@ if(isset($qs[0]) && $qs[0] == "top"){
 	displayTopRefer();
 }
 //personal link managers
-if (isset($qs[0]) && $qs[0] == "manage"){
+if (isset($qs[0]) && $qs[0] == "manage"){   
 	displayPersonalManager();
 }
 //comments on links
@@ -261,11 +263,12 @@ function displayTopRated(){
 }
 
 function displayTopRefer(){
-	global $qs,  $lc, $link_shortcodes, $cobj, $rowl, $from, $tp,  $linkspage_pref;
+	global $qs,  $lc, $link_shortcodes, $cobj, $rowl, $from,    $linkspage_pref;
 	global $LINK_APPEND;
 
   $db2      = e107::getDb('db2');
   $template = e107::getTemplate('links_page', 'links_page');
+  $tp       = e107::getParser();
   
 	$number	= ($linkspage_pref["link_nextprev_number"] ? $linkspage_pref["link_nextprev_number"] : "20");
 	$np		= ($linkspage_pref["link_nextprev"] ? "LIMIT ".intval($from).",".intval($number) : "");
@@ -310,15 +313,15 @@ function displayTopRefer(){
 
 function displayPersonalManager()
 {
-	global $qs,  $lc, $link_shortcodes, $cobj, $row, $from, $tp,  $linkspage_pref;
+	global $qs,  $lc, $link_shortcodes, $cobj, $row, $from,   $linkspage_pref;
  
   $db       = e107::getDb();
   $db2      = e107::getDb('db2');
   $template = e107::getTemplate('links_page', 'links_page');
-    
+  $tp       = e107::getParser(); 
 	if(!(isset($linkspage_pref['link_manager']) && $linkspage_pref['link_manager']))
 	{
-	  js_location(e_SELF);
+	  js_location(e107::url('links_page', 'index'));
 	}
 	//delete link
 	if(isset($linkspage_pref['link_directdelete']) && $linkspage_pref['link_directdelete'])
@@ -333,10 +336,10 @@ function displayPersonalManager()
 		$db->select("links_page", "link_category, link_order, link_author", "link_id='".intval($del_id)."'");		// Get the position of target in the order
 		
 		$row = $db->fetch();
-	    if($row['link_author'] != USERID) {
-			header('Location: '.SITEURL);
-			exit;
-	    }
+    if($row['link_author'] != USERID) {
+		  e107::redirect();
+      exit;
+    }
 			
 		$db->select("links_page", "link_id", "link_order>'".$row['link_order']."' && link_category='".intval($row['link_category'])."'");
 		while ($row = $db->fetch()) 
@@ -351,14 +354,14 @@ function displayPersonalManager()
 	}
  
 	//show existing links
-	if(!(check_class($linkspage_pref['link_manager_class']))){
-		js_location(e_SELF);
+	if(!(check_class($linkspage_pref['link_manager_class']))){    
+		js_location(e107::url('links_page', 'index'));   
 	}else{
 		$qry = "
 		SELECT l.*, lc.*
 		FROM #links_page AS l
 		LEFT JOIN #links_page_cat AS lc ON lc.link_category_id = l.link_category
-		WHERE l.link_active = 1 AND l.link_author = '".USERID."'
+		WHERE /* l.link_active = 1 AND */  l.link_author = '".USERID."'
 		ORDER BY l.link_name
 		";
 		$link_table_manage = "";
@@ -367,6 +370,7 @@ function displayPersonalManager()
 		}else{
 			$link_table_manage_start	= $tp -> parseTemplate($template['LINK_TABLE_MANAGE_START'], FALSE, $link_shortcodes);
 			while($row = $db -> fetch()){
+        $link_shortcodes->setVars($row);
 				$link_table_manage .= $tp -> parseTemplate($template['LINK_TABLE_MANAGE'], FALSE, $link_shortcodes);
 			}
 			$link_table_manage_end		= $tp -> parseTemplate($template['LINK_TABLE_MANAGE_END'], FALSE, $link_shortcodes);
@@ -386,13 +390,14 @@ function displayPersonalManager()
 
 //comments on links
 function displayLinkComment(){
-	global $qs, $cobj, $tp,   $linkbutton_count, $lc, $rowl, $link_shortcodes,  $linkspage_pref, $LINK_APPEND;
+	global $qs, $cobj,  $linkbutton_count, $lc, $rowl, $link_shortcodes,  $linkspage_pref, $LINK_APPEND;
 
   $db       = e107::getDb();
   $template = e107::getTemplate('links_page', 'links_page');
+  $tp       = e107::getParser();
   
 	if(!(isset($linkspage_pref["link_comment"]) && $linkspage_pref["link_comment"])){
-		js_location(e_SELF);
+		js_location(e107::url('links_page', 'index'));
 	}else{
 		$qry = "
 		SELECT l.*, lc.*, COUNT(c.comment_id) AS link_comment
@@ -403,7 +408,7 @@ function displayLinkComment(){
 		GROUP BY l.link_id";
 		$link_comment_table_string = "";
 		if(!$linkcomment = $db -> gen($qry)){
-			js_location(e_SELF);
+			js_location(e107::url('links_page', 'index'));
 		}else{
 			$rowl = $db->fetch();
 			$linkbutton_count   = ($rowl['link_button']) ?  $linkbutton_count + 1 : $linkbutton_count;
@@ -438,11 +443,12 @@ function displayLinkSubmit(){
 
 function displayCategory($mode=''){
 //return '';
-	global  $lc, $tp, $qs, $rowl, $link_shortcodes, $linkspage_pref, $total_links, $category_total, $alllinks;
+	global  $lc, $qs, $rowl, $link_shortcodes, $linkspage_pref, $total_links, $category_total, $alllinks;
   
   $mes = e107::getMessage();
   $db  = e107::getDb();
   $db2 = e107::getDb('db2');
+  $tp  = e107::getParser();
   $template = e107::getTemplate('links_page', 'links_page');
 	$order = $lc -> getOrder('cat');
   
@@ -482,7 +488,7 @@ function displayCategory($mode=''){
 
 function displayNavigator($mode='')
 {
-	global  $lc, $tp, $cobj, $rowl, $qs,  $from, $link_shortcodes;
+	global  $lc, $cobj, $rowl, $qs,  $from, $link_shortcodes;
 	global $LINK_SORTORDER;
 	static $hasBeenShown = FALSE;
 	$tp       = e107::getParser();
@@ -502,7 +508,7 @@ function displayNavigator($mode='')
 
 function displaySortOrder($mode='')
 {
-	global  $lc, $tp, $cobj, $rowl, $qs,  $from, $link_shortcodes;
+	global  $lc, $cobj, $rowl, $qs,  $from, $link_shortcodes;
 	global $LINK_SORTORDER;
 	static $hasBeenShown = FALSE;
 	$tp       = e107::getParser();
@@ -532,10 +538,11 @@ function displaySortOrder($mode='')
 
 function displayCategoryLinks($mode=''){
 
-	global  $lc, $tp, $cobj, $rowl, $qs, $ns, $linkspage_pref, $from, $link_shortcodes, $link_category_total;
+	global  $lc,  $cobj, $rowl, $qs, $linkspage_pref, $from, $link_shortcodes, $link_category_total;
 	global  $linkbutton_count,  $link_category_total,  $LINK_APPEND;
 
-  $db2     = e107::getDb('sql2'); 
+  $db2      = e107::getDb('sql2');
+  $tp       = e107::getParser(); 
   $mes      = e107::getMessage();
   $template = e107::getTemplate('links_page', 'links_page');
  

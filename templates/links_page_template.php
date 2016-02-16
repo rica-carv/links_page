@@ -10,8 +10,8 @@ global $sc_style;
 $sc_style['LINK_CAT_DESC']['pre'] = "<br /><span class='smalltext'><i>";
 $sc_style['LINK_CAT_DESC']['post'] = "</i></span>";
 
-$sc_style['LINK_URL']['pre'] = "<span class='smalltext'>";
-$sc_style['LINK_URL']['post'] = "</span>";
+$sc_style['LINK_PAGE_URL']['pre'] = "<span class='smalltext'>";
+$sc_style['LINK_PAGE_URL']['post'] = "</span>";
 
 $sc_style['LINK_DESC']['pre'] = "<span class='smalltext'>";
 $sc_style['LINK_DESC']['post'] = "</span>";
@@ -88,7 +88,7 @@ $LINKS_PAGE_TEMPLATE['LINK_TABLE'] = '
        <div class="col-md-1 col-xs-2">{LINK_BUTTON: x=1&w=32&h=32&crop=1&class=linkspage_button img-responsive}</div>
        <div class="col-md-7 col-xs-10">
           {LINK_NEW} {LINK_APPEND} {LINK_NAME} </a><br />
-          {LINK_URL=link}
+          {LINK_PAGE_URL=link}
 	        {LINK_DESC}</div>
        <div class="hidden-sm col-xs-6 visible-xs">{LINK_RATING_LAN}</div>   
        <div class="col-md-2 col-xs-6">{LINK_RATING}</div>

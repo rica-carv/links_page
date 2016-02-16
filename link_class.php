@@ -65,7 +65,7 @@ class linkclass
 	}
 
 
-    function setPageTitle()
+  function setPageTitle()
 	{
         global $qs;
         $db = e107::getDb();
@@ -114,7 +114,7 @@ class linkclass
 
 
 
-    function parse_link_append($rowl)
+  function parse_link_append($rowl)
 	{
         global $tp;
         if($this->plugPrefs['link_open_all'] && $this->plugPrefs['link_open_all'] == "5"){
@@ -143,9 +143,9 @@ class linkclass
     }
 
 
-    function showLinkSort($mode='')
+  function showLinkSort($mode='')
 	{
-        global $rs, $ns, $qs;
+        global $rs, $qs;
         $frm = e107::getForm(); 
         $db  = e107::getDb();
 
@@ -221,7 +221,7 @@ class linkclass
     }
 
 
-    function parseOrderCat($orderstring)
+  function parseOrderCat($orderstring)
 	{
         if(substr($orderstring,6) == "heading"){
             $orderby        = "link_category_name";
@@ -238,7 +238,7 @@ class linkclass
             $orderby2       = ", link_category_name ASC";
         }
         return $orderby." ".(substr($orderstring,5,1) == "a" ? "ASC" : "DESC")." ".$orderby2;
-    }
+  }
 
 	function parseOrderLink($orderstring)
 	{
@@ -323,7 +323,7 @@ class linkclass
 	// Create a new link. If $mode == 'submit', link has to go through the approval process; else its admin entry
   function dbLinkCreate($mode='') 
 	{
-    global $ns, $tp, $qs,  $e107cache, $e_event;
+    global $tp, $qs,  $e107cache, $e_event;
      
     $db = e107::getDb('links_page');
     $mes = e107::getMessage();
@@ -367,10 +367,8 @@ class linkclass
 
 		  $edata_ls = array("link_category" => $_POST['cat_id'], "link_name" => $link_name, "link_url" => $link_url, "link_description" => $link_description, "link_button" => $link_button, "username" => $username, "submitted_link" => $submitted_link);
 		  $e_event->trigger("linksub", $edata_ls);
-		  //header("location:".e_SELF."?s");
-		  //js_location(e_SELF."?s");
       $url = e107::url('links_page','submitted','full');
-     // e107::getRedirect()->go($url);
+		  js_location($url);
     }   
     // edit link, not allowed direct posting      
 		elseif(isset($mode) && $mode == "edit")
@@ -474,11 +472,11 @@ class linkclass
 
 	function show_link_create()
 	{
-        global $rs, $qs, $ns, $fl;
+        global $rs, $qs,  $fl;
         
         $frm = e107::getForm();
         $db = e107::getDb();          
-         
+        
         $row['link_category']       = "";
         $row['link_name']           = "";
         $row['link_url']            = "";
@@ -540,13 +538,13 @@ class linkclass
         $text .= "<div class='col-sm-10'>".$frm->select('cat_id',$catlist,$row['link_category'])."</div></div>";
   
         $text .= "<div class='form-group'> <label for='link_name' class='col-sm-2 control-label'>".LCLAN_ITEM_4."</label>";
-        $text .= "<div class='col-sm-10'>".$frm->text('link_name',$row['link_name'],100)."</div></div>";
+        $text .= "<div class='col-sm-10'>".$frm->text('link_name',$row['link_name'],100, array('required'=>1))."</div></div>";
 
         $text .= "<div class='form-group'> <label for='link_url' class='col-sm-2 control-label'>".LCLAN_ITEM_5."</label>";
-        $text .= "<div class='col-sm-10'>".$frm->text('link_url',$row['link_url'],100)."</div></div>";          
+        $text .= "<div class='col-sm-10'>".$frm->text('link_url',$row['link_url'],100,  array('required'=>1))."</div></div>";          
    
         $text .= "<div class='form-group'> <label for='link_description' class='col-sm-2 control-label'>".LCLAN_ITEM_6."</label>";
-        $text .= "<div class='col-sm-10'>".$frm->textarea('link_description',$row['link_description'],3,59,array('size'=>'xxlarge'))."</div></div>";    
+        $text .= "<div class='col-sm-10'>".$frm->textarea('link_description',$row['link_description'],3,59,array('size'=>'xxlarge', 'required'=>1))."</div></div>";    
 
         $text .= "<div class='form-group'> <label for='link_button' class='col-sm-2 control-label'>".LCLAN_ITEM_7."</label>";
         $text .= "<div class='col-sm-10'>".$frm->imagepicker("link_button",  $row['link_button'] , LCLAN_ITEM_7, "media=linkspage")."</div></div>";    
@@ -574,7 +572,7 @@ class linkclass
         }
         $text .= $frm -> close()."</div>";
 
-        $ns->tablerender(LCLAN_ITEM_24, $text);
+        e107::getRender()->tablerender(LCLAN_ITEM_24, $text);
     }
 
                                                
@@ -584,8 +582,9 @@ class linkclass
 	 */
     function show_links() 
 	{
-        global  $qs, $rs, $ns, $tp, $from;
+        global  $qs, $rs, $tp, $from;
         $db = e107::getDb();
+
         $number = "20";
 		$LINK_CAT_NAME = '';			// May be appropriate to add a shortcode later
 
@@ -607,7 +606,7 @@ class linkclass
         $link_total = $db->select("links_page", "*", " ".$qry." ");
         if (!$db->select("links_page", "*", " ".$qry." LIMIT ".intval($from).",".intval($number)." ")) 
 		{
-          js_location(e_SELF."?link");
+          js_location(e107::url('links_page', 'index'));
         }
 		else
 		{	// Display the individual links
@@ -697,8 +696,8 @@ class linkclass
             </table></div>
             ".$rs->form_close();
         }
-        $ns->tablerender($caption, $text);
-		$this->ShowNextPrev($from, $number, $link_total);
+      e107::getRender()->tablerender($caption, $text);
+		  $this->ShowNextPrev($from, $number, $link_total);
     }
 }
 

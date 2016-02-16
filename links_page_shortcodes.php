@@ -53,11 +53,11 @@ class links_page_shortcodes extends e_shortcode
 
   function sc_link_nav_allcats($parm='')
 	{ 
-    global  $rs;
+    global  $rs, $rowc;
     $mains = "";
     if(isset($this->plugPrefs['link_navigator_allcat']) && $this->plugPrefs['link_navigator_allcat']){     
     	$dbc = e107::getDb('dbc');
-    	if ($dbc->select("links_page_cat", "link_category_id, link_category_name", "link_category_class REGEXP '".e_CLASS_REGEXP."' ORDER BY link_category_name")){
+    	if ($dbc->select("links_page_cat", "link_category_id, link_category_name, link_category_sef", "link_category_class REGEXP '".e_CLASS_REGEXP."' ORDER BY link_category_name")){
     		while ($rowc = $dbc->fetch()){
           $mains .= '<li><a class="btn btn-default" href="'.e107::url('links_page', 'category', $rowc, 'full').'">'.$rowc['link_category_name'].'</a></li>';
     		}
@@ -121,14 +121,13 @@ class links_page_shortcodes extends e_shortcode
   } 
   
   function sc_link_manage_active($parm='')
-	{    
-    global $LINK_MANAGE_ACTIVE, $tp, $row;
-    if($row['link_category_active']) {  
-      $LINK_MANAGE_ACTIVE = '<i class="S16 e-true-16"></i>';
+	{     
+    if($this->var['link_active']) {  
+      $LINK_MANAGE_ACTIVE = LINK_ICON_TRUE;
     } else {
-    $LINK_MANAGE_ACTIVE = 'noooo';
+    $LINK_MANAGE_ACTIVE = LINK_ICON_FALSE;
     };
-    return  $LINK_MANAGE_CREATE;
+    return  $LINK_MANAGE_ACTIVE;
   } 
     
     
@@ -288,9 +287,9 @@ class links_page_shortcodes extends e_shortcode
   } 
   
   
-  function sc_link_url($parm='')
+  function sc_link_page_url($parm='')
 	{ 
-    global $LINK_URL,  $rowl;
+    global $rowl;
     if(!isset($this->plugPrefs['link_url']))
     {
     	return "";
