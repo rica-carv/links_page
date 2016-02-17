@@ -47,7 +47,7 @@ written as new and it works. It uses old e_help, there are still missing some cu
 
 *Frontend uses legacy code* 
 (shortcodes rewritten but they use global variables). A lot of work in this area, but it works.
-~~ added script for replacing selects in navigator to tabs, rewritting templated to tabs ~~
+~~added script for replacing selects in navigator to tabs, changed, rewrittedtemplates to tabs~~
 
 *Plugin installation*
 ~~Todo: add plugin_setup.php, plugin.xml is not enough.~~ 
