@@ -43,7 +43,7 @@
 
 *Admin area:*
 written as new and it works. It uses old e_help, there are still missing some custom buttons (view link, view category). Are they needed?
-~~Except submitted links. They use tmp table. Maybe better idea would be add field active?  ~~
+~~Except submitted links. They use tmp table. Maybe better idea would be add field active?~~
 
 *Frontend uses legacy code* 
 (shortcodes rewritten but they use global variables). A lot of work in this area, but it works.
