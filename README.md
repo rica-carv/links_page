@@ -64,8 +64,8 @@ written as new and it works. It uses old e_help, there are still missing some cu
 - ~~tabless templates / responsive tables are not enough~~
 - ~~next/prev~~ 
 - ~~link menu~~
-- ~~top refer page display always first category - it's in 1.0.4 too ~~
-- ~~to add test for active field to queries ~~
+- ~~top refer page display always first category - it's in 1.0.4 too~~
+- ~~to add test for active field to queries~~
 - ~~check title for some pages, different position~~
 - replace js_location, it's not legacy, let it be as it
 
