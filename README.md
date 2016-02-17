@@ -1,9 +1,12 @@
 #Links page plugin for e107 V2
 
+**17.02.2016:** Version 2.0.1
+Required database update via admin
+Updated demo site
+
 **WARNING. This plugin is under rewriting**    
 
-
-**15.01.2016:**   Needs a lot of testing
+**15.02.2016:**   Needs a lot of testing
 - solved e_search issues
 - solved pagination issues
 - cleaning SEF URLS (removing) 
@@ -44,7 +47,7 @@ written as new and it works. It uses old e_help, there are still missing some cu
 
 *Frontend uses legacy code* 
 (shortcodes rewritten but they use global variables). A lot of work in this area, but it works.
-- added script for replacing selects in navigator to tabs
+~~ added script for replacing selects in navigator to tabs, rewritting templated to tabs ~~
 
 *Plugin installation*
 ~~Todo: add plugin_setup.php, plugin.xml is not enough.~~ 
@@ -59,17 +62,17 @@ written as new and it works. It uses old e_help, there are still missing some cu
 - ~~sort and order functionality~~
 - ~~new templating system~~
 - ~~tabless templates / responsive tables are not enough~~
-- next/prev 
-- link menu
-- top refer page display always first category - it's in 1.0.4 too
-- to add test for active field to queries
+- ~~next/prev~~ 
+- ~~link menu~~
+- ~~top refer page display always first category - it's in 1.0.4 too ~~
+- ~~to add test for active field to queries ~~
 - ~~check title for some pages, different position~~
-- replace js_location
+- replace js_location, it's not legacy, let it be as it
 
 *What doesn't work for now:*
 - ~~legacy rating system~~
 - ~~ordering by date~~
-- link menu
+- ~~link menu~~
 
 
 
