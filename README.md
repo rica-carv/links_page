@@ -1,8 +1,8 @@
 #Links page plugin for e107 V2
 
 **17.02.2016:** Version 2.0.1
-Required database update via admin
-Updated demo site
+- Required database update via admin
+- Updated demo site
 
 **WARNING. This plugin is under rewriting**    
 
