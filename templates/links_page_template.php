@@ -55,7 +55,7 @@ $LINKS_PAGE_TEMPLATE['LINK_SORTORDER'] = "{LINK_SORTORDER} ";
 
 $LINKS_PAGE_TEMPLATE['LINK_TABLE_CAPTION'] = LCLAN_ITEM_24;
 
-$LINKS_PAGE_TEMPLATE['LINK_TABLE_START'] = '{NAVIGATOR}
+$LINKS_PAGE_TEMPLATE['LINK_TABLE_START'] = ' 
 	<div class="panel panel-default linktablestart"> 
   	<div class="panel-heading" style="word-wrap: break-word;">
         <div class="row">

@@ -149,7 +149,7 @@ if(isset($qs[0]) && substr($qs[0],0,5) == "order"){
 }
  
 // Frontpage separated to categories
-if((!isset($qs[0]) || $qsorder) && $linkspage_pref['link_page_categories']){
+if((!isset($qs[0]) || $qsorder) && $linkspage_pref['link_page_categories']){    
 	displayCategory();
 }
 //show all categories added working ordering
@@ -162,11 +162,11 @@ if(isset($qs[0]) && $qs[0] == "cat" && !isset($qs[1]) ){
 if(isset($qs[0]) && $qs[0] == "cat" && (!isset($qs[0]) || $qsorder)  ){
 	displayCategory('cat');
 }
-
+ 
 //show all links in all categories  or Frontpage without categories
 if( ((!isset($qs[0]) || $qsorder) && !$linkspage_pref['link_page_categories']) || 
 (isset($qs[0]) && $qs[0] == "all") )
-{      
+{                               
 	displayCategoryLinks();
 }
 
@@ -444,7 +444,7 @@ function displayLinkSubmit(){
 function displayCategory($mode=''){
 //return '';
 	global  $lc, $qs, $rowl, $link_shortcodes, $linkspage_pref, $total_links, $category_total, $alllinks;
-  
+
   $mes = e107::getMessage();
   $db  = e107::getDb();
   $db2 = e107::getDb('db2');
@@ -590,7 +590,10 @@ function displayCategoryLinks($mode=''){
 			$caption = LAN_LINKS_32." ".$cat_name." ".($cat_desc ? " <i>[".$cat_desc."]</i>" : "");
 			//number of links      
 			$caption .= " (<b title='".(ADMIN ? LAN_LINKS_2 : LAN_LINKS_1)."' >".$link_total."</b>".(ADMIN ? "/<b title='".(ADMIN ? LAN_LINKS_1 : "" )."' >".$link_total."</b>" : "").") ";
-          
+     
+      $navigator  = displayNavigator('cat'); 
+      $navigator .= displaySortOrder('cat'); 
+      $text = $navigator.$text;      
 			if(is_numeric($mode))
 			{
 				$pagination = $lc->ShowNextPrev($from, $number, $link_total);
@@ -599,7 +602,7 @@ function displayCategoryLinks($mode=''){
       e107::getRender()->tablerender($caption, $text); 
 		}
 		else
-		{          
+		{        
 			$text = '';            
 			foreach($arr as $key => $value)
 			{
