@@ -259,7 +259,7 @@ class links_page_ui extends e_admin_ui
           'writeParms' => 'type=datetime', 'class' => 'left', 'thclass' => 'left',  ),
 		  'link_author' =>   array ( 'title' => LAN_AUTHOR, 'type' => 'user', 'data' => 'str', 'width' => 'auto', 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
 		  'link_active' =>   array ( 'title' => LAN_STATUS, 'type' => 'boolean', 'data' => 'int', 'width' => '5%', 'thclass' => 'center',   
-      'class' => 'center', 'batch' => true, 'filter' => true),
+      'class' => 'center', 'batch' => true, 'filter' => true, 'writeParms' => array('default' => 1) ),
       'options' =>   array ( 'title' => LAN_OPTIONS, 'type' => null, 'data' => null, 'width' => '10%', 'thclass' => 'center last', 'class' => 'center last', 'forced' => '1',  ),
 		);		
 		
@@ -404,6 +404,7 @@ class links_page_ui extends e_admin_ui
       '1'=>LCLAN_ITEM_18,
       '4'=>LCLAN_ITEM_19
       );
+       
   	}
 		// ------- Customize Create --------
 		
