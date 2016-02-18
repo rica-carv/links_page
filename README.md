@@ -1,8 +1,15 @@
 #Links page plugin for e107 V2
 
+**18.02.2016:** Version 2.0.2
+- remove dependency on libraries plugin
+- SEF url in menu is working now
+
 **17.02.2016:** Version 2.0.1
 - Required database update via admin
 - Updated demo site
+- for frontend posting (image manager) you need libraries plugin installed
+https://github.com/lonalore/libraries
+ and just copy folder frmediaman to e107_web folder
 
 **WARNING. This plugin is under rewriting**    
 

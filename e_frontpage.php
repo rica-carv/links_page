@@ -26,5 +26,3 @@ class links_page_frontpage // include plugin-folder in the name.
 
 
 ?>
-
- 

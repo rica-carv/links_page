@@ -57,5 +57,3 @@ class links_page_dashboard // include plugin-folder in the name.
 
 
 ?>
-
- 

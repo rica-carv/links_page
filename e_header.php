@@ -11,17 +11,9 @@ if(!defined('e107_INIT'))
 	exit;
 } 
  
-if(USER_AREA)
+if(USER_AREA && (strpos(e_REQUEST_URI, 'links/manage') !== false))
 {                     
-
-  /* can be delete if theme use admin modal code*/                         
-  if ((function_exists('libraries_load')) &&  ($library = libraries_load('frmediaman-modal')) && !empty($library['loaded'])) {
-   e107::js('links_page','frmediaman/frmediaman-modal.js');
-  }   
-  
-  /* script to get admin modal works */                        
-  if ((function_exists('libraries_load')) &&  ($library = libraries_load('frmediaman')) && !empty($library['loaded'])) {
-   e107::js('links_page','frmediaman/frmediaman.js');  
-  } 
-} 
+  e107::js('links_page','frmediaman/frmediaman-modal.js');
+  e107::js('links_page','frmediaman/frmediaman.js');
+}           
 ?>

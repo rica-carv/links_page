@@ -48,7 +48,7 @@ if(isset($linkspage_pref['link_menu_navigator_refer']) && $linkspage_pref['link_
 }
 if(isset($linkspage_pref['link_menu_navigator_rated']) && $linkspage_pref['link_menu_navigator_rated']){
 	if(isset($linkspage_pref['link_menu_navigator_rendertype']) && $linkspage_pref['link_menu_navigator_rendertype'] == "1"){
-		$mains .= $rs -> form_option(LAN_LINKS_13, "0", e107::url('links_page', 'rated', "");
+		$mains .= $rs -> form_option(LAN_LINKS_13, "0", e107::url('links_page', 'rated', ""));
 	}else{
 		$mains .= $bullet." <a href='".e107::url('links_page', 'rated')."'>".LAN_LINKS_13."</a><br />";
 	}
@@ -103,7 +103,7 @@ if(isset($linkspage_pref['link_menu_category']) && $linkspage_pref['link_menu_ca
 	$mains = "";
 	$cap = (isset($linkspage_pref['link_menu_category_caption']) && $linkspage_pref['link_menu_category_caption'] ? $linkspage_pref['link_menu_category_caption'] : LCLAN_OPT_83);
 	$sqlc = new db; $sql2 = new db;
-	if ($sqlc->db_Select("links_page_cat", "link_category_id, link_category_name", "link_category_class REGEXP '".e_CLASS_REGEXP."' ORDER BY link_category_order")){
+	if ($sqlc->db_Select("links_page_cat", "link_category_id, link_category_name, link_category_sef", "link_category_class REGEXP '".e_CLASS_REGEXP."' ORDER BY link_category_order")){
 		while ($rowc = $sqlc->fetch()){
 			if(isset($linkspage_pref['link_menu_category_amount']) && $linkspage_pref['link_menu_category_amount']){
 				$amount = $sql2 -> count("links_page", "(*)", "WHERE link_category = '".$rowc['link_category_id']."' AND link_active = 1 AND link_class REGEXP '".e_CLASS_REGEXP."' ");
@@ -115,7 +115,7 @@ if(isset($linkspage_pref['link_menu_category']) && $linkspage_pref['link_menu_ca
 				$mains .= $rs -> form_option($rowc['link_category_name']." ".$amount, "0", e107::url('links_page', 'category', $rowc, 'full'), "");
 			}else{
 				$mains .= $bullet." <a href='".e107::url('links_page', 'category', $rowc, 'full')."'>".$rowc['link_category_name']."</a> ".$amount."<br />";
-			}   print_a(e107::url('links_page', 'category', $rowc, 'full'));
+			}   
 		}
 		if(isset($linkspage_pref['link_menu_category_rendertype']) && $linkspage_pref['link_menu_category_rendertype'] == "1"){
 			$selectjs = "style='width:100%;' onchange=\"if(this.options[this.selectedIndex].value != ''){ return document.location=this.options[this.selectedIndex].value; }\" ";
