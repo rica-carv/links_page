@@ -28,7 +28,6 @@ if (!e107::isInstalled('links_page'))
   exit;
 }
 
- 
 $link_shortcodes = e107::getScBatch('links_page',TRUE);
   
 require_once(e_PLUGIN.'links_page/link_defines.php');
@@ -565,8 +564,10 @@ function displayCategoryLinks($mode=''){
 	$link_total = $db2 -> count("links_page as l", "(*)", "WHERE l.link_class REGEXP '".e_CLASS_REGEXP."' ".$cat." ");
   
 	if (!$db2->gen($qry)){
-    $mes->addError(LAN_LINKS_34.' - '.LAN_LINKS_39);
-    echo $mes->render();
+    $navigator  = displayNavigator(); 
+    $navigator .= displaySortOrder(); 
+    $text = $navigator.LAN_LINKS_34;       
+		e107::getRender()->tablerender(LAN_LINKS_39, $text);
 	} else{              
 		$linkbutton_count = 0;
 		$list = $db2 -> rows();
