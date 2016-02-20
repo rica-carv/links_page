@@ -19,14 +19,14 @@ class links_page_notify extends notify // plugin-folder + '_notify'
 	
 		$config[] = array(
 			'name'			=> NT_LAN_LP_2, //  "Message posted"
-			'function'		=> "notify_linksub",
+			'function'		=> "linksub",
 			'category'		=> ''
 		);	
 		
 		return $config;
 	}
 	
-	function notify_linksub($data) 
+	function linksub($data) 
 	{
 	
  
