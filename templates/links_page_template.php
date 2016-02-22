@@ -213,5 +213,7 @@ $LINKS_PAGE_TEMPLATE['LINK_RATED_TABLE'] = '
 
 $LINKS_PAGE_TEMPLATE['LINK_RATED_TABLE_END'] = "
 	</div><div class='panel-footer'></div></div>";
-?>                                                      
   
+$LINKS_PAGE_TEMPLATE['LINK_ERROR_MESSAGE'] = '
+<div class="panel panel-default panel-body">{ERROR_MESSAGE}</div>';
+?>

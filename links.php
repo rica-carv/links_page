@@ -233,8 +233,14 @@ function displayTopRated(){
 	if(!is_object($db)){ $db = new db; }
 	$linktotalrated = $db -> gen($qry);
 	if (!$ratedlinks = $db-> gen($qry2)){     
-    $mes->addError(LAN_LINKS_11.' - '.LAN_LINKS_33);
-    echo $mes->render();
+		$navigator  = displayNavigator(); 
+		$navigator .= displaySortOrder(); 
+		$var = array(
+		'ERROR_MESSAGE' 		=> LAN_LINKS_33,
+		);
+ 		$error = $tp->simpleParse($template['LINK_ERROR_MESSAGE'],$var);
+		$text = $navigator.$error; 
+		e107::getRender()->tablerender(LAN_LINKS_11, $text);
 	}else{
 		$link_rated_table_string = "";
 		$list = $db -> rows();
@@ -574,9 +580,13 @@ function displayCategoryLinks($mode=''){
 	$link_total = $db2 -> count("links_page as l", "(*)", "WHERE l.link_class REGEXP '".e_CLASS_REGEXP."' ".$cat." ");
   
 	if (!$db2->gen($qry)){
-    $navigator  = displayNavigator(); 
-    $navigator .= displaySortOrder(); 
-    $text = $navigator.LAN_LINKS_34;       
+		$navigator  = displayNavigator(); 
+		$navigator .= displaySortOrder();        
+ 		$var = array(
+		'ERROR_MESSAGE' 		=> LAN_LINKS_34,
+		);
+ 		$error = $tp->simpleParse($template['LINK_ERROR_MESSAGE'],$var);
+		$text = $navigator.$error; 
 		e107::getRender()->tablerender(LAN_LINKS_39, $text);
 	} else{              
 		$linkbutton_count = 0;
