@@ -20,34 +20,34 @@ class links_page_shortcodes extends e_shortcode
 	}
 
   
-  function sc_link_navigator($parm='')
+	function sc_link_navigator($parm='')
 	{ 
-    global  $rs;
-    $frm = e107::getForm(); 
-    $mains = "";   
+		global  $rs;
+		$frm = e107::getForm(); 
+		$mains = "";   
                      
-    if(isset($this->plugPrefs['link_navigator_frontpage']) && $this->plugPrefs['link_navigator_frontpage']){
-      $mains .= '<li><a class="btn btn-default" href="'.e107::url('links_page', 'index').'">'.LAN_LINKS_14.'</a></li>';  
-    }
-    if(isset($this->plugPrefs['link_navigator_refer']) && $this->plugPrefs['link_navigator_refer']){
-      $mains .= '<li><a class="btn btn-default" href="'.e107::url('links_page', 'top').'">'.LAN_LINKS_12.'</a></li>';
-    }
-    if(isset($this->plugPrefs['link_navigator_rated']) && $this->plugPrefs['link_navigator_rated']){
-      $mains .= '<li><a class="btn btn-default" href="'.e107::url('links_page', 'rated').'">'.LAN_LINKS_13.'</a></li>';
-    }
-    if(isset($this->plugPrefs['link_navigator_category']) && $this->plugPrefs['link_navigator_category']){
-      $mains .= '<li><a class="btn btn-default" href="'.e107::url('links_page', 'allcats').'">'.LAN_LINKS_43.'</a></li>';
-    }
-    if(isset($this->plugPrefs['link_navigator_links']) && $this->plugPrefs['link_navigator_links']){
-      $mains .= '<li><a class="btn btn-default" href="'.e107::url('links_page', 'alllinks').'">'.LAN_LINKS_51.'</a></li>';
-    }
-    if(isset($this->plugPrefs['link_navigator_submit']) && $this->plugPrefs['link_navigator_submit'] && isset($this->plugPrefs['link_submit']) && $this->plugPrefs['link_submit'] && check_class($this->plugPrefs['link_submit_class'])){
-      $mains .= '<li><a class="btn btn-default" href="'.e107::url('links_page', 'submit').'">'.LAN_LINKS_27.'</a></li>';
-    }
-    if(isset($this->plugPrefs['link_navigator_manager']) && $this->plugPrefs['link_navigator_manager'] && isset($this->plugPrefs['link_manager']) && $this->plugPrefs['link_manager'] && check_class($this->plugPrefs['link_manager_class'])){
-      $mains .= '<li><a class="btn btn-default" href="'.e107::url('links_page', 'manage').'">'.LAN_LINKS_35.'</a></li>';
-    }
-    return $mains; 
+		if(vartrue($this->plugPrefs['link_navigator_frontpage'])){
+			$mains .= '<li><a class="btn btn-default" href="'.e107::url('links_page', 'index').'">'.LAN_LINKS_14.'</a></li>';  
+		}
+		if(vartrue($this->plugPrefs['link_navigator_refer'])){
+			$mains .= '<li><a class="btn btn-default" href="'.e107::url('links_page', 'top').'">'.LAN_LINKS_12.'</a></li>';
+		}
+		if(vartrue($this->plugPrefs['link_navigator_rated'])&&(vartrue($this->plugPrefs['link_rating']))) {
+			$mains .= '<li><a class="btn btn-default" href="'.e107::url('links_page', 'rated').'">'.LAN_LINKS_13.'</a></li>';
+		}
+		if(vartrue($this->plugPrefs['link_navigator_category'])){
+			$mains .= '<li><a class="btn btn-default" href="'.e107::url('links_page', 'allcats').'">'.LAN_LINKS_43.'</a></li>';
+		}
+		if(vartrue($this->plugPrefs['link_navigator_links'])){
+			$mains .= '<li><a class="btn btn-default" href="'.e107::url('links_page', 'alllinks').'">'.LAN_LINKS_51.'</a></li>';
+		}
+		if(vartrue($this->plugPrefs['link_navigator_submit']) && vartrue($this->plugPrefs['link_submit']) && check_class($this->plugPrefs['link_submit_class'])){
+			$mains .= '<li><a class="btn btn-default" href="'.e107::url('links_page', 'submit').'">'.LAN_LINKS_27.'</a></li>';
+		}
+		if(vartrue($this->plugPrefs['link_navigator_manager']) && vartrue($this->plugPrefs['link_manager']) && check_class($this->plugPrefs['link_manager_class'])){
+		$mains .= '<li><a class="btn btn-default" href="'.e107::url('links_page', 'manage').'">'.LAN_LINKS_35.'</a></li>';
+		}
+		return $mains; 
  
 }
 
@@ -55,7 +55,7 @@ class links_page_shortcodes extends e_shortcode
 	{ 
     global  $rs, $rowc;
     $mains = "";
-    if(isset($this->plugPrefs['link_navigator_allcat']) && $this->plugPrefs['link_navigator_allcat']){     
+    if(vartrue($this->plugPrefs['link_navigator_allcat'])){     
     	$dbc = e107::getDb('dbc');
     	if ($dbc->select("links_page_cat", "link_category_id, link_category_name, link_category_sef", "link_category_class REGEXP '".e_CLASS_REGEXP."' ORDER BY link_category_name")){
     		while ($rowc = $dbc->fetch()){
@@ -102,7 +102,7 @@ class links_page_shortcodes extends e_shortcode
     $LINK_MANAGE_EDIT=  $baseurl."/manage.edit.".$linkid;
     $LINK_MANAGE_OPTIONS = "<a href='".$LINK_MANAGE_EDIT."' title='".LCLAN_ITEM_31."'>".LINK_ICON_EDIT."</a>";
    
-    if (isset($this->plugPrefs['link_directdelete']) && $this->plugPrefs['link_directdelete']){
+    if (vartrue($this->plugPrefs['link_directdelete'])){
     	$LINK_MANAGE_OPTIONS .= " <input type='image' title='delete' name='delete[main_{$linkid}]' alt='".LCLAN_ITEM_32."' src='".LINK_ICON_DELETE_BASE."' onclick=\"return jsconfirm('".$tp->toJS(LCLAN_ITEM_33." [ ".$row['link_name']." ]")."')\" style='vertical-align:top;' />";
     }
     return $LINK_MANAGE_OPTIONS;
@@ -141,13 +141,13 @@ class links_page_shortcodes extends e_shortcode
 	{ 
     global $LINK_MAIN_DESC, $rowl,  $tp;
                          
-    return (isset($this->plugPrefs['link_cat_desc']) && $this->plugPrefs['link_cat_desc'] ? $tp->toHTML($rowl['link_category_description'], TRUE,'description') : "");
+    return (vartrue($this->plugPrefs['link_cat_desc'])? $tp->toHTML($rowl['link_category_description'], TRUE,'description') : "");
   }
  
   function sc_link_main_number($parm='')
 	{ 
     global $LINK_MAIN_NUMBER, $rowl;   
-    if(isset($this->plugPrefs['link_cat_amount']) && $this->plugPrefs['link_cat_amount']){
+    if(vartrue($this->plugPrefs['link_cat_amount'])){
     $LINK_MAIN_NUMBER = $rowl['total_links']." ".($rowl['total_links'] == 1 ? LAN_LINKS_17 : LAN_LINKS_18)." ".LAN_LINKS_16;
     }else{
     $LINK_MAIN_NUMBER = "";
@@ -175,9 +175,9 @@ class links_page_shortcodes extends e_shortcode
     $caption    = $tp->toAttribute($rowl['link_cat_name']) ;
     $att        = array('w'=>$w, 'h'=>$h, 'class'=>$class, 'alt'=>$caption, 'x'=>$x, 'crop'=>$crop);
         
-    if(isset($this->plugPrefs['link_cat_icon']) && isset($this->plugPrefs['link_cat_icon']))
+    if(vartrue($this->plugPrefs['link_cat_icon'])))
     {
-    	if (isset($rowl['link_category_icon']) && $rowl['link_category_icon'])
+    	if (vartrue($rowl['link_category_icon']))
     	{
     		$LINK_MAIN_ICON = $tp->toImage($rowl['link_category_icon'],$att);  
     	}
@@ -193,7 +193,7 @@ class links_page_shortcodes extends e_shortcode
   function sc_link_main_total($parm='')
 	{ 
     global $LINK_MAIN_TOTAL,  $category_total,  $alllinks;
-    if(isset($this->plugPrefs['link_cat_total']) && $this->plugPrefs['link_cat_total']){
+    if(vartrue($this->plugPrefs['link_cat_total'])){
     $LINK_MAIN_TOTAL = LAN_LINKS_21." ".($alllinks == 1 ? LAN_LINKS_22 : LAN_LINKS_23)." ".$alllinks." ".($alllinks == 1 ? LAN_LINKS_17 : LAN_LINKS_18)." ".LAN_LINKS_24." ".$category_total." ".($category_total == 1 ? LAN_LINKS_20 : LAN_LINKS_19);
     }else{
     $LINK_MAIN_TOTAL = "";
@@ -205,7 +205,7 @@ class links_page_shortcodes extends e_shortcode
   function sc_Link_Main_Showall($parm='')
 	{ 
     global $LINK_MAIN_SHOWALL;
-    return (isset($this->plugPrefs['link_cat_total']) && $this->plugPrefs['link_cat_total'] ? "<a href='".e107::url('links_page', 'all', $rowc, 'full')."'>".LAN_LINKS_25."</a>" : "");
+    return (vartrue($this->plugPrefs['link_cat_total']) ? "<a href='".e107::url('links_page', 'all', $rowc, 'full')."'>".LAN_LINKS_25."</a>" : "");
   } 
  
 
@@ -230,7 +230,7 @@ class links_page_shortcodes extends e_shortcode
     $att        = array('w'=>$w, 'h'=>$h, 'class'=>$class, 'alt'=>$caption, 'x'=>$x, 'crop'=>$crop);
 
     $LINK_BUTTON = "&nbsp;";
-    if(isset($this->plugPrefs['link_icon']) && $this->plugPrefs['link_icon']){
+    if(vartrue($this->plugPrefs['link_icon'])){
     	if ($rowl['link_button']) {                    
          $LINK_BUTTON = $tp->toImage($rowl['link_button'],$att);
     	}  
@@ -290,7 +290,7 @@ class links_page_shortcodes extends e_shortcode
   function sc_link_page_url($parm='')
 	{ 
 		global $rowl;
-		if(isset($this->plugPrefs['link_url']) && $this->plugPrefs['link_url']){
+		if(vartrue($this->plugPrefs['link_url'])){
 		return ($parm == "link") ? "<a class='linkspage_url' href=\"".$rowl['link_url']."\" rel='external' title=\"".$rowl['link_description']."\">".$rowl['link_url']."</a>" : $rowl['link_url'];
 		}
 		else return '';
@@ -299,28 +299,28 @@ class links_page_shortcodes extends e_shortcode
   function sc_link_refer($parm='')
 	{ 
     global $LINK_REFER, $rowl;
-    return (isset($this->plugPrefs['link_referal']) && $this->plugPrefs['link_referal'] ? $rowl['link_refer'] : "");
+    return (vartrue($this->plugPrefs['link_referal'])  ? $rowl['link_refer'] : "");
   }   
   
   function sc_link_comment($parm='')
 	{ 
     global $LINK_COMMENT, $rowl;
     $LINK_COMMENT =  e107::url('links_page', 'comment', $rowl, 'full');
-    return (isset($this->plugPrefs['link_comment']) && $this->plugPrefs['link_comment'] ? 
+    return (vartrue($this->plugPrefs['link_comment']) ? 
     "<a href='".$LINK_COMMENT."'>".($rowl['link_comment'] ? $rowl['link_comment'] : "0")."</a>" : "");
   }   
  
   function sc_link_desc($parm='')
 	{ 
     global $LINK_DESC, $tp, $rowl;
-    return (isset($this->plugPrefs['link_desc']) && $this->plugPrefs['link_desc'] ? $tp->toHTML($rowl['link_description'], TRUE,'BODY') : "");
+    return (vartrue($this->plugPrefs['link_desc']) ? $tp->toHTML($rowl['link_description'], TRUE,'BODY') : "");
   }   
   
   function sc_link_rating($parm='')
 	{ 
     global $LINK_RATING,  $rowl, $qs; 
         
-    if(isset($this->plugPrefs['link_rating']) && $this->plugPrefs['link_rating']){
+    if(vartrue($this->plugPrefs['link_rating'])){
       $frm = e107::getForm();
       $options = array('label'=>' ','template'=>'RATE|VOTES|STATUS');
       $LINK_RATING = $frm->rate("links_page", $rowl['link_id'], $options);
@@ -360,17 +360,17 @@ class links_page_shortcodes extends e_shortcode
   
   function sc_link_refer_lan($parm='')
 	{ 
-    return (isset($this->plugPrefs['link_referal']) && $this->plugPrefs['link_referal'] ? LAN_LINKS_26 : "");
+    return (vartrue($this->plugPrefs['link_referal']) ? LAN_LINKS_26 : "");
   }  
   
   function sc_link_comment_lan($parm='')
 	{ 
-    return (isset($this->plugPrefs['link_comment']) && $this->plugPrefs['link_comment'] ? LAN_LINKS_37 : "");
+    return (vartrue($this->plugPrefs['link_comment']) ? LAN_LINKS_37 : "");
   } 
   
   function sc_link_rating_lan($parm='')
 	{ 
-    if(isset($this->plugPrefs['link_rating']) && $this->plugPrefs['link_rating']){
+    if(vartrue($this->plugPrefs['link_rating'])){
         return LCLAN_ITEM_39;
     }
     return "";
@@ -385,7 +385,7 @@ class links_page_shortcodes extends e_shortcode
   function sc_link_rated_rating($parm='')
 	{ 
     global $LINK_RATED_RATING, $rowl;
-    if(isset($this->plugPrefs['link_rating']) && $this->plugPrefs['link_rating']){
+    if(vartrue($this->plugPrefs['link_rating'])){
       $frm = e107::getForm();
       $options = array('label'=>' ','template'=>'RATE|VOTES|STATUS');
       $LINK_RATED_RATING = $frm->rate("links_page", $rowl['link_id'], $options);
@@ -418,19 +418,19 @@ class links_page_shortcodes extends e_shortcode
   function sc_link_rated_url($parm='')
 	{ 
     global $LINK_RATED_URL, $rowl;
-    return (isset($this->plugPrefs['link_url']) && $this->plugPrefs['link_url'] ? $rowl['link_url'] : "");
+    return (vartrue($this->plugPrefs['link_url']) ? $rowl['link_url'] : "");
   } 
   
   function sc_link_rated_refer($parm='')
 	{ 
     global $LINK_RATED_REFER, $rowl;
-    return (isset($this->plugPrefs['link_referal']) && $this->plugPrefs['link_referal'] ? LAN_LINKS_26." ".$rowl['link_refer'] : "");
+    return (vartrue($this->plugPrefs['link_referal']) ? LAN_LINKS_26." ".$rowl['link_refer'] : "");
   } 
   
   function sc_nk_rated_desc($parm='')
 	{ 
 global $LINK_RATED_DESC,  $tp, $rowl;
-return (isset($this->plugPrefs['link_desc']) && $this->plugPrefs['link_desc'] ? $tp->toHTML($rowl['link_description'], TRUE) : "");
+return (vartrue($this->plugPrefs['link_desc']) ? $tp->toHTML($rowl['link_description'], TRUE) : "");
   } 
     
   // LINK_SUBMIT_TABLE ------------------------------------------------    
@@ -454,7 +454,7 @@ return (isset($this->plugPrefs['link_desc']) && $this->plugPrefs['link_desc'] ? 
   function sc_link_submit_pretext($parm='')
 	{ 
     global $LINK_SUBMIT_PRETEXT;
-    if(isset($this->plugPrefs['link_submit_directpost']) && $this->plugPrefs['link_submit_directpost']){
+    if(vartrue($this->plugPrefs['link_submit_directpost'])){
     return "";
     }else{
     return LCLAN_SL_9;
