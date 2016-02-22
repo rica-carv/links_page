@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<e107Plugin name="Links" lan="LCLAN_PLUGIN_LAN_1" version="2.0" date="2016-01-02" compatibility="2.0" installRequired="true" >
+<e107Plugin name="Links" lan="LCLAN_PLUGIN_LAN_1" version="2.1.0" date="2016-01-02" compatibility="2.0" installRequired="true" >
 	<author name="Jimako" url="http://e107.sk" />
 	<summary lan="">Links Page For Displaying External Web Links</summary>
 	<description lan="">Links Page For Displaying External Web Links</description>
