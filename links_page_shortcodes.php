@@ -289,13 +289,11 @@ class links_page_shortcodes extends e_shortcode
   
   function sc_link_page_url($parm='')
 	{ 
-    global $rowl;
-    if(!isset($this->plugPrefs['link_url']))
-    {
-    	return "";
-    }
-    return ($parm == "link") ? "<a class='linkspage_url' href=\"".$rowl['link_url']."\" rel='external' title=\"".$rowl['link_description']."\">".$rowl['link_url']."</a>" : $rowl['link_url'];
-
+		global $rowl;
+		if(isset($this->plugPrefs['link_url']) && $this->plugPrefs['link_url']){
+		return ($parm == "link") ? "<a class='linkspage_url' href=\"".$rowl['link_url']."\" rel='external' title=\"".$rowl['link_description']."\">".$rowl['link_url']."</a>" : $rowl['link_url'];
+		}
+		else return '';
   } 
   
   function sc_link_refer($parm='')
