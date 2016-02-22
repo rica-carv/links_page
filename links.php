@@ -88,7 +88,9 @@ if (isset($qs[0]) && $qs[0] == "view" && isset($qs[1]) && is_numeric($qs[1]))
 		$row = $db->fetch();
 		$db->update("links_page", "link_refer=link_refer+1 WHERE link_id='".intval($qs[1])."' ");
 		//header("location:".$row['link_url']); exit;
-		js_location($row['link_url']);
+		//jsx_location($row['link_url']);
+		$url = $row['link_url']; 
+		e107::getRedirect()->go($url);
 	}
 }
 
@@ -320,7 +322,9 @@ function displayPersonalManager()
   $tp       = e107::getParser(); 
 	if(!(isset($linkspage_pref['link_manager']) && $linkspage_pref['link_manager']))
 	{
-	  js_location(e107::url('links_page', 'index'));
+		//jsx_location(e107::url('links_page', 'index'));
+		$url = e107::url('links_page', 'index'); 
+		e107::getRedirect()->go($url);
 	}
 	//delete link
 	if(isset($linkspage_pref['link_directdelete']) && $linkspage_pref['link_directdelete'])
@@ -354,7 +358,9 @@ function displayPersonalManager()
  
 	//show existing links
 	if(!(check_class($linkspage_pref['link_manager_class']))){    
-		js_location(e107::url('links_page', 'index'));   
+		//jsx_location(e107::url('links_page', 'index'));   
+		$url = e107::url('links_page', 'index'); 
+		e107::getRedirect()->go($url);
 	}else{
 		$qry = "
 		SELECT l.*, lc.*
@@ -396,7 +402,9 @@ function displayLinkComment(){
   $tp       = e107::getParser();
   
 	if(!(isset($linkspage_pref["link_comment"]) && $linkspage_pref["link_comment"])){
-		js_location(e107::url('links_page', 'index'));
+		//jsx_location(e107::url('links_page', 'index'));
+		$url = e107::url('links_page', 'index'); 
+		e107::getRedirect()->go($url);
 	}else{
 		$qry = "
 		SELECT l.*, lc.*, COUNT(c.comment_id) AS link_comment
@@ -407,7 +415,9 @@ function displayLinkComment(){
 		GROUP BY l.link_id";
 		$link_comment_table_string = "";
 		if(!$linkcomment = $db -> gen($qry)){
-			js_location(e107::url('links_page', 'index'));
+			//jsx_location(e107::url('links_page', 'index'));
+			$url = e107::url('links_page', 'index'); 
+			e107::getRedirect()->go($url);
 		}else{
 			$rowl = $db->fetch();
 			$linkbutton_count   = ($rowl['link_button']) ?  $linkbutton_count + 1 : $linkbutton_count;

@@ -316,7 +316,9 @@ class linkclass
 
 		if(varset($row['link_author']) != USERID)
 		{
-			js_location(SITEURL);
+			//jsx_location(SITEURL);
+			$url = SITEURL; 
+			e107::getRedirect()->go($url);
 		}
 	}
 
@@ -363,13 +365,14 @@ class linkclass
 					'link_author'      => USERID,                                                 
 					'link_active'      => 0,
 				);
-      if($db->insert("links_page", $insert)) { $mes->addSuccess(LAN_LINKS_29); $mes->render();};    
+			if($db->insert("links_page", $insert)) { $mes->addSuccess(LAN_LINKS_29); $mes->render();};    
 
-		  $edata_ls = array("link_category" => $_POST['cat_id'], "link_name" => $link_name, "link_url" => $link_url, "link_description" => $link_description, "link_button" => $link_button, "username" => $username, "submitted_link" => $submitted_link);
-		  $e_event->trigger("linksub", $edata_ls);
-      $url = e107::url('links_page','submitted','full');
-		  js_location($url);
-    }   
+			$edata_ls = array("link_category" => $_POST['cat_id'], "link_name" => $link_name, "link_url" => $link_url, "link_description" => $link_description, "link_button" => $link_button, "username" => $username, "submitted_link" => $submitted_link);
+			$e_event->trigger("linksub", $edata_ls);
+			$url = e107::url('links_page','submitted','full');
+			//jsx_location($url);
+			e107::getRedirect()->go($url);      
+		}
     // edit link, not allowed direct posting      
 		elseif(isset($mode) && $mode == "edit")
 		{    
@@ -606,8 +609,10 @@ class linkclass
         $link_total = $db->select("links_page", "*", " ".$qry." ");
         if (!$db->select("links_page", "*", " ".$qry." LIMIT ".intval($from).",".intval($number)." ")) 
 		{
-          js_location(e107::url('links_page', 'index'));
-        }
+					//jsx_location(e107::url('links_page', 'index'));  
+					$url = e107::url('links_page', 'index'); 
+					e107::getRedirect()->go($url);
+				}
 		else
 		{	// Display the individual links
             $text = $rs->form_open("post", e_SELF.(e_QUERY ? "?".e_QUERY : ""), "myform_{$row['link_id']}", "", "");
