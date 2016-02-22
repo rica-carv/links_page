@@ -175,7 +175,7 @@ class links_page_shortcodes extends e_shortcode
     $caption    = $tp->toAttribute($rowl['link_cat_name']) ;
     $att        = array('w'=>$w, 'h'=>$h, 'class'=>$class, 'alt'=>$caption, 'x'=>$x, 'crop'=>$crop);
         
-    if(vartrue($this->plugPrefs['link_cat_icon'])))
+    if(vartrue($this->plugPrefs['link_cat_icon']))
     {
     	if (vartrue($rowl['link_category_icon']))
     	{
