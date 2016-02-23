@@ -86,7 +86,7 @@ class links_page_url
 		// 'sef'      => 'links_page/links/orderaheading',
 		// File-path of what to load when the regex returns true.
 		'redirect' => '{e_PLUGIN}links_page/links.php?$1'
-	 ); 
+	 );                         
     $config['index'] = array(
 		// Matched against url, and if true, redirected to 'redirect' below.
 		'regex'    => '^links_page/links$',
@@ -94,10 +94,13 @@ class links_page_url
 		'sef'      => 'links_page/links',
 		// File-path of what to load when the regex returns true.
 		'redirect' => '{e_PLUGIN}links_page/links.php'
-	 );
+	 );    
 
-
-    $config['rated'] = array(
+		$config['base'] = array(
+			'sef'      => 'links_page/links/',
+		);
+		
+		$config['rated'] = array(
 			'sef'      => 'links_page/links/rated',
 		);
     $config['top'] = array(

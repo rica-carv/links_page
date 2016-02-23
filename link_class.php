@@ -150,10 +150,10 @@ class linkclass
         $db  = e107::getDb();
 
         if($mode == "cat") {
-          $baseurl = e107::url('links_page', 'index'); 
+          $baseurl = e107::url('links_page', 'base'); 
         }
         else {
-          $baseurl = e107::url('links_page', 'index');
+          $baseurl = e107::url('links_page', 'base');
         }
  
         $check = "";
@@ -195,8 +195,8 @@ class linkclass
          );        
          
          $sort_options = array(
-            $path.".ordera"    => LAN_LINKS_8,
-            $path.".orderd"   => LAN_LINKS_9
+            $path."ordera"    => LAN_LINKS_8,
+            $path."orderd"   => LAN_LINKS_9
          );
          
           
