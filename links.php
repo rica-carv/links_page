@@ -431,11 +431,9 @@ function displayLinkComment(){
 			$text = $tp -> parseTemplate($template['LINK_TABLE_START'], FALSE, $link_shortcodes);
 			$text .= $tp -> parseTemplate($template['LINK_TABLE'], FALSE, $link_shortcodes);
 			$text .= $tp -> parseTemplate($template['LINK_TABLE_END'], FALSE, $link_shortcodes);
-			e107::getRender()->tablerender(LAN_LINKS_36, $text);
-    
       $navigator = displayNavigator();  
       $text = $navigator.$text; 
-    
+      e107::getRender()->tablerender(LAN_LINKS_36, $text);
 			$cobj->compose_comment("links_page", "comment", $qs[1], $width, $subject, $showrate=FALSE);
 		}
 	}
