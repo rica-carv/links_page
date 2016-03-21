@@ -137,9 +137,9 @@ if (isset($_POST['add_link'])) {
 		}
 	}
 }
-  
+   
 //message submitted link
-if(isset($qs[0]) && $qs[1] == "s"){
+if(isset($qs[0]) && $qs[0] == "s"){
   e107::getMessage()->addSuccess('<b>'.LAN_LINKS_28.'</b> '.LAN_LINKS_29 );
   echo e107::getMessage()->render();
 }

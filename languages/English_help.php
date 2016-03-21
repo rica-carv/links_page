@@ -17,11 +17,11 @@ require_once(e_PLUGIN.'links_page/link_defines.php');
 define("LAN_ADMIN_HELP_0", "Linkspage help area");
 
 define("LAN_ADMIN_HELP_1", "<i>the manage link categories page shows all categories present.</i><br /><br /><b>detailed list</b><br />You see a list of all categories with their icon, name and description, options, and sorting options.<br /><br /><b>explanation of icons</b><br />
-".LINK_ICON_LINK." : link to the category<br /><br />
+ 
 ".ADMIN_LINK_ICON_EDIT." : edit the category<br /><br />
 ".ADMIN_LINK_ICON_DELETE." : delete the category<br /><br />
-".LINK_ICON_ORDER_UP." : the up button allows you to move the category item one up in order.<br /><br />
-".LINK_ICON_ORDER_DOWN." : the down button allows you to move the category item one down in order.<br />
+".ADMIN_LINK_ICON_ORDER_UP." : the up button allows you to move the category item one up in order.<br /><br />
+".ADMIN_LINK_ICON_ORDER_DOWN." : the down button allows you to move the category item one down in order.<br />
 <br />
 <b>order</b><br />here you can manually set the order of all the categories. You need to change the values in the select boxes to your desired order, and click on the reorder button below to save the new order.<br />");
 
@@ -50,11 +50,8 @@ These options are used on the top rated links page.<br />
 define("LAN_ADMIN_HELP_7", "<i>the edit link category page allows you to edit an existing category</i><br /><br />You can upload a new icon, and after uploading assign the icon to the category.<br />You can update the timestamp of the link by checking the box.");
 
 define("LAN_ADMIN_HELP_8", "<i>this page shows all existing links in the selected category.</i><br /><br /><b>detailed list</b><br />You see a list of the links with their image, name, options, and sorting options.<br /><br /><b>explanation of icons</b><br />
-".LINK_ICON_LINK." : link to the website<br /><br />
 ".ADMIN_LINK_ICON_EDIT." : edit the link<br /><br />
 ".ADMIN_LINK_ICON_DELETE." : delete the link<br /><br />
-".LINK_ICON_ORDER_UP." : the up button allows you to move a link up one in the list.<br /><br />
-".LINK_ICON_ORDER_DOWN." : the down button allows you to move a link down one in the list.<br />
 <br />
 <b>order</b><br />here you can manually set the order of all the links. You need to change the values in the select boxes to your desired order, and click on the reorder button below to save the new order.<br />");
 
