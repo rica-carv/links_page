@@ -1,6 +1,7 @@
 #Links page plugin for e107 V2
 
 16.5.2016 Version 2.1.2 Mirror changes
+- #17 not correct titles in admin option
 
 21.3.2016 Version 2.1.2 Mirror changes
 - #16 navigation on comment page
