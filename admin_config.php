@@ -71,7 +71,7 @@ class links_page_cat_ui extends e_admin_ui
 			
 		protected $pluginTitle		= LCLAN_PLUGIN_LAN_1;
 		protected $pluginName		= 'links_page';
-	//	protected $eventName		= 'links_page-links_page_cat'; // remove comment to enable event triggers in admin. 		
+		protected $eventName		= 'links_page-links_page_cat'; // remove comment to enable event triggers in admin. 		
 		protected $table			= 'links_page_cat';
 		protected $pid				= 'link_category_id';
 		protected $perPage			= 10; 
@@ -216,7 +216,7 @@ class links_page_ui extends e_admin_ui
 			
 		protected $pluginTitle	= LCLAN_PLUGIN_LAN_1;
 		protected $pluginName		= 'links_page';
-	//	protected $eventName		= 'links_page-links_page'; // remove comment to enable event triggers in admin. 		
+		protected $eventName		= 'links_page-links_page'; // remove comment to enable event triggers in admin. 		
 		protected $table			= 'links_page';
 		protected $pid				= 'link_id';
 		protected $perPage			= 10; 
@@ -469,7 +469,7 @@ class links_submitted_ui extends e_admin_ui
 			
 		protected $pluginTitle	= LCLAN_PLUGIN_LAN_1;
 		protected $pluginName		= 'links_page';
-	//	protected $eventName		= 'links_page-links_page'; // remove comment to enable event triggers in admin. 		
+		protected $eventName		= 'links_page-links_page_submitted'; // remove comment to enable event triggers in admin. 		
 		protected $table			= 'links_page';
 		protected $pid				= 'link_id';
 		protected $perPage			= 10; 
