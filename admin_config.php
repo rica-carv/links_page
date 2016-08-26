@@ -51,7 +51,7 @@ class links_page_adminArea extends e_admin_dispatcher
 		'submitted/list'		=> array('caption'=> LCLAN_SL_1, 'perm' => 'P'),        
 		'main/prefs' 		=> array('caption'=> LCLAN_ADMINMENU_6, 'perm' => 'P'),	
  
-		// 'main/custom'		=> array('caption'=> 'Custom Page', 'perm' => 'P')
+    'main/eversion'		=> array('caption'=> 'Check for updates', 'perm' => 'P')
 	);
 
 	protected $adminMenuAliases = array(
@@ -189,16 +189,7 @@ class links_page_cat_ui extends e_admin_ui
 			// do something		
 		}		
 		
-			
-	/*	
-		// optional - a custom page.  
-		public function customPage()
-		{
-			$text = 'Hello World!';
-			return $text;
-			
-		}
-	*/
+		
 			
 }
 				
@@ -452,7 +443,13 @@ class links_page_ui extends e_admin_ui
 		{
 			// do something		
 		}		
-			
+
+    public function eversionPage()
+    {
+     
+		 $mainadmin = e_SELF.'/../admin_vupdate.php';
+     header("location:".$mainadmin); exit; 
+    } 
 }
 				
 
