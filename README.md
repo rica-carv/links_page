@@ -1,6 +1,6 @@
 #Links page plugin for e107 V2
 
-28.6.2016 Version 2.3.1 
+26.8.2016 Version 2.3.1 
 Added e_version support
 
 28.6.2016 changed version to 2.2 for the sake of the versioning system on e107.org
