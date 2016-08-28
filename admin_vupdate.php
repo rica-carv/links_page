@@ -1,9 +1,9 @@
 <?php
-require_once("../../class2.php");
-if (!defined('e107_INIT'))
+if(!defined('e107_INIT'))
 {
-    exit;
+	require_once('../../class2.php');
 }
+ 
 if (!getperms("P"))
 {
     header("location:" . e_BASE . "index.php");
@@ -20,31 +20,30 @@ else
 }
 require_once(e_ADMIN . "auth.php");
 
-$path = 'links_page';
+$path =  'links_page';   //e_CURRENT_PLUGIN;  
 $xml 			= e107::getXml();
 
 $evrsn_text = "<table class='fborder' width='97%'>";
-if (file_exists("plugin.xml"))
+if (file_exists("plugin.xml") OR file_exists("plugin.php"))
 {
     // if the plugin.php file exists
-    if (file_exists("e_update.php"))
-    {
-        
-				// if the e_update.php file exists
-        include("plugin.xml");
+    if (is_file("e_update.php"))
+    {       
+				if (file_exists("plugin.xml")) { 
         include("e_update.php");
-        
-        $fullPath = e_PLUGIN.$path."/plugin.xml";
-        $data = $xml->loadXMLfile($fullPath, true);
-        
-        print_a($data['@attributes']);
-        print_a($data);
+       
+        $data = $xml->loadXMLfile("plugin.xml", true);
         $eplug_name		   = $path;
         $eplug_version   = $data['@attributes']['version'];
         $eplug_description = $data['summary'];
         $evrsn_plugvsn = explode(".", $eplug_version);
-        
-        
+       }
+			 elseif (file_exists("plugin.php")) { 
+				// if the e_update.php file exists
+        include($fullPath."plugin.php");
+        include($fullPath."e_update.php");
+        $evrsn_plugvsn = explode(".", $eplug_version);					  
+       } 
         $evrsn_text .= "<tr><td class='fcaption'>" . EVERSION_U11 . "</td></tr>
 		<tr><td class='forumheader3'>" . EVERSION_U3 . " <strong>" . $eplug_name . "</strong><br />
 		" . EVERSION_U4 . " <strong>" . $eplug_version . "</strong> " . ($evrsn_plugvsn[2] > 0?EVERSION_U8:"") . " <br />
@@ -68,7 +67,7 @@ if (file_exists("plugin.xml"))
             // we use the xml version
             $evrsn_data = evrsn_xml_parse($evrsn_content);
             $nplugins = count($evrsn_data);
-            
+
             foreach ($evrsn_data as $row)
             {   
                 if (strtolower(trim($row->plugin)) == strtolower($eplug_name))
