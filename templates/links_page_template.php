@@ -77,7 +77,7 @@ $LINKS_PAGE_TEMPLATE['LINK_TABLE_REFER_START'] = '{NAVIGATOR}
          </div>
          <div class="col-md-2 hidden-xs hidden-sm">{LINK_RATING_LAN}</div>
          <div class="col-md-1 hidden-xs hidden-sm">{LINK_COMMENT_LAN}</div>       
-         <div class="col-md-1 hidden-xs hidden-sm">{LINK_REFER_LAN}</div>       
+         <div class="col-md-2 hidden-xs hidden-sm">{LINK_REFER_LAN}</div>       
         </div> 
     </div>
     <div class="panel-body">
@@ -152,7 +152,7 @@ $LINKS_PAGE_TEMPLATE['LINK_TABLE_MANAGE_END'] =
 "   </div>
    <div class='panel-footer'>
       <div class='row'>
-        <div class='col-md-12 text-right'><a href='{LINK_MANAGE_NEWLINK}'>".LAN_LINKS_MANAGER_3.">></a> </div>
+        <div class='col-md-12 text-right'><a href='{LINK_MANAGE_NEWLINK}'>".LAN_LINKS_MANAGER_3."></a> </div>
       </div>
     </div>    
 	</div>
