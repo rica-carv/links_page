@@ -163,15 +163,6 @@ define("LCLAN_ITEM_37", "view all links");
 define("LCLAN_ITEM_38", "All Links");
 define("LCLAN_ITEM_39", "Rating");
 
-define("LCLAN_ADMINMENU_1", "Link Options");
-define("LCLAN_ADMINMENU_2", "Manage Link Categories");
-define("LCLAN_ADMINMENU_3", "Create Link Category");
-define("LCLAN_ADMINMENU_4", "Manage Links");
-define("LCLAN_ADMINMENU_5", "Create Link");
-define("LCLAN_ADMINMENU_6", "Options");
-define("LCLAN_ADMINMENU_7", "Submitted Links");
-define("LCLAN_ADMINMENU_8", "Categories");
-define("LCLAN_ADMINMENU_9", "Check for updates");
 define("LCLAN_ADMINMENU_10", "Your SEF URL already exists!");
 define("LCLAN_REFERER", "Refer");
 define("LCLAN_CREATED", "Created");
