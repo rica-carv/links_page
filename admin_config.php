@@ -215,7 +215,7 @@ class links_page_ui extends e_admin_ui
 	 	protected $batchCopy		= true;		
 	//	protected $sortField		= 'somefield_order';
 	//	protected $orderStep		= 10;
-	//	protected $tabs				= array('Tabl 1','Tab 2'); // Use 'tab'=>0  OR 'tab'=>1 in the $fields below to enable. 
+	  protected $tabs				= array(LCLAN_ADMINMENU_5); // Use 'tab'=>0  OR 'tab'=>1 in the $fields below to enable. 
 		
   	protected $listQry      	= "SELECT * FROM `#links_page` WHERE link_active != '0' "; // Example Custom Query. LEFT JOINS allowed. Should be without any Order or Limit.
 	
