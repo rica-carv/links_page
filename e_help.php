@@ -22,7 +22,7 @@
 if (!defined('e107_INIT')) { exit; }
 
 // e107::lan('links_page',e_LANGUAGE."_help.php"); 
-include_lan(e_PLUGIN.'links_page/languages/'.e_LANGUAGE.'_help.php');
+include_lan(e_PLUGIN.'links_page/languages/'.e_LANGUAGE.'/'.e_LANGUAGE.'_help.php');
 
  
 if(!e_QUERY){

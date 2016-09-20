@@ -9,7 +9,7 @@ if (!getperms('P'))
 	exit;
 }
 
-e107::lan('links_page',true);
+e107::lan('links_page',true,true);
 //$lan_file = e_PLUGIN."links_page/languages/".e_LANGUAGE.".php";
 include_lan($lan_file);
 
