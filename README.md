@@ -1,5 +1,10 @@
 #Links page plugin for e107 V2
 
+Version 2.3.2 in progress
+- cleaning language folders DONE, need to be checked
+- Slovak translation - in progress
+- cleaning old images from e_version   DONE, need to be checked
+
 26.8.2016 Version 2.3.1 
 Added e_version support
 
