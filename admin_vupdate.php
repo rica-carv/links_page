@@ -53,7 +53,7 @@ if (file_exists("plugin.xml") OR file_exists("plugin.php"))
 		</td></tr>
 		<tr><td class='fcaption'>" . EVERSION_U12 . "</td></tr>";
         // Get the current installed version from plugin table
-        if ($sql->db_Select("plugin", "*", "where plugin_name='{$eplug_name}'", "nowhere", false))
+        if ($sql->db_Select("plugin", "*", "where plugin_path='{$eplug_name}'", "nowhere", false))
         {
             $evrsn_prow = $sql->db_Fetch();
             $evrsn_pversion = $evrsn_prow['plugin_version'];
