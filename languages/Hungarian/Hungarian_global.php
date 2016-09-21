@@ -42,7 +42,7 @@ define("LCLAN_OPT_20", "Link a legtöbb hivatkozáshoz");
 define("LCLAN_OPT_21", "Link a legjobb értékeléshez");
 define("LCLAN_OPT_22", "Alapértelmezett ikon megjelenítése, ha nincs kiválasztva");
 define("LCLAN_OPT_23", "Alapértelmezett elrendezési módszer");
-define("LCLAN_OPT_24", "Alapértelmezett soorend módszer");
+define("LCLAN_OPT_24", "Alapértelmezett sorrend módszer");
 define("LCLAN_OPT_25", "Alapértelmezett átméretezési érték");
 define("LCLAN_OPT_26", "linkek oldal");
 define("LCLAN_OPT_27", "Linkek értékelésének engedélyezése");
@@ -85,7 +85,7 @@ define("LCLAN_OPT_63", "Minimum értékelési érték");
 define("LCLAN_OPT_64", "Csak a meghatározott értéknél nagyobb számú linkek jelennek meg (0 vagy empty = összes)");
 define("LCLAN_OPT_65", "Üres kategóriák megjelenítése");
 define("LCLAN_OPT_66", "Link minden kategóriához");
-define("LCLAN_OPT_67", "Link az összes kategóriához");
+define("LCLAN_OPT_67", "Link az összes hivatkozáshoz");
 define("LCLAN_OPT_68", "Összes link megtekintése");
 
 define("LCLAN_OPT_69", "Link navigátor megjelenítési stílusa");
