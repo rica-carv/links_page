@@ -20,7 +20,8 @@ else
 }
 require_once(e_ADMIN . "auth.php");
 
-$path =  'links_page';   //e_CURRENT_PLUGIN;  
+$path =   e_CURRENT_PLUGIN;
+ 
 $xml 			= e107::getXml();
 
 $evrsn_text = "<table class='fborder' width='97%'>";
@@ -32,10 +33,11 @@ if (file_exists("plugin.xml") OR file_exists("plugin.php"))
 				if (file_exists("plugin.xml")) { 
         include("e_update.php");
        
-        $data = $xml->loadXMLfile("plugin.xml", true);
+        $data = $xml->loadXMLfile("plugin.xml", true);        
         $eplug_name		   = $path;
         $eplug_version   = $data['@attributes']['version'];
-        $eplug_description = $data['summary'];
+        $eplug_description = $data['summary']['@attributes']['lan'];
+        $eplug_description = constant($eplug_description);
         $evrsn_plugvsn = explode(".", $eplug_version);
        }
 			 elseif (file_exists("plugin.php")) { 
