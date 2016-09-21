@@ -42,7 +42,7 @@ define("LCLAN_OPT_20", "Link a legtöbb hivatkozáshoz");
 define("LCLAN_OPT_21", "Link a legjobb értékeléshez");
 define("LCLAN_OPT_22", "Alapértelmezett ikon megjelenítése, ha nincs kiválasztva");
 define("LCLAN_OPT_23", "Alapértelmezett elrendezési módszer");
-define("LCLAN_OPT_24", "Alapértelmezett soorend módszer");
+define("LCLAN_OPT_24", "Alapértelmezett sorrend módszer");
 define("LCLAN_OPT_25", "Alapértelmezett átméretezési érték");
 define("LCLAN_OPT_26", "linkek oldal");
 define("LCLAN_OPT_27", "Linkek értékelésének engedélyezése");
@@ -85,7 +85,7 @@ define("LCLAN_OPT_63", "Minimum értékelési érték");
 define("LCLAN_OPT_64", "Csak a meghatározott értéknél nagyobb számú linkek jelennek meg (0 vagy empty = összes)");
 define("LCLAN_OPT_65", "Üres kategóriák megjelenítése");
 define("LCLAN_OPT_66", "Link minden kategóriához");
-define("LCLAN_OPT_67", "Link az összes kategóriához");
+define("LCLAN_OPT_67", "Link az összes hivatkozáshoz");
 define("LCLAN_OPT_68", "Összes link megtekintése");
 
 define("LCLAN_OPT_69", "Link navigátor megjelenítési stílusa");
@@ -259,3 +259,12 @@ define("LAN_LINKS_51", "összes link megtekintése");
 define('LAN_LINKS_SCH_1','Beküldött válasz a linkhez');
 
 define("LCLAN_ADMIN_14", "Linkek");
+
+define("LCLAN_PAGETITLE_2", "Kategóriák");
+define("LCLAN_PAGETITLE_3", "Linkek");
+define("LCLAN_PAGETITLE_4", "kategória");
+define("LCLAN_PAGETITLE_5", "Legtöbb Értékelés");
+define("LCLAN_PAGETITLE_6", "Legtöbb Hivatkozás");
+define("LCLAN_PAGETITLE_7", "Link Kezelő");
+define("LCLAN_PAGETITLE_8", "Hozzászólások");
+define("LCLAN_PAGETITLE_9", "Link beküldése");
