@@ -295,8 +295,8 @@ class links_page_ui extends e_admin_ui
       'link_cat_empty'		=> array('title'=> LCLAN_OPT_65, 'tab'=>3, 'type'=>'boolean', 'data' => 'str', 'help'=>'Help Text goes here'),        
       'link_cat_icon_empty'		=> array('title'=> LCLAN_OPT_22, 'tab'=>3, 'type'=>'boolean', 'data' => 'str', 'help'=>'Help Text goes here'),        
       'link_cat_sortorder'		=> array('title'=> LCLAN_OPT_29, 'tab'=>3, 'type'=>'boolean', 'data' => 'str', 'help'=>'Help Text goes here'),        
-      'link_cat_sort'		=> array('title'=> LCLAN_OPT_23, 'tab'=>3, 'type'=>'dropdown', 'data' => 'str', 'help'=>'Help Text goes here'),       
-      'link_cat_order'		=> array('title'=> LCLAN_OPT_24, 'tab'=>3, 'type'=>'dropdown', 'data' => 'str', 'help'=>'Help Text goes here'),        
+      'link_cat_sort'		=> array('title'=> LCLAN_OPT_24, 'tab'=>3, 'type'=>'dropdown', 'data' => 'str', 'help'=>'Help Text goes here'),       
+      'link_cat_order'		=> array('title'=> LCLAN_OPT_23, 'tab'=>3, 'type'=>'dropdown', 'data' => 'str', 'help'=>'Help Text goes here'),        
       'link_cat_resize_value'		=> array('title'=> LCLAN_OPT_25, 'tab'=>3, 'type'=>'text', 'data' => 'str', 'help'=>'Help Text goes here'),         
   
       'link_icon'		=> array('title'=> LCLAN_OPT_14, 'tab'=>4, 'type'=>'boolean', 'data' => 'str', 'help'=>'Help Text goes here'),
@@ -304,7 +304,7 @@ class links_page_ui extends e_admin_ui
       'link_url'		=> array('title'=> LCLAN_OPT_18, 'tab'=>4, 'type'=>'boolean', 'data' => 'str', 'help'=>'Help Text goes here'),
       'link_desc'		=> array('title'=> LCLAN_OPT_15, 'tab'=>4, 'type'=>'boolean', 'data' => 'str', 'help'=>'Help Text goes here'),
       'link_sortorder'		=> array('title'=> LCLAN_OPT_29, 'tab'=>4, 'type'=>'boolean', 'data' => 'str', 'help'=>'Help Text goes here'),        
-      'link_sort'		=> array('title'=> LCLAN_OPT_23, 'tab'=>4, 'type'=>'dropdown', 'data' => 'str', 'help'=>'Help Text goes here'),       
+      'link_sort'		=> array('title'=> LCLAN_OPT_24, 'tab'=>4, 'type'=>'dropdown', 'data' => 'str', 'help'=>'Help Text goes here'),       
       'link_order'		=> array('title'=> LCLAN_OPT_23, 'tab'=>4, 'type'=>'dropdown', 'data' => 'str', 'help'=>'Help Text goes here'),
          //????  0=same window, 1=_blank, 2=_parent, 3=_top, 4=miniwindow
       'link_open_all'		=> array('title'=> LCLAN_OPT_32, 'tab'=>4, 'type'=>'dropdown', 'data' => 'str', 'help'=>'Help Text goes here'),
