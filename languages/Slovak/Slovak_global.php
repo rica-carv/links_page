@@ -1,9 +1,15 @@
 <?php
-/**
- * @file
- * Definition of english strings for common usage.
- * $Author: nlstart $ 
- */
+/*
++---------------------------------------------------------------+
+|        e107 website content management system Slovak Language File
+|        Released under the terms and conditions of the
+|        GNU General Public License (http://gnu.org).
+|        Last Modified: 2016/08/19 14:01:20
+|
+|        $Author: Jimako $
++---------------------------------------------------------------+
+*/
+
 define("LCLAN_PAGETITLE_1", "Odkazy");
 define("LCLAN_PLUGIN_LAN_1", "Stránka odkazov");
 define("LCLAN_PLUGIN_LAN_2", "Stránka odkazov pre zobrazenie externých web odkazov");
@@ -214,5 +220,12 @@ define("LAN_LINKS_51", "Zobraziť všetky odkazy");
 define("LAN_LINKS_SCH_1", "Posted in reply to link");
 define("LCLAN_ADMIN_14", "Links");
 
-
-?>
+define("LCLAN_PAGETITLE_2", "Všetky kategórie");
+define("LCLAN_PAGETITLE_3", "Všetky odkazy");
+define("LCLAN_PAGETITLE_4", "kategória");
+define("LCLAN_PAGETITLE_5", "Najviac hodnotené");
+define("LCLAN_PAGETITLE_6", "Najviac kliknutí");
+define("LCLAN_PAGETITLE_7", "Manažér vlastných odkazov");
+define("LCLAN_PAGETITLE_8", "Komentáre k odkazom");
+define("LCLAN_PAGETITLE_9", "Odoslať odkaz");
+ 
