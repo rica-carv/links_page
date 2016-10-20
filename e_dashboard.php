@@ -9,7 +9,7 @@
  
 if (!defined('e107_INIT')) { exit; }
 
-e107::lan('links_page',true);
+e107::lan('links_page',true,true);
 
 class links_page_dashboard // include plugin-folder in the name.
 {

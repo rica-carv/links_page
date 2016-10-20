@@ -10,7 +10,7 @@
 if (!defined('e107_INIT')) { exit; }
 
 //e107::lan('links_page');   /* FRONTEND */
-e107::lan('links_page',true); /* ADMIN */
+e107::lan('links_page',true,true); /* ADMIN */
 
 class links_page_frontpage // include plugin-folder in the name.
 {

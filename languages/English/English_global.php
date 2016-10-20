@@ -104,25 +104,6 @@ define("LCLAN_OPT_85", "caption menu");
 define("LCLAN_OPT_86", "link menu");
 define("LCLAN_OPT_87", "show amount of links");
 
-define("LCLAN_SL_1", "Submitted Links");
-define("LCLAN_SL_2", "No submitted links");
-define("LCLAN_SL_3", "Link");
-define("LCLAN_SL_4", "Submitted by");
-define("LCLAN_SL_5", "Options");
-define("LCLAN_SL_6", "Post");
-define("LCLAN_SL_7", "Delete");
-define("LCLAN_SL_8", "Are you sure you want to delete this submitted link?");
-define("LCLAN_SL_9", "After submitting your link it will be reviewed by a site admin and if appropriate it will be added to the main links page.");
-define("LCLAN_SL_10", "Category:");
-define("LCLAN_SL_11", "name");
-define("LCLAN_SL_12", "url");
-define("LCLAN_SL_13", "description");
-define("LCLAN_SL_14", "URL to link button:");
-define("LCLAN_SL_15", "Underlined fields are required.");
-define("LCLAN_SL_16", "Submit Link");
-define("LCLAN_SL_17", "");
-define("LCLAN_SL_18", "");
-
 define("LCLAN_ITEM_1", "Submitted by");
 define("LCLAN_ITEM_2", "Category:");
 define("LCLAN_ITEM_3", "no categories yet");
@@ -163,14 +144,14 @@ define("LCLAN_ITEM_37", "view all links");
 define("LCLAN_ITEM_38", "All Links");
 define("LCLAN_ITEM_39", "Rating");
 
-define("LCLAN_ADMINMENU_1", "Link Options");
-define("LCLAN_ADMINMENU_2", "Manage Link Categories");
-define("LCLAN_ADMINMENU_3", "Create Link Category");
-define("LCLAN_ADMINMENU_4", "Manage Links");
-define("LCLAN_ADMINMENU_5", "Create Link");
-define("LCLAN_ADMINMENU_6", "Options");
-define("LCLAN_ADMINMENU_7", "Submitted Links");
-define("LCLAN_ADMINMENU_8", "Categories");
+define("LCLAN_ADMINMENU_10", "Your SEF URL already exists!");
+define("LCLAN_REFERER", "Refer");
+define("LCLAN_CREATED", "Created");
+define("LCLAN_HELP_1", "if enabled links are submitted directly, else a site admin needs to approve them");
+define("LCLAN_HELP_2", "these users can add/edit their own personal links");
+define("LCLAN_HELP_3", "if enabled links are submitted directly, else a site admin needs to approve them");
+define("LCLAN_HELP_4", "if enabled the link managers can delete their own links");
+define("LCLAN_HELP_5", "only links with a rating larger then the given value are displayed (0 or empty = all)");
 
 define("NT_LAN_LP_1", "Links Page Events");
 define("NT_LAN_LP_2", "Link submitted by user");
@@ -245,3 +226,13 @@ define("LAN_LINKS_51", "view all links");
 define('LAN_LINKS_SCH_1','Posted in reply to link');
 
 define("LCLAN_ADMIN_14", "Links");
+
+define("LCLAN_PAGETITLE_2", "All categories");
+define("LCLAN_PAGETITLE_3", "All Links");
+define("LCLAN_PAGETITLE_4", "category");
+define("LCLAN_PAGETITLE_5", "Top Rated");
+define("LCLAN_PAGETITLE_6", "Top Referrals");
+define("LCLAN_PAGETITLE_7", "Personal Link Manager");
+define("LCLAN_PAGETITLE_8", "Link Comments");
+define("LCLAN_PAGETITLE_9", "Submit Link");
+define("LCLAN_PAGETITLE_10", "");
