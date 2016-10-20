@@ -268,3 +268,4 @@ define("LCLAN_PAGETITLE_6", "Legtöbb Hivatkozás");
 define("LCLAN_PAGETITLE_7", "Link Kezelő");
 define("LCLAN_PAGETITLE_8", "Hozzászólások");
 define("LCLAN_PAGETITLE_9", "Link beküldése");
+?>
