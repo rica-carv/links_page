@@ -72,4 +72,4 @@ define("LCLAN_CAT_28", "Link Kategória Létrehozása");
 define("LCLAN_CAT_29", "Link Kategória");
  
  
- 
+ ?>
