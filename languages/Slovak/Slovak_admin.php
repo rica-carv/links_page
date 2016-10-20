@@ -66,4 +66,4 @@ define("LCLAN_CAT_28", "Vytvoriť kategóriu odkazu");
 define("LCLAN_CAT_29", "Kategória odkazu");
  
  
- 
+ ?>
