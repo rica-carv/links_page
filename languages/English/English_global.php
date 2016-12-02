@@ -219,7 +219,7 @@ define("LAN_LINKS_45", "Link Category");
 define("LAN_LINKS_46", "Link Subcategories");
 define("LAN_LINKS_47", "link navigator...");
 define("LAN_LINKS_48", "-- view category --");
-define("LAN_LINKS_49", "");
+define("LAN_LINKS_49", "Return to links category list");
 define("LAN_LINKS_50", "You do not have permission to submit links at present");
 define("LAN_LINKS_51", "view all links");
 
