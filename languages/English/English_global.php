@@ -11,7 +11,7 @@ define("LCLAN_PAGETITLE_1", "Links");    // needed in plugin.xml
 define("LCLAN_PLUGIN_LAN_1", "Links Page");
 define("LCLAN_PLUGIN_LAN_2", "Links Page For Displaying External Web Links");
 define("LCLAN_PLUGIN_LAN_3", "Configure Links Page");
-define("LCLAN_PLUGIN_LAN_4", "links");
+define("LCLAN_PLUGIN_LAN_4", "links");  // DUPLICATED IN LCLAN_PAGETITLE_1 - UPPERCASE ??
 define("LCLAN_PLUGIN_LAN_5", "Links page has successfully installed, please configure it from the Links Page link on the admin front page.");
 define("LCLAN_PLUGIN_LAN_6", "Links_page successfully upgraded, now using version");
 
@@ -40,21 +40,21 @@ define("LCLAN_OPT_22", "show default icon if none is present");
 define("LCLAN_OPT_23", "default sort method");
 define("LCLAN_OPT_24", "default order method");
 define("LCLAN_OPT_25", "default resize value");
-define("LCLAN_OPT_26", "links page");
+define("LCLAN_OPT_26", "links page");  // DUPLICATED IN LCLAN_PLUGIN_LAN_1 - UPPERCASE ??
 define("LCLAN_OPT_27", "allow users to rate links");
-define("LCLAN_OPT_28", "show default icon if none present");
+define("LCLAN_OPT_28", "show default icon if none present");  // DUPLICATED IN LCLAN_OPT_22 - missing is ??
 define("LCLAN_OPT_29", "display sort and order menu");
 define("LCLAN_OPT_30", "ascending");
 define("LCLAN_OPT_31", "descending");
 define("LCLAN_OPT_32", "use override of link open method");
-define("LCLAN_OPT_33", "default resize value");
+define("LCLAN_OPT_33", "default resize value");  // DUPLICATED IN LCLAN_OPT_25
 define("LCLAN_OPT_34", "name");
-define("LCLAN_OPT_35", "url");
+define("LCLAN_OPT_35", "url");  // DUPLICATED IN LCLAN_OPT_18
 define("LCLAN_OPT_36", "order");
 define("LCLAN_OPT_37", "refer");
 define("LCLAN_OPT_38", "");
 define("LCLAN_OPT_39", "");
-define("LCLAN_OPT_40", "name");
+define("LCLAN_OPT_40", "name");  // DUPLICATED IN LCLAN_OPT_34
 define("LCLAN_OPT_41", "id");
 define("LCLAN_OPT_42", "use individual link setting");
 define("LCLAN_OPT_43", "Opens in same window");
@@ -66,7 +66,7 @@ define("LCLAN_OPT_48", "allow direct posting");
 define("LCLAN_OPT_49", "if enabled links are submitted directly, else a site admin needs to approve them");
 define("LCLAN_OPT_50", "allow direct deleting");
 define("LCLAN_OPT_51", "if enabled the link managers can delete their own links");
-define("LCLAN_OPT_52", "personal link managers");
+define("LCLAN_OPT_52", "personal link managers");  // DUPLICATED IN LCLAN_PAGETITLE_7 ??? - UPPERCASE ???
 define("LCLAN_OPT_53", "date");
 define("LCLAN_OPT_54", "allow personal management on links");
 define("LCLAN_OPT_55", "allow comments on all links");
@@ -115,14 +115,14 @@ define("LCLAN_ITEM_8", "Auto-Thumbnail size:");
 define("LCLAN_ITEM_9", "This option is disabled as file uploading is not enabled on your server");
 define("LCLAN_ITEM_10", "The");
 define("LCLAN_ITEM_11", "folder is not writable, you need to CHMOD 777 the folder before uploading");
-define("LCLAN_ITEM_12", "px");
+define("LCLAN_ITEM_12", "px");  // DUPLICATED IN LCLAN_OPT_5
 define("LCLAN_ITEM_13", "upload");
 define("LCLAN_ITEM_14", "Choose an icon:");
 define("LCLAN_ITEM_15", "View Images");
 define("LCLAN_ITEM_16", "Open Type:");
-define("LCLAN_ITEM_17", "Opens in same window");
-define("LCLAN_ITEM_18", "Opens in new window");
-define("LCLAN_ITEM_19", "Opens in 600x400 mini-window");
+define("LCLAN_ITEM_17", "Opens in same window");  // DUPLICATED IN LCLAN_OPT_43
+define("LCLAN_ITEM_18", "Opens in new window");  // DUPLICATED IN LCLAN_OPT_44
+define("LCLAN_ITEM_19", "Opens in 600x400 mini-window");  // DUPLICATED IN LCLAN_OPT_45
 define("LCLAN_ITEM_20", "Visible for:");
 define("LCLAN_ITEM_21", "tick to update timestamp to current time");
 define("LCLAN_ITEM_22", "Update Link");
@@ -132,7 +132,7 @@ define("LCLAN_ITEM_25", "Image");
 define("LCLAN_ITEM_26", "Link Name");
 define("LCLAN_ITEM_27", "Options");
 define("LCLAN_ITEM_28", "Move");
-define("LCLAN_ITEM_29", "Order");
+define("LCLAN_ITEM_29", "Order");  // DUPLICATED IN LCLAN_OPT_36 - LOWERCASE ???
 define("LCLAN_ITEM_30", "Reorder");
 define("LCLAN_ITEM_31", "edit");
 define("LCLAN_ITEM_32", "delete");
@@ -140,18 +140,18 @@ define("LCLAN_ITEM_33", "Are you sure you want to delete this link?");
 define("LCLAN_ITEM_34", "no icon");
 define("LCLAN_ITEM_35", "manage personal links");
 define("LCLAN_ITEM_36", "go");
-define("LCLAN_ITEM_37", "view all links");
+define("LCLAN_ITEM_37", "view all links");  // DUPLICATED IN LCLAN_OPT_68
 define("LCLAN_ITEM_38", "All Links");
 define("LCLAN_ITEM_39", "Rating");
 
 define("LCLAN_ADMINMENU_10", "Your SEF URL already exists!");
-define("LCLAN_REFERER", "Refer");
+define("LCLAN_REFERER", "Refer");  // DUPLICATED IN LCLAN_OPT_37
 define("LCLAN_CREATED", "Created");
-define("LCLAN_HELP_1", "if enabled links are submitted directly, else a site admin needs to approve them");
-define("LCLAN_HELP_2", "these users can add/edit their own personal links");
-define("LCLAN_HELP_3", "if enabled links are submitted directly, else a site admin needs to approve them");
-define("LCLAN_HELP_4", "if enabled the link managers can delete their own links");
-define("LCLAN_HELP_5", "only links with a rating larger then the given value are displayed (0 or empty = all)");
+define("LCLAN_HELP_1", "if enabled links are submitted directly, else a site admin needs to approve them");  // DUPLICATED IN LCLAN_OPT_49
+define("LCLAN_HELP_2", "these users can add/edit their own personal links");  // DUPLICATED IN LCLAN_OPT_47
+define("LCLAN_HELP_3", "if enabled links are submitted directly, else a site admin needs to approve them");  // DUPLICATED IN LCLAN_OPT_49
+define("LCLAN_HELP_4", "if enabled the link managers can delete their own links");  // DUPLICATED IN LCLAN_OPT_51
+define("LCLAN_HELP_5", "only links with a rating larger then the given value are displayed (0 or empty = all)");  // DUPLICATED IN LCLAN_OPT_64
 
 define("NT_LAN_LP_1", "Links Page Events");
 define("NT_LAN_LP_2", "Link submitted by user");
@@ -162,10 +162,10 @@ define("LNK_SCH_LAN_3", "All links details");
 
 define("LAN_LINKS_MANAGER_0", "icon");
 define("LAN_LINKS_MANAGER_1", "link");
-define("LAN_LINKS_MANAGER_2", "options");
-define("LAN_LINKS_MANAGER_3", "create new link");
+define("LAN_LINKS_MANAGER_2", "options");  // DUPLICATED IN LCLAN_ITEM_27 - UPPERCASE ???
+define("LAN_LINKS_MANAGER_3", "create new link");  // DUPLICATED IN LCLAN_ITEM_23 - without the new ??
 define("LAN_LINKS_MANAGER_4", "you don't have any links present");
-define("LAN_LINKS_MANAGER_5", "category");
+define("LAN_LINKS_MANAGER_5", "category");  // DUPLICATED IN LCLAN_OPT_77
 define("LAN_LINKS_MANAGER_6", "");
 define("LAN_LINKS_MANAGER_7", "");
 define("LAN_LINKS_MANAGER_8", "");
@@ -175,11 +175,11 @@ define("LAN_LINKS_1", "Total links");
 define("LAN_LINKS_2", "Total links activated");
 define("LAN_LINKS_3", "Anonymous");
 define("LAN_LINKS_4", "heading");
-define("LAN_LINKS_5", "url");
-define("LAN_LINKS_6", "order");
-define("LAN_LINKS_7", "refer");
-define("LAN_LINKS_8", "ascending");
-define("LAN_LINKS_9", "descending");
+define("LAN_LINKS_5", "url");  // DUPLICATED IN LCLAN_OPT_18
+define("LAN_LINKS_6", "order");  // DUPLICATED IN LCLAN_OPT_36
+define("LAN_LINKS_7", "refer");  // DUPLICATED IN LCLAN_OPT_37
+define("LAN_LINKS_8", "ascending");  // DUPLICATED IN LCLAN_OPT_30
+define("LAN_LINKS_9", "descending");  // DUPLICATED IN LCLAN_OPT_31
 define("LAN_LINKS_10", "Top Links : Refer");
 define("LAN_LINKS_11", "Top Links : Rating");
 define("LAN_LINKS_12", "view links by refer");
@@ -187,10 +187,10 @@ define("LAN_LINKS_13", "view links by rating");
 define("LAN_LINKS_14", "view links frontpage");
 define("LAN_LINKS_15", "sort by");
 define("LAN_LINKS_16", "in this category");
-define("LAN_LINKS_17", "link");
-define("LAN_LINKS_18", "links");
+define("LAN_LINKS_17", "link");  // DUPLICATED IN LAN_LINKS_MANAGER_1
+define("LAN_LINKS_18", "links");  // DUPLICATED IN LCLAN_ITEM_24 - UPPERCASE ???
 define("LAN_LINKS_19", "categories");
-define("LAN_LINKS_20", "category");
+define("LAN_LINKS_20", "category");  // DUPLICATED IN LCLAN_OPT_77
 define("LAN_LINKS_21", "There");
 define("LAN_LINKS_22", "is");
 define("LAN_LINKS_23", "are");
@@ -201,17 +201,17 @@ define("LAN_LINKS_27", "submit a link");
 define("LAN_LINKS_28", "Thank you");
 define("LAN_LINKS_29", "Your link has been saved and will be reviewed by a site administrator.");
 define("LAN_LINKS_30", "Link Categories");
-define("LAN_LINKS_31", "submit a link");
-define("LAN_LINKS_32", "Category:");
+define("LAN_LINKS_31", "submit a link");  // DUPLICATED IN LAN_LINKS_27
+define("LAN_LINKS_32", "Category:");  // DUPLICATED IN LCLAN_ITEM_2
 define("LAN_LINKS_33", "No Links are rated yet.");
 define("LAN_LINKS_34", "There are currently no links");
-define("LAN_LINKS_35", "personal links manager");
+define("LAN_LINKS_35", "personal links manager");  // DUPLICATED IN LCLAN_PAGETITLE_7 ??? - UPPERCASE ???
 define("LAN_LINKS_36", "link comments");
 define("LAN_LINKS_37", "Comments");
-define("LAN_LINKS_38", "date");
-define("LAN_LINKS_39", "Links");
-define("LAN_LINKS_40", "Category");
-define("LAN_LINKS_41", "no categories yet");
+define("LAN_LINKS_38", "date");  // DUPLICATED IN LCLAN_OPT_53
+define("LAN_LINKS_39", "Links");  // DUPLICATED IN LCLAN_ITEM_24
+define("LAN_LINKS_40", "Category");  // DUPLICATED IN LCLAN_OPT_77 - LOWERCASE ??
+define("LAN_LINKS_41", "no categories yet");  // DUPLICATED IN LCLAN_ITEM_3
 define("LAN_LINKS_42", "no links are referred yet");
 define("LAN_LINKS_43", "view all categories");
 define("LAN_LINKS_44", "id");
@@ -221,19 +221,19 @@ define("LAN_LINKS_47", "link navigator...");
 define("LAN_LINKS_48", "-- view category --");
 define("LAN_LINKS_49", "Return to links category list");
 define("LAN_LINKS_50", "You do not have permission to submit links at present");
-define("LAN_LINKS_51", "view all links");
+define("LAN_LINKS_51", "view all links");  // DUPLICATED IN LCLAN_OPT_68
 
 define('LAN_LINKS_SCH_1','Posted in reply to link');
 
-define("LCLAN_ADMIN_14", "Links");
+define("LCLAN_ADMIN_14", "Links");  // DUPLICATED IN LCLAN_ITEM_24
 
 define("LCLAN_PAGETITLE_2", "All categories");
-define("LCLAN_PAGETITLE_3", "All Links");
-define("LCLAN_PAGETITLE_4", "category");
+define("LCLAN_PAGETITLE_3", "All Links");  // DUPLICATED IN LCLAN_ITEM_38
+define("LCLAN_PAGETITLE_4", "category");  // DUPLICATED IN LCLAN_OPT_77
 define("LCLAN_PAGETITLE_5", "Top Rated");
 define("LCLAN_PAGETITLE_6", "Top Referrals");
 define("LCLAN_PAGETITLE_7", "Personal Link Manager");
-define("LCLAN_PAGETITLE_8", "Link Comments");
-define("LCLAN_PAGETITLE_9", "Submit Link");
+define("LCLAN_PAGETITLE_8", "Link Comments");  // DUPLICATED IN LAN_LINKS_36 - LOWERCASE ???
+define("LCLAN_PAGETITLE_9", "Submit Link");  // DUPLICATED IN LAN_LINKS_27 - LOWERCASE ???
 define("LCLAN_PAGETITLE_10", "");
 ?>
