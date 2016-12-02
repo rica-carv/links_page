@@ -236,3 +236,4 @@ define("LCLAN_PAGETITLE_7", "Personal Link Manager");
 define("LCLAN_PAGETITLE_8", "Link Comments");
 define("LCLAN_PAGETITLE_9", "Submit Link");
 define("LCLAN_PAGETITLE_10", "");
+?>

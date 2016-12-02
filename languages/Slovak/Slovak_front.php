@@ -16,3 +16,4 @@ define("LCLAN_PAGETITLE_7", "Manažér vlastných odkazov");
 define("LCLAN_PAGETITLE_8", "Komentáre k odkazom");
 define("LCLAN_PAGETITLE_9", "Odoslať odkaz");
 define("LCLAN_PAGETITLE_10", "");
+?>
