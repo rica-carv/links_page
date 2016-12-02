@@ -101,7 +101,7 @@ $LINKS_PAGE_TEMPLATE['LINK_TABLE'] = '
 
 $LINKS_PAGE_TEMPLATE['LINK_TABLE_END'] = '
 	 </div>
-  </div>';
+  </div><div class="pull-left"><li>{LINK_BACK_TO_CATEGORY_LIST}</li></div>';
   
 // ##### FRONTPAGE -------------------------------------------------------------  
 $LINKS_PAGE_TEMPLATE['LINK_MAIN_TABLE_START'] = "
