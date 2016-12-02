@@ -104,6 +104,7 @@ $LINKS_PAGE_TEMPLATE['LINK_TABLE_END'] = '
   </div>';
   
 // ##### FRONTPAGE -------------------------------------------------------------  
+$LINKS_PAGE_TEMPLATE['LINK_MAIN_CAPTION'] = "Custom template caption";
 $LINKS_PAGE_TEMPLATE['LINK_MAIN_TABLE_START'] = "
 	<div class='panel panel-default linkmaintablestart'>
    <div class='panel-body'> ";
