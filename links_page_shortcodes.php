@@ -296,12 +296,25 @@ class links_page_shortcodes extends e_shortcode
 		else return '';
   } 
   
-  function sc_link_refer($parm='')
+    function sc_link_refer($parm='')
 	{ 
-    global $LINK_REFER, $rowl;
+    global $LINK_REFER, $rowl,  $links_total,  $allrefer;
+    ++$links_total;
+    $allrefer += $rowl['link_refer'];
     return (vartrue($this->plugPrefs['link_referal'])  ? $rowl['link_refer'] : "");
   }   
-  
+
+  function sc_link_refer_total($parm='')
+	{ 
+    global $REFER_MAIN_TOTAL,  $links_total,  $allrefer;
+    if(vartrue($this->plugPrefs['link_cat_total'])){
+    $REFER_MAIN_TOTAL = LAN_LINKS_21." ".($allrefer == 1 ? LAN_LINKS_22 : LAN_LINKS_23)." ".$allrefer." ".($allrefer == 1 ? LCLAN_OPT_17 : LAN_LINKS_26)." ".LAN_LINKS_24." ".$links_total." ".($links_total == 1 ? LAN_LINKS_MANAGER_1 : LCLAN_PLUGIN_LAN_4);
+    }else{
+    $REFER_MAIN_TOTAL = "";
+    }
+    return $REFER_MAIN_TOTAL;
+  } 
+
   function sc_link_comment($parm='')
 	{ 
     global $LINK_COMMENT, $rowl;

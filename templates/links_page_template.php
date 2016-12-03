@@ -101,7 +101,7 @@ $LINKS_PAGE_TEMPLATE['LINK_TABLE'] = '
 
 $LINKS_PAGE_TEMPLATE['LINK_TABLE_END'] = '
 	 </div>
-  </div>';
+  </div><div class="pull-left"><li>{LINK_BACK_TO_CATEGORY_LIST}</li></div><div class="pull-right"><small class="muted text-muted">{LINK_REFER_TOTAL}</small></div>';
   
 // ##### FRONTPAGE -------------------------------------------------------------  
 $LINKS_PAGE_TEMPLATE['LINK_MAIN_CAPTION'] = "Custom template caption";
