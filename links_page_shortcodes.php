@@ -485,7 +485,10 @@ return (vartrue($this->plugPrefs['link_desc']) ? $tp->toHTML($rowl['link_descrip
     return $frm->imagepicker("link_button",  $this->var['link_button'] , LCLAN_ITEM_7, "media=linkspage");
   }
   
-
+   function sc_link_back_to_category_list()
+   {
+      	return "<a class='btn btn-default btn-xs btn-mini' href='".e107::getUrl()->create('links_page/links')."'>".LAN_LINKS_49."</a>";
+   }
 }
  
 ?>
