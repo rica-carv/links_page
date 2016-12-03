@@ -593,7 +593,7 @@ function displayCategoryLinks($mode=''){
 				$cat_name			= $rowl['link_category_name'];
 				$cat_desc			= $rowl['link_category_description'];
 				$LINK_APPEND		= $lc -> parse_link_append($rowl);
-				$link_table_string .= $tp -> parseTemplate($template['LINK_TABLE'], FALSE, $link_shortcodes);
+				$link_table_string .= $tp -> parseTemplate($template['LINK_TABLE'], true, $link_shortcodes);
 			}else{
 				$arr[$rowl['link_category_id']][] = $rowl;
 			}
