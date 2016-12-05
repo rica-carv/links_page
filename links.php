@@ -485,14 +485,13 @@ function displayCategory($mode=''){
 				$link_main_table_string .= $tp -> parseTemplate($template['LINK_MAIN_TABLE'], FALSE, $link_shortcodes);
 			}
 		}
-		$link_main_table_start = $tp -> parseTemplate($template['LINK_MAIN_TABLE_START'], FALSE, $link_shortcodes);
-		$link_main_table_end = $tp -> parseTemplate($template['LINK_MAIN_TABLE_END'], FALSE, $link_shortcodes);
-		$text = $link_main_table_start.$link_main_table_string.$link_main_table_end;
+		$text  = displayNavigator('cat'); 
+    		$text .= displaySortOrder('cat');     
+		$text .= $tp -> parseTemplate($template['LINK_MAIN_TABLE_START'], FALSE, $link_shortcodes);
+		$text .= $link_main_table_string;
+		$text .= $tp -> parseTemplate($template['LINK_MAIN_TABLE_END'], FALSE, $link_shortcodes);
     
-    $navigator  = displayNavigator('cat'); 
-    $navigator .= displaySortOrder('cat');     
-    $text = $navigator.$text;
-		$caption = LAN_LINKS_30;
+		$caption = ($template['LINK_MAIN_CAPTION']?:LAN_LINKS_30);
 		e107::getRender()->tablerender($caption, $text);
 	}
 	return;
@@ -594,7 +593,7 @@ function displayCategoryLinks($mode=''){
 				$cat_name			= $rowl['link_category_name'];
 				$cat_desc			= $rowl['link_category_description'];
 				$LINK_APPEND		= $lc -> parse_link_append($rowl);
-				$link_table_string .= $tp -> parseTemplate($template['LINK_TABLE'], FALSE, $link_shortcodes);
+				$link_table_string .= $tp -> parseTemplate($template['LINK_TABLE'], true, $link_shortcodes);
 			}else{
 				$arr[$rowl['link_category_id']][] = $rowl;
 			}
