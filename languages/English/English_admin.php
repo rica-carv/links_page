@@ -5,9 +5,9 @@
  * $Author: nlstart $   
  */
  
-
-define("LCLAN_SHOW", "Show ");      /* NEW */
-define("LCLAN_DISPLAY", "Display "); /* NEW */
+/* NEW */
+define("LCLAN_SHOW", "Show ");
+define("LCLAN_DISPLAY", "Display ");
 
 define("LCLAN_OPT_MENU_1", "general options");
 define("LCLAN_OPT_MENU_2", "personal link managers");
@@ -24,9 +24,9 @@ define("LCLAN_ADMINMENU_3", "Create Link Category");
 define("LCLAN_ADMINMENU_4", "Manage Links");
 define("LCLAN_ADMINMENU_5", "Create Link");
 define("LCLAN_ADMINMENU_6", "Options");
-define("LCLAN_ADMINMENU_7", "Submitted Links");
+//define("LCLAN_ADMINMENU_7", "Submitted Links");   //unused
 define("LCLAN_ADMINMENU_8", "Categories");
-define("LCLAN_ADMINMENU_9", "Check for updates");
+
 /* NEW */
 
 define("LCLAN_DISP_NAVPAG",     "Display Navigator on Page");
@@ -67,4 +67,4 @@ define("LCLAN_CAT_28", "Create Link Category");
 define("LCLAN_CAT_29", "Link Category");
  
  
- ?>
+ 

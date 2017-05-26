@@ -39,7 +39,7 @@ class links_page_shortcodes extends e_shortcode
 			$mains .= '<li><a class="btn btn-default" href="'.e107::url('links_page', 'allcats').'">'.LAN_LINKS_43.'</a></li>';
 		}
 		if(vartrue($this->plugPrefs['link_navigator_links'])){
-			$mains .= '<li><a class="btn btn-default" href="'.e107::url('links_page', 'alllinks').'">'.LAN_LINKS_51.'</a></li>';
+			$mains .= '<li><a class="btn btn-default" href="'.e107::url('links_page', 'alllinks').'">'.LCLAN_OPT_68.'</a></li>';
 		}
 		if(vartrue($this->plugPrefs['link_navigator_submit']) && vartrue($this->plugPrefs['link_submit']) && check_class($this->plugPrefs['link_submit_class'])){
 			$mains .= '<li><a class="btn btn-default" href="'.e107::url('links_page', 'submit').'">'.LAN_LINKS_27.'</a></li>';
@@ -148,11 +148,18 @@ class links_page_shortcodes extends e_shortcode
 	{ 
     global $LINK_MAIN_NUMBER, $rowl;   
     if(vartrue($this->plugPrefs['link_cat_amount'])){
-    $LINK_MAIN_NUMBER = $rowl['total_links']." ".($rowl['total_links'] == 1 ? LAN_LINKS_17 : LAN_LINKS_18)." ".LAN_LINKS_16;
+/*
+    $LINK_MAIN_NUMBER = $rowl['total_links']." ".($rowl['total_links'] == 1 ? LAN_LINKS_MANAGER_1 : LAN_LINKS_18)." ".LAN_LINKS_16;
     }else{
     $LINK_MAIN_NUMBER = "";
     }
-    return $LINK_MAIN_NUMBER;
+*/
+    return $rowl['total_links'];
+//    return $rowl['total_links']." ".($rowl['total_links'] == 1 ? LAN_LINKS_MANAGER_1 : LAN_LINKS_18)." ".LAN_LINKS_16;
+    }else{
+    return "";
+    }
+//    return $LINK_MAIN_NUMBER;
   }
 
 
@@ -194,7 +201,7 @@ class links_page_shortcodes extends e_shortcode
 	{ 
     global $LINK_MAIN_TOTAL,  $category_total,  $alllinks;
     if(vartrue($this->plugPrefs['link_cat_total'])){
-    $LINK_MAIN_TOTAL = LAN_LINKS_21." ".($alllinks == 1 ? LAN_LINKS_22 : LAN_LINKS_23)." ".$alllinks." ".($alllinks == 1 ? LAN_LINKS_17 : LAN_LINKS_18)." ".LAN_LINKS_24." ".$category_total." ".($category_total == 1 ? LAN_LINKS_20 : LAN_LINKS_19);
+    $LINK_MAIN_TOTAL = LAN_LINKS_21." ".($alllinks == 1 ? LAN_LINKS_22 : LAN_LINKS_23)." ".$alllinks." ".($alllinks == 1 ? LAN_LINKS_MANAGER_1 : LAN_LINKS_18)." ".LAN_LINKS_24." ".$category_total." ".($category_total == 1 ? LAN_LINKS_MANAGER_5 : LAN_LINKS_19);
     }else{
     $LINK_MAIN_TOTAL = "";
     }
@@ -296,7 +303,7 @@ class links_page_shortcodes extends e_shortcode
 		else return '';
   } 
   
-    function sc_link_refer($parm='')
+  function sc_link_refer($parm='')
 	{ 
     global $LINK_REFER, $rowl,  $links_total,  $allrefer;
     ++$links_total;
@@ -308,13 +315,13 @@ class links_page_shortcodes extends e_shortcode
 	{ 
     global $REFER_MAIN_TOTAL,  $links_total,  $allrefer;
     if(vartrue($this->plugPrefs['link_cat_total'])){
-    $REFER_MAIN_TOTAL = LAN_LINKS_21." ".($allrefer == 1 ? LAN_LINKS_22 : LAN_LINKS_23)." ".$allrefer." ".($allrefer == 1 ? LCLAN_OPT_17 : LAN_LINKS_26)." ".LAN_LINKS_24." ".$links_total." ".($links_total == 1 ? LAN_LINKS_MANAGER_1 : LCLAN_PLUGIN_LAN_4);
+    $REFER_MAIN_TOTAL = LAN_LINKS_21." ".($allrefer == 1 ? LAN_LINKS_22 : LAN_LINKS_23)." ".$allrefer." ".($allrefer == 1 ? LCLAN_OPT_17 : LAN_LINKS_26)." ".LAN_LINKS_24." ".$links_total." ".($links_total == 1 ? LAN_LINKS_MANAGER_1 : LAN_LINKS_18);
     }else{
     $REFER_MAIN_TOTAL = "";
     }
     return $REFER_MAIN_TOTAL;
   } 
-
+  
   function sc_link_comment($parm='')
 	{ 
     global $LINK_COMMENT, $rowl;
@@ -502,6 +509,7 @@ return (vartrue($this->plugPrefs['link_desc']) ? $tp->toHTML($rowl['link_descrip
    {
       	return "<a class='btn btn-default btn-xs btn-mini' href='".e107::getUrl()->create('links_page/links')."'>".LAN_LINKS_49."</a>";
    }
+
 }
  
 ?>
