@@ -31,7 +31,7 @@ class links_page_search extends e_search // include plugin-folder in the name.
 				
 				
 		$search = array(
-			'name'			=> LCLAN_ADMIN_14,
+			'name'			=> LCLAN_PAGETITLE_1,
 			'table'			=> 'links_page AS l LEFT JOIN #links_page_cat AS c ON l.link_category = c.link_category_id  ',
 
 			'advanced' 		=> array(

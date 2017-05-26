@@ -101,7 +101,7 @@ if($mains){
 //categories ------------------------
 if(isset($linkspage_pref['link_menu_category']) && $linkspage_pref['link_menu_category']){
 	$mains = "";
-	$cap = (isset($linkspage_pref['link_menu_category_caption']) && $linkspage_pref['link_menu_category_caption'] ? $linkspage_pref['link_menu_category_caption'] : LCLAN_OPT_83);
+	$cap = (isset($linkspage_pref['link_menu_category_caption']) && $linkspage_pref['link_menu_category_caption'] ? $linkspage_pref['link_menu_category_caption'] : LAN_LINKS_19);
 	$sqlc = new db; $sql2 = new db;
 	if ($sqlc->db_Select("links_page_cat", "link_category_id, link_category_name, link_category_sef", "link_category_class REGEXP '".e_CLASS_REGEXP."' ORDER BY link_category_order")){
 		while ($rowc = $sqlc->fetch()){

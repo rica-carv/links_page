@@ -59,7 +59,7 @@ class linkclass
       //$np_querystring = e_REQUEST_SELF.(isset($qs[1]) ? $qs[1] : "");
       $parms = $total.",".$number.",".$from.",".$np_querystring."";
 			$LINK_NEXTPREV = $tp->parseTemplate("{NEXTPREV={$parms}}"); 
-      $LINK_NP_TABLE = $this->link_template['LINK_NP_TABLE'];           
+      $LINK_NP_TABLE = $this->link_template['nextprev'];           
 			return $tp -> parseTemplate($LINK_NP_TABLE, FALSE, $this->link_shortcodes);
 		}
 	}
@@ -183,15 +183,15 @@ class linkclass
          $path = $baseurl.$qry;     
          $order_options_cat = array(
             "heading"        => LAN_LINKS_4,
-            "id" => LAN_LINKS_44,
-            "order" => LAN_LINKS_6
+            "id" => LCLAN_OPT_41,
+            "order" => LCLAN_OPT_36
          );
          $order_options_link = array(
             "heading"  => LAN_LINKS_4,
             "url"      => LAN_LINKS_5,
-            "order"    => LAN_LINKS_6,            
-            "refer"    => LAN_LINKS_7,
-            "date"     => LAN_LINKS_38
+            "order"    => LCLAN_OPT_36,            
+            "refer"    => LCLAN_OPT_37,
+            "date"     => LCLAN_OPT_53
          );        
          
          $sort_options = array(
@@ -208,7 +208,7 @@ class linkclass
         }else{
             $sotext .= $frm->select('link_sorter',  $order_options_link, $checks); 
         }
-        $sotext .= "</div><div class='form-group'> <label for='link_order' class='control-label '>".LAN_LINKS_6."</label>"; 
+        $sotext .= "</div><div class='form-group'> <label for='link_order' class='control-label '>".LCLAN_OPT_36."</label>"; 
         $sotext .= $frm->select('link_order', $sort_options, $checko); 
                                                                                  
              
@@ -575,7 +575,7 @@ class linkclass
         }
         $text .= $frm -> close()."</div>";
 
-        e107::getRender()->tablerender(LCLAN_ITEM_24, $text);
+        e107::getRender()->tablerender(LCLAN_PAGETITLE_1, $text);
     }
 
                                                
@@ -621,7 +621,7 @@ class linkclass
             <tr>
             <td class='fcaption' style='width:5%'>".LCLAN_ITEM_25."</td>
             <td class='fcaption' style='width:65%'>".LCLAN_ITEM_26."</td>
-            <td class='fcaption' style='width:10%'>".LCLAN_ITEM_27."</td>
+            <td class='fcaption' style='width:10%'>".LCLAN_ADMINMENU_6."</td>
             <td class='fcaption' style='width:10%'>".LCLAN_ITEM_28."</td>
             <td class='fcaption' style='width:10%'>".LCLAN_ITEM_29."</td>
             </tr>";
