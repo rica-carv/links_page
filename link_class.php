@@ -282,7 +282,7 @@ class linkclass
             if($mode == "cat"){
                 $orderstring    = "order".($this->plugPrefs["link_cat_order"] == "ASC" ? "a" : "d" ).($this->plugPrefs["link_cat_sort"] ? $this->plugPrefs["link_cat_sort"] : "date" );
             }else{
-                $orderstringcat = "order".($this->plugPrefs["link_cat_order"] == "ASC" ? "a" : "d" ).($this->plugPrefs["link_cat_sort"] ? $$this->plugPrefs["link_cat_sort"] : "date" );
+                $orderstringcat = "order".($this->plugPrefs["link_cat_order"] == "ASC" ? "a" : "d" ).($this->plugPrefs["link_cat_sort"] ? $this->plugPrefs["link_cat_sort"] : "date" );
 
                 $orderstring    = "order".($this->plugPrefs["link_order"] == "ASC" ? "a" : "d" ).($this->plugPrefs["link_sort"] ? $this->plugPrefs["link_sort"] : "date" );
             }
