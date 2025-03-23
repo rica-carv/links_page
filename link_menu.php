@@ -6,15 +6,15 @@ if (!e107::isInstalled('links_page'))
   e107::redirect();
 }
 
-unset($text);
-require_once(e_PLUGIN.'links_page/link_class.php');
-$lc = new linkclass();
-require_once(e_HANDLER."form_handler.php");
-$rs = new form;
+//unset($text);
+//require_once(e_PLUGIN.'links_page/link_class.php');
+//$lc = new linkclass();
+//require_once(e_HANDLER."form_handler.php");
+//$rs = new form;
 $tp = e107::getParser();
 
 e107::lan('links_page');
-
+/*
 $bullet = '';
 if(defined('BULLET'))
 {
@@ -24,9 +24,9 @@ elseif(file_exists(THEME.'images/bullet2.gif'))
 {
 	$bullet = '<img src="'.THEME_ABS.'images/bullet2.gif" alt="" style="vertical-align: middle;" />';
 }
-
- 
+*/
 $linkspage_pref = e107::pref('links_page');
+/* 
 
 //navigator -------------------------
 $mains = "";
@@ -97,7 +97,8 @@ if($mains){
 	}
 	
 }
-
+*/
+/*
 //categories ------------------------
 if(isset($linkspage_pref['link_menu_category']) && $linkspage_pref['link_menu_category']){
 	$mains = "";
@@ -130,8 +131,8 @@ if(isset($linkspage_pref['link_menu_category']) && $linkspage_pref['link_menu_ca
 		}
 	}
 }
-
-
+*/
+/*
 //recent ----------------------------
 
 if(isset($linkspage_pref["link_menu_recent"]) && $linkspage_pref["link_menu_recent"]){
@@ -171,9 +172,14 @@ if(isset($linkspage_pref["link_menu_recent"]) && $linkspage_pref["link_menu_rece
 		}
 	}
 }
+*/
+$sc = e107::getScBatch('menu', 'links_page');
+$sc->wrapper('links_page_menu');
 
-$caption = (isset($linkspage_pref['link_menu_caption']) && $linkspage_pref['link_menu_caption'] ? $linkspage_pref['link_menu_caption'] : LCLAN_OPT_86);
+$template = e107::getTemplate('links_page', 'links_page_menu', null, true, true); 	
+$sc->addVars(array( 'template' => $template));
+
+$text = $tp->parsetemplate($template['menu'], TRUE, $sc);
+
+$caption = ($linkspage_pref['link_menu_caption']??LCLAN_OPT_86);
 $ns -> tablerender($caption, $text);
-
-
-?>

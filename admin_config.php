@@ -5,13 +5,14 @@
 require_once('../../class2.php');
 if (!getperms('P')) 
 {
-	header('location:'.e_BASE.'index.php');
+//	header('location:'.e_BASE.'index.php');
+	e107::redirect('admin');
 	exit;
 }
 
-e107::lan('links_page',true);
+e107::lan('links_page',true,true);
 //$lan_file = e_PLUGIN."links_page/languages/".e_LANGUAGE.".php";
-include_lan($lan_file);
+//include_lan($lan_file);
 
 class links_page_adminArea extends e_admin_dispatcher
 {
@@ -48,10 +49,8 @@ class links_page_adminArea extends e_admin_dispatcher
 		'main/create'		=> array('caption'=> LCLAN_ADMINMENU_5, 'perm' => 'P'),
 		'cat/list'			=> array('caption'=> LCLAN_ADMINMENU_2, 'perm' => 'P'),
 		'cat/create'		=> array('caption'=> LCLAN_ADMINMENU_3, 'perm' => 'P'),
-		'submitted/list'		=> array('caption'=> LCLAN_SL_1, 'perm' => 'P'),        
+		'submitted/list'	=> array('caption'=> LCLAN_ADMINMENU_7, 'perm' => 'P'),        
 		'main/prefs' 		=> array('caption'=> LCLAN_ADMINMENU_6, 'perm' => 'P'),	
- 
-		// 'main/custom'		=> array('caption'=> 'Custom Page', 'perm' => 'P')
 	);
 
 	protected $adminMenuAliases = array(
@@ -62,16 +61,13 @@ class links_page_adminArea extends e_admin_dispatcher
 	protected $menuTitle = LCLAN_PLUGIN_LAN_1;
 }
 
-
-
-
 				
 class links_page_cat_ui extends e_admin_ui
 {
 			
 		protected $pluginTitle		= LCLAN_PLUGIN_LAN_1;
 		protected $pluginName		= 'links_page';
-	//	protected $eventName		= 'links_page-links_page_cat'; // remove comment to enable event triggers in admin. 		
+		protected $eventName		= 'links_page-links_page_cat'; // remove comment to enable event triggers in admin. 		
 		protected $table			= 'links_page_cat';
 		protected $pid				= 'link_category_id';
 		protected $perPage			= 10; 
@@ -84,7 +80,26 @@ class links_page_cat_ui extends e_admin_ui
 	//	protected $listQry      	= "SELECT * FROM `#tableName` WHERE field != '' "; // Example Custom Query. LEFT JOINS allowed. Should be without any Order or Limit.
 	
 		protected $listOrder		= 'link_category_order DESC';
-	
+/*
+		protected $fields 		= array (  'checkboxes' =>   array ( 'title' => '', 'type' => null, 'data' => null, 'width' => '5%', 'thclass' => 'center', 'forced' => '1', 'class' => 'center', 'toggle' => 'e-multiselect',  ),
+		'link_category_id' =>   array ( 'title' => LAN_ID, 'data' => 'int', 'width' => '5%', 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
+		'link_category_name' =>   array ( 'title' => LCLAN_ITEM_2, 'type' => 'dropdown', 'data' => 'int', 'width' => 'auto', 'batch' => true, 'filter' => true, 
+	   'inline' => true,   'help' => '', 'readParms' => '', 'writeParms' => array('size'=>'block-level', 'required'=>1), 'class' => 'left', 'thclass' => 'left',  ),
+		'link_category_description' =>   array ( 'title' => LCLAN_ITEM_6, 'type' => 'textarea', 'data' => 'str', 'width' => '40%', 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
+		'link_category_icon' =>   array ( 'title' => LCLAN_ITEM_14, 'type' => 'icon', 'data' => 'str', 'width' => 'auto', 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
+		'link_category_order' =>   array ( 'title' => LAN_ORDER, 'type' => 'number', 'data' => 'int', 'width' => 'auto', 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
+		'link_category_class' =>   array ( 'title' => LCLAN_ITEM_20, 'type' => 'userclass', 'data' => 'int', 'width' => 'auto', 
+	  'batch' => true, 'filter' => true, 'inline' => true, 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
+ 		'link_category_datestamp' =>   array ( 'title' => LCLAN_CREATED,  'type' => 'datestamp',   
+		'data' => 'int', 'width' => 'auto', 'help' => '', 
+		'readParms' => '',   /*'readonly' => true,  todo *//*
+		'parms' => 'mask=%A %d %B %Y',
+		'writeParms' => 'type=datetime', 'class' => 'left', 'thclass' => 'left',  ),
+		'link_category_sef' =>   array ( 'title' => LAN_SEFURL, 'type' => 'userclass', 'data' => 'int', 'width' => 'auto', 
+	  'batch' => true, 'filter' => true, 'inline' => true, 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
+	  );		
+	  */
+
 		protected $fields 		= array (  'checkboxes' =>   array ( 'title' => '', 'type' => null, 'data' => null, 'width' => '5%', 'thclass' => 'center', 'forced' => '1', 'class' => 'center', 'toggle' => 'e-multiselect',  ),
 		  'link_category_id' =>   array ( 'title' => LAN_ID, 'data' => 'int', 'width' => '5%', 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
 		  'link_category_name' =>   array ( 'title' => LCLAN_CAT_13, 'type' => 'text', 'data' => 'str', 
@@ -93,19 +108,16 @@ class links_page_cat_ui extends e_admin_ui
 		  'link_category_description' =>   array ( 'title' => LCLAN_CAT_14, 'type' => 'textarea', 'data' => 'str', 
         'width' => '40%', 'help' => '', 'readParms' => '', 
         'writeParms' => array('size'=>'block-level' ), 'class' => 'left', 'thclass' => 'left',  ),
-		  'link_category_icon' =>   array ( 'title' => LCLAN_CAT_22, 'type' => 'icon', 'data' => 'str', 'width' => 'auto', 'help' => '', 'readParms' => '', 'writeParms' => 'media=links_page_image', 'class' => 'left', 'thclass' => 'left',  ),
+		  'link_category_icon' =>   array ( 'title' => LCLAN_CAT_22, 'type' => 'icon', 'data' => 'str', 'width' => 'auto', 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
 		  'link_category_order' =>   array ( 'title' => LAN_ORDER, 'type' => 'number', 'data' => 'int', 'width' => 'auto', 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
 		  'link_category_class' =>   array ( 'title' => LCLAN_CAT_24, 'type' => 'userclass', 'data' => 'str', 'width' => 'auto', 'batch' => true, 'filter' => true, 'inline' => true, 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
-		  'link_category_datestamp' =>   array ( 'title' => LAN_DATESTAMP, 'type' => 'datestamp', 
+		  'link_category_datestamp' =>   array ( 'title' => LAN_DATE, 'type' => 'datestamp', 
         'data' => 'int', 'parms' => 'mask=%A %d %B %Y', 'width' => 'auto', 'filter' => true, 
         'help' => '', 'readParms' => '', 'writeParms' => 'type=datetime', 'class' => 'left', 'thclass' => 'left',  ),
       'link_category_sef' => array ( 'title' => LAN_SEFURL, 'type' => 'text', 'inline'=>true, 'width' => 'auto', 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left', ), 
-
-
 		  'options' =>   array ( 'title' => LAN_OPTIONS, 'type' => null, 'data' => null, 'width' => '10%', 
       'thclass' => 'center last', 'class' => 'center last', 'forced' => '1', 'readParms'=>'sort=1' ),
 		);		
-		
 		protected $fieldpref = array('link_category_name', 'link_category_class', 'link_category_sef', 'link_category_datestamp');
 		
 	
@@ -117,7 +129,7 @@ class links_page_cat_ui extends e_admin_ui
 
 		
 		// ------- Customize Create --------
-		
+
 		public function beforeCreate($new_data)
 		{
 
@@ -138,7 +150,7 @@ class links_page_cat_ui extends e_admin_ui
 
       if(e107::getDb()->count('link_category', '(*)', "link_category_sef='{$sef}'"))
       {
-          e107::getMessage()->addError('Your SEF URL already exists');
+          e107::getMessage()->addError(LCLAN_ADMINMENU_10);
           return false;
       }  
       			
@@ -172,7 +184,7 @@ class links_page_cat_ui extends e_admin_ui
       $sef = e107::getParser()->toDB($new_data['link_category_sef']);
       if(e107::getDb()->count('link_category', '(*)', "link_category_sef='{$sef}' AND link_category_id!=".intval($id)))
       {
-          e107::getMessage()->addError('Your SEF URL already exists');
+          e107::getMessage()->addError(LCLAN_ADMINMENU_10);
           return false;
       }
 
@@ -188,35 +200,18 @@ class links_page_cat_ui extends e_admin_ui
 		{
 			// do something		
 		}		
-		
-			
-	/*	
-		// optional - a custom page.  
-		public function customPage()
-		{
-			$text = 'Hello World!';
-			return $text;
-			
-		}
-	*/
-			
 }
-				
-
 
 class links_page_cat_form_ui extends e_admin_form_ui
 {
 
 }		
-		
 
-				
 class links_page_ui extends e_admin_ui
 {
-			
 		protected $pluginTitle	= LCLAN_PLUGIN_LAN_1;
 		protected $pluginName		= 'links_page';
-	//	protected $eventName		= 'links_page-links_page'; // remove comment to enable event triggers in admin. 		
+		protected $eventName		= 'links_page-links_page'; // remove comment to enable event triggers in admin. 		
 		protected $table			= 'links_page';
 		protected $pid				= 'link_id';
 		protected $perPage			= 10; 
@@ -224,7 +219,7 @@ class links_page_ui extends e_admin_ui
 	 	protected $batchCopy		= true;		
 	//	protected $sortField		= 'somefield_order';
 	//	protected $orderStep		= 10;
-	//	protected $tabs				= array('Tabl 1','Tab 2'); // Use 'tab'=>0  OR 'tab'=>1 in the $fields below to enable. 
+	  protected $tabs				= array(LCLAN_ADMINMENU_5); // Use 'tab'=>0  OR 'tab'=>1 in the $fields below to enable. 
 		
   	protected $listQry      	= "SELECT * FROM `#links_page` WHERE link_active != '0' "; // Example Custom Query. LEFT JOINS allowed. Should be without any Order or Limit.
 	
@@ -244,7 +239,7 @@ class links_page_ui extends e_admin_ui
 		  'link_button' =>   array ( 'title' => LCLAN_ITEM_14, 'type' => 'icon', 'data' => 'str', 'width' => 'auto', 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
 
 		  'link_order' =>   array ( 'title' => LAN_ORDER, 'type' => 'number', 'data' => 'int', 'width' => 'auto', 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
-		  'link_refer' =>   array ( 'title' => 'Refer', 'type' => 'boolean', 'data' => 'int', 
+		  'link_refer' =>   array ( 'title' => LCLAN_REFERER, 'type' => 'boolean', 'data' => 'int', 
         'readonly' => 'true',
         'width' => 'auto', 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
 		  'link_open' =>   array ( 'title' => LCLAN_ITEM_16, 'type' => 'dropdown', 'data' => 'int', 'width' => 'auto', 'help' => '', 
@@ -252,7 +247,7 @@ class links_page_ui extends e_admin_ui
 		  'link_class' =>   array ( 'title' => LCLAN_ITEM_20, 'type' => 'userclass', 'data' => 'int', 'width' => 'auto', 
         'batch' => true, 'filter' => true, 'inline' => true, 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
      
-		  'link_datestamp' =>   array ( 'title' => 'Created',  'type' => 'datestamp',   
+		  'link_datestamp' =>   array ( 'title' => LCLAN_CREATED,  'type' => 'datestamp',   
           'data' => 'int', 'width' => 'auto', 'help' => '', 
           'readParms' => '',   /*'readonly' => true,  todo */
           'parms' => 'mask=%A %d %B %Y',
@@ -264,7 +259,6 @@ class links_page_ui extends e_admin_ui
 		);		
 		
 		protected $fieldpref = array('link_name', 'link_category', 'link_class', 'link_active', 'link_datestamp');
-		
 
 	 	protected $preftabs        = array(LCLAN_OPT_MENU_1, LCLAN_OPT_MENU_8, LCLAN_OPT_MENU_2, LCLAN_OPT_MENU_3, LCLAN_OPT_MENU_4,LCLAN_OPT_MENU_5,LCLAN_OPT_MENU_6, LCLAN_OPT_MENU_7 );
 		protected $prefs = array(
@@ -293,9 +287,9 @@ class links_page_ui extends e_admin_ui
 
       
       'link_manager'		=> array('title'=> LCLAN_OPT_54, 'tab'=>2, 'type'=>'boolean', 'data' => 'str', 'help'=>'Help Text goes here'),        
-      'link_manager_class'		=> array('title'=> LCLAN_OPT_46, 'tab'=>2, 'type'=>'userclass', 'data' => 'str', 'help'=>'these users can add/edit their own personal links'),
-      'link_directpost'		=> array('title'=> LCLAN_OPT_48, 'tab'=>2, 'type'=>'boolean', 'data' => 'str', 'help'=>'if enabled links are submitted directly, else a site admin needs to approve them'),
-      'link_directdelete'		=> array('title'=> LCLAN_OPT_50, 'tab'=>2, 'type'=>'boolean', 'data' => 'str', 'help'=>'if enabled the link managers can delete their own links'),
+      'link_manager_class'		=> array('title'=> LCLAN_OPT_46, 'tab'=>2, 'type'=>'userclass', 'data' => 'str', 'help'=>LCLAN_HELP_2),
+      'link_directpost'		=> array('title'=> LCLAN_OPT_48, 'tab'=>2, 'type'=>'boolean', 'data' => 'str', 'help'=>LCLAN_HELP_3),
+      'link_directdelete'		=> array('title'=> LCLAN_OPT_50, 'tab'=>2, 'type'=>'boolean', 'data' => 'str', 'help'=>LCLAN_HELP_4),
                         
       'link_cat_icon'		=> array('title'=> LCLAN_OPT_14, 'tab'=>3, 'type'=>'boolean', 'data' => 'str', 'help'=>'Help Text goes here'),        
       'link_cat_desc'		=> array('title'=> LCLAN_OPT_15, 'tab'=>3, 'type'=>'boolean', 'data' => 'str', 'help'=>'Help Text goes here'),        
@@ -310,14 +304,14 @@ class links_page_ui extends e_admin_ui
   
       'link_icon'		=> array('title'=> LCLAN_OPT_14, 'tab'=>4, 'type'=>'boolean', 'data' => 'str', 'help'=>'Help Text goes here'),
       'link_referal'		=> array('title'=> LCLAN_OPT_17, 'tab'=>4, 'type'=>'boolean', 'data' => 'str', 'help'=>'Help Text goes here'),
-      'link_url'		=> array('title'=> LAN_LINKS_5, 'tab'=>4, 'type'=>'boolean', 'data' => 'str', 'help'=>'Help Text goes here'),
+      'link_url'		=> array('title'=> LCLAN_OPT_18, 'tab'=>4, 'type'=>'boolean', 'data' => 'str', 'help'=>'Help Text goes here'),
       'link_desc'		=> array('title'=> LCLAN_OPT_15, 'tab'=>4, 'type'=>'boolean', 'data' => 'str', 'help'=>'Help Text goes here'),
       'link_sortorder'		=> array('title'=> LCLAN_OPT_29, 'tab'=>4, 'type'=>'boolean', 'data' => 'str', 'help'=>'Help Text goes here'),        
       'link_sort'		=> array('title'=> LCLAN_OPT_23, 'tab'=>4, 'type'=>'dropdown', 'data' => 'str', 'help'=>'Help Text goes here'),       
       'link_order'		=> array('title'=> LCLAN_OPT_23, 'tab'=>4, 'type'=>'dropdown', 'data' => 'str', 'help'=>'Help Text goes here'),
          //????  0=same window, 1=_blank, 2=_parent, 3=_top, 4=miniwindow
       'link_open_all'		=> array('title'=> LCLAN_OPT_32, 'tab'=>4, 'type'=>'dropdown', 'data' => 'str', 'help'=>'Help Text goes here'),
-      'link_cat_resize_value'		=> array('title'=> LCLAN_OPT_25, 'tab'=>4, 'type'=>'text', 'data' => 'str', 'help'=>'Help Text goes here'),        
+      'link_cat_resize_value'		=> array('title'=> LCLAN_OPT_33, 'tab'=>4, 'type'=>'text', 'data' => 'str', 'help'=>'Help Text goes here'),        
        
 
       'link_refer_minimum'		=> array('title'=> LCLAN_OPT_56, 'tab'=>5, 'type'=>'text', 'data' => 'str', 
@@ -325,7 +319,7 @@ class links_page_ui extends e_admin_ui
           
 			'link_rating'		=> array('title'=> LCLAN_OPT_27, 'tab'=>6,'type'=>'boolean','data' => 'str', 'help'=>'Help Text goes here'),           
       'link_rating_minimum'		=> array('title'=> LCLAN_OPT_63, 'tab'=>6, 'type'=>'text', 'data' => 'str', 
-        'help'=>'only links with a rating larger then the given value are displayed (0 or empty = all)'),         
+        'help'=>LCLAN_HELP_5),         
  
       'link_menu_caption'		=> array('title'=> LCLAN_OPT_85, 'tab'=>7, 'type'=>'text', 'data' => 'str', 'help'=>'Help Text goes here'), 
       'link_menu_navigator_frontpage'		=> array('title'=> LCLAN_OPT_60, 'tab'=>7, 'type'=>'checkbox', 'data' => 'str', 'help'=>'Help Text goes here'),  
@@ -346,9 +340,9 @@ class links_page_ui extends e_admin_ui
         'data' => 'str', 'help'=>'Help Text goes here'),
       'link_menu_recent'		=> array('title'=> LCLAN_OPT_72, 'tab'=>7, 'type'=>'boolean', 
         'data' => 'str', 'help'=>'Help Text goes here'),
-      'link_menu_recent_category'		=> array('title'=> LAN_LINKS_MANAGER_5, 'tab'=>7, 'type'=>'checkbox', 
+      'link_menu_recent_category'		=> array('title'=> LCLAN_OPT_77, 'tab'=>7, 'type'=>'checkbox', 
         'data' => 'str', 'help'=>'Help Text goes here'),
-      'link_menu_recent_description'		=> array('title'=> LCLAN_OPT_15, 'tab'=>7, 'type'=>'checkbox', 
+      'link_menu_recent_description'		=> array('title'=> LCLAN_OPT_78, 'tab'=>7, 'type'=>'checkbox', 
         'data' => 'str', 'help'=>'Help Text goes here'),
       'link_menu_recent_caption'		=> array('title'=> LCLAN_OPT_81, 'tab'=>7, 'type'=>'text', 
           'data' => 'str', 'help'=>'Help Text goes here'),        
@@ -361,7 +355,7 @@ class links_page_ui extends e_admin_ui
 		{
 			// Set drop-down values (if any). 
  		$this->prefs['link_cat_sort']['writeParms']['optArray'] = array(
-      'heading'=>LCLAN_OPT_34,
+      'heading'=>LCLAN_OPT_40,
       'id'=>LCLAN_OPT_41, 
       'order'=>LCLAN_OPT_36); 
  		$this->prefs['link_cat_order']['writeParms']['optArray'] = array(
@@ -369,7 +363,7 @@ class links_page_ui extends e_admin_ui
       'DESC'=>DESC); 
  		$this->prefs['link_sort']['writeParms']['optArray'] = array(
       'heading'=>LCLAN_OPT_34,
-      'url'=>LAN_LINKS_5,
+      'url'=>LCLAN_OPT_35,
       'order'=>LCLAN_OPT_36,
       'refer'=>LCLAN_OPT_37, 
       'date'=>LCLAN_OPT_53
@@ -379,9 +373,9 @@ class links_page_ui extends e_admin_ui
       'DESC'=>DESC);  	
  		$this->prefs['link_open_all']['writeParms']['optArray'] = array(
       '5'=>LCLAN_OPT_42,
-      '0'=>LCLAN_ITEM_17,
-      '1'=>LCLAN_ITEM_18,
-      '4'=>LCLAN_ITEM_19
+      '0'=>LCLAN_OPT_43,
+      '1'=>LCLAN_OPT_44,
+      '4'=>LCLAN_OPT_45
       );
  		$this->prefs['link_menu_category_rendertype']['writeParms']['optArray'] = array(
       '1'=>LCLAN_OPT_76,
@@ -408,6 +402,7 @@ class links_page_ui extends e_admin_ui
   	}
 		// ------- Customize Create --------
 		
+
 		public function beforeCreate($new_data)
 		{
 
@@ -452,24 +447,25 @@ class links_page_ui extends e_admin_ui
 		{
 			// do something		
 		}		
-			
-}
-				
 
+    public function eversionPage()
+    {
+     
+		 $mainadmin = e_SELF.'/../admin_vupdate.php';
+     header("location:".$mainadmin); exit; 
+    } 
+}
 
 class links_page_form_ui extends e_admin_form_ui
 {
 
 }		
-
-
 				
 class links_submitted_ui extends e_admin_ui
 {
-			
 		protected $pluginTitle	= LCLAN_PLUGIN_LAN_1;
 		protected $pluginName		= 'links_page';
-	//	protected $eventName		= 'links_page-links_page'; // remove comment to enable event triggers in admin. 		
+		protected $eventName		= 'links_page-links_page_submitted'; // remove comment to enable event triggers in admin. 		
 		protected $table			= 'links_page';
 		protected $pid				= 'link_id';
 		protected $perPage			= 10; 
@@ -496,7 +492,7 @@ class links_submitted_ui extends e_admin_ui
 		  'link_button' =>   array ( 'title' => LCLAN_ITEM_14, 'type' => 'icon', 'data' => 'str', 'width' => 'auto', 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
 
 		  'link_order' =>   array ( 'title' => LAN_ORDER, 'type' => 'number', 'data' => 'int', 'width' => 'auto', 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
-		  'link_refer' =>   array ( 'title' => 'Refer', 'type' => 'boolean', 'data' => 'int', 
+		  'link_refer' =>   array ( 'title' => LCLAN_REFERER, 'type' => 'boolean', 'data' => 'int', 
         'readonly' => 'true',
         'width' => 'auto', 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
 		  'link_open' =>   array ( 'title' => LCLAN_ITEM_16, 'type' => 'dropdown', 'data' => 'int', 'width' => 'auto', 'help' => '', 
@@ -504,7 +500,7 @@ class links_submitted_ui extends e_admin_ui
 		  'link_class' =>   array ( 'title' => LCLAN_ITEM_20, 'type' => 'userclass', 'data' => 'int', 'width' => 'auto', 
         'batch' => true, 'filter' => true, 'inline' => true, 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
      
-		  'link_datestamp' =>   array ( 'title' => 'Created',  'type' => 'datestamp',   
+		  'link_datestamp' =>   array ( 'title' => LCLAN_CREATED,  'type' => 'datestamp',   
           'data' => 'int', 'width' => 'auto', 'help' => '', 
           'readParms' => '',   /*'readonly' => true,  todo */
           'parms' => 'mask=%A %d %B %Y',
@@ -525,7 +521,7 @@ class links_submitted_ui extends e_admin_ui
 		{
 			// Set drop-down values (if any). 
  		$this->prefs['link_cat_sort']['writeParms']['optArray'] = array(
-      'heading'=>LCLAN_OPT_34,
+      'heading'=>LCLAN_OPT_40,
       'id'=>LCLAN_OPT_41, 
       'order'=>LCLAN_OPT_36); 
  		$this->prefs['link_cat_order']['writeParms']['optArray'] = array(
@@ -533,7 +529,7 @@ class links_submitted_ui extends e_admin_ui
       'DESC'=>DESC); 
  		$this->prefs['link_sort']['writeParms']['optArray'] = array(
       'heading'=>LCLAN_OPT_34,
-      'url'=>LAN_LINKS_5,
+      'url'=>LCLAN_OPT_35,
       'order'=>LCLAN_OPT_36,
       'refer'=>LCLAN_OPT_37, 
       'date'=>LCLAN_OPT_53
@@ -543,9 +539,9 @@ class links_submitted_ui extends e_admin_ui
       'DESC'=>DESC);  	
  		$this->prefs['link_open_all']['writeParms']['optArray'] = array(
       '5'=>LCLAN_OPT_42,
-      '0'=>LCLAN_ITEM_17,
-      '1'=>LCLAN_ITEM_18,
-      '4'=>LCLAN_ITEM_19
+      '0'=>LCLAN_OPT_43,
+      '1'=>LCLAN_OPT_44,
+      '4'=>LCLAN_OPT_45
       );
  		$this->prefs['link_menu_category_rendertype']['writeParms']['optArray'] = array(
       '1'=>LCLAN_OPT_76,
@@ -615,20 +611,12 @@ class links_submitted_ui extends e_admin_ui
 		{
 			// do something		
 		}		
-		
-			
- 
- 
-			
 }
-				
-
 
 class links_submitted_form_ui extends e_admin_form_ui
 {
 
 }		
-		
 		
 new links_page_adminArea();
 
@@ -636,6 +624,3 @@ require_once(e_ADMIN."auth.php");
 e107::getAdminUI()->runPage();
 
 require_once(e_ADMIN."footer.php");
-exit;
-
-?>

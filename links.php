@@ -31,7 +31,7 @@ if (!e107::isInstalled('links_page'))
 $link_shortcodes = e107::getScBatch('links_page',TRUE);
 $link_shortcodes->wrapper('links_page');
   
-require_once(e_PLUGIN.'links_page/link_defines.php');
+require_once(e_PLUGIN.'links_page/includes/link_defines.php');
 require_once(e_HANDLER."userclass_class.php");
  
 $eArrayStorage = e107::getArrayStorage();
@@ -43,7 +43,7 @@ $rs = new form;
 require_once(e_HANDLER."file_class.php");
 $fl = new e_file;
 $cobj = e107::getComment();
-require_once(e_PLUGIN.'links_page/link_class.php');
+require_once(e_PLUGIN.'links_page/includes/link_class.php');
 $lc = new linkclass();
 global $tp;
 
@@ -216,10 +216,10 @@ function displayTopRated(){
   $template = e107::getTemplate('links_page', 'links_page');
   $tp       = e107::getParser();
     
-	$number		= (isset($linkspage_pref["link_nextprev_number"]) && $linkspage_pref["link_nextprev_number"] ? $linkspage_pref["link_nextprev_number"] : "20");
+	$number		= ($linkspage_pref["link_nextprev_number"] ?? "20");
 	$np			= ($linkspage_pref["link_nextprev"] ? "LIMIT ".intval($from).",".intval($number) : "");
 	$catrate	= (isset($qs[1]) && is_numeric($qs[1]) ? " AND l.link_category='".$qs[1]."' " : "");
-	$ratemin	= (isset($linkspage_pref['link_rating_minimum']) && $linkspage_pref['link_rating_minimum'] ? $linkspage_pref['link_rating_minimum'] : "0");
+	$ratemin	= ($linkspage_pref['link_rating_minimum'] ?? "0");
 	$qry = "
 	SELECT l.*, r.*, lc.link_category_id, lc.link_category_name, (r.rate_rating / r.rate_votes) as rate_avg
 	FROM #rate AS r
@@ -258,7 +258,7 @@ function displayTopRated(){
 		if(isset($qs[1])){
 			$captioncat = " : ".LAN_LINKS_40." : ".$cat;
 		}
-		$caption = LAN_LINKS_11." ".(isset($captioncat) ? $captioncat : "");
+		$caption = LAN_LINKS_11." ".($captioncat ?? "");
 		$text = $link_rated_table_start.$link_rated_table_string.$link_rated_table_end;
 
     $navigator = displayNavigator(); 
@@ -277,7 +277,7 @@ function displayTopRefer(){
   $template = e107::getTemplate('links_page', 'links_page');
   $tp       = e107::getParser();
   
-	$number	= ($linkspage_pref["link_nextprev_number"] ? $linkspage_pref["link_nextprev_number"] : "20");
+	$number	= ($linkspage_pref["link_nextprev_number"] ?? "20");
 	$np		= ($linkspage_pref["link_nextprev"] ? "LIMIT ".intval($from).",".intval($number) : "");
 	$min	= (isset($linkspage_pref['link_refer_minimum']) && $linkspage_pref['link_refer_minimum'] ? " AND l.link_refer > ".$linkspage_pref['link_refer_minimum'] : "");
 
@@ -561,7 +561,7 @@ function displayCategoryLinks($mode=''){
   $template = e107::getTemplate('links_page', 'links_page');
  
 	$order			= $lc -> getOrder();
-	$number			= ($linkspage_pref["link_nextprev_number"] ? $linkspage_pref["link_nextprev_number"] : "20");
+	$number			= ($linkspage_pref["link_nextprev_number"] ?? "20");
 	$nextprevquery	= ($mode && $linkspage_pref["link_nextprev"] ? "LIMIT ".intval($from).",".intval($number) : "");
 	$cat			= ($mode ? " AND l.link_category='".intval($mode)."' " : "");
 	$qry			= "
@@ -662,8 +662,3 @@ function displayCategoryLinks($mode=''){
 }
 
 require_once(FOOTERF);
-
-
-
-
-?>

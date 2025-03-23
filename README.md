@@ -1,5 +1,8 @@
 #Links page plugin for e107 V2
 
+17.3.2025 Version 3.0.0b (reborn)
+- Changed to some E107 V2.3 plugins standards...
+
 25.5.2017 Version 2.2.1 changes
 - Minor LAN cleanup
 - Start of templates code updated to V2.x standards

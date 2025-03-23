@@ -17,13 +17,11 @@
 
 // define("LCLAN_PAGETITLE_1", "Links"); // Deprecated???
 define("LCLAN_PAGETITLE_2", "Todas as categorias");
-define("LCLAN_PAGETITLE_3", "Todos os links");
+define("LCLAN_PAGETITLE_3", "Todas as hiperligações");
 define("LCLAN_PAGETITLE_4", "categoria");
 define("LCLAN_PAGETITLE_5", "Top - Mais votados");
 define("LCLAN_PAGETITLE_6", "Top - Mais acessados");
-define("LCLAN_PAGETITLE_7", "Gerenciador de Links Pessoais");
-define("LCLAN_PAGETITLE_8", "Comentários dos Links");
-define("LCLAN_PAGETITLE_9", "Enviar Link");
+define("LCLAN_PAGETITLE_7", "Gerenciador de hiperligações Pessoais");
+define("LCLAN_PAGETITLE_8", "Comentários das hiperligações");
+define("LCLAN_PAGETITLE_9", "Enviar hiperligação");
 define("LCLAN_PAGETITLE_10", "");
-
-?>

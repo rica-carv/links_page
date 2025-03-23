@@ -227,4 +227,3 @@ $LINKS_PAGE_TEMPLATE['rate']['end'] = "
   
 $LINKS_PAGE_TEMPLATE['message']['error'] = '
 <div class="panel panel-default panel-body">{ERROR_MESSAGE}</div>';
-?>

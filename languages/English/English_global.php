@@ -103,6 +103,7 @@ define("LCLAN_OPT_84", "recent list");
 define("LCLAN_OPT_85", "caption menu");
 define("LCLAN_OPT_86", "link menu");
 define("LCLAN_OPT_87", "show amount of links");
+                        define("LCLAN_OPT_88", "Latest links");
 
 define("LCLAN_SL_1", "Submitted Links");
 define("LCLAN_SL_2", "No submitted links");
