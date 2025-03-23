@@ -13,7 +13,7 @@
 +----------------------------------------------------------------------------+
 */
 if (!defined('e107_INIT')) { exit; }
-require_once(e_PLUGIN.'links_page/link_defines.php');
+require_once(e_PLUGIN.'links_page/includes/link_defines.php');
 define("LAN_ADMIN_HELP_0", "Linkspage help area");
 
 define("LAN_ADMIN_HELP_1", "<i>the manage link categories page shows all categories present.</i><br /><br /><b>detailed list</b><br />You see a list of all categories with their icon, name and description, options, and sorting options.<br /><br /><b>explanation of icons</b><br />
@@ -57,4 +57,3 @@ define("LAN_ADMIN_HELP_8", "<i>this page shows all existing links in the selecte
 
 define("LAN_ADMIN_HELP_9", "<i>the edit link page allows you to edit an existing link</i><br /><br />You can upload a new icon, and after uploading assign the icon to the link.<br /><br />the open type allows you to define how the link will be opened when a user clicks on it.");
 define("LAN_ADMIN_HELP_10", "<i>the post submitted link page allows you to add a submitted link to the existing links</i><br /><br />A small submitted text is added into the description field.<br /><br />You can upload a new icon, and after uploading assign the icon to the link.<br /><br />the open type allows you to define how the link will be opened when a user clicks on it.");
-?>

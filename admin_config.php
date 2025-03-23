@@ -130,7 +130,7 @@ class links_page_cat_ui extends e_admin_ui
 		
 		// ------- Customize Create --------
 
-		public function beforeCreate($new_data)
+		public function beforeCreate($new_data, $old_data)
 		{
 
   		if(isset($new_data['link_category_datestamp']) && empty($new_data['link_category_datestamp']))
@@ -243,7 +243,7 @@ class links_page_ui extends e_admin_ui
         'readonly' => 'true',
         'width' => 'auto', 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
 		  'link_open' =>   array ( 'title' => LCLAN_ITEM_16, 'type' => 'dropdown', 'data' => 'int', 'width' => 'auto', 'help' => '', 
-        'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
+        'readParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
 		  'link_class' =>   array ( 'title' => LCLAN_ITEM_20, 'type' => 'userclass', 'data' => 'int', 'width' => 'auto', 
         'batch' => true, 'filter' => true, 'inline' => true, 'help' => '', 'readParms' => '', 'writeParms' => '', 'class' => 'left', 'thclass' => 'left',  ),
      
@@ -311,8 +311,6 @@ class links_page_ui extends e_admin_ui
       'link_order'		=> array('title'=> LCLAN_OPT_23, 'tab'=>4, 'type'=>'dropdown', 'data' => 'str', 'help'=>'Help Text goes here'),
          //????  0=same window, 1=_blank, 2=_parent, 3=_top, 4=miniwindow
       'link_open_all'		=> array('title'=> LCLAN_OPT_32, 'tab'=>4, 'type'=>'dropdown', 'data' => 'str', 'help'=>'Help Text goes here'),
-      'link_cat_resize_value'		=> array('title'=> LCLAN_OPT_33, 'tab'=>4, 'type'=>'text', 'data' => 'str', 'help'=>'Help Text goes here'),        
-       
 
       'link_refer_minimum'		=> array('title'=> LCLAN_OPT_56, 'tab'=>5, 'type'=>'text', 'data' => 'str', 
         'help'=>'only links with a refer count larger then the given value are displayed (0 or empty = all)'),  
@@ -348,8 +346,9 @@ class links_page_ui extends e_admin_ui
           'data' => 'str', 'help'=>'Help Text goes here'),        
       'link_menu_recent_number'		=> array('title'=> LCLAN_OPT_74, 'tab'=>7, 'type'=>'text', 
           'data' => 'number', 'help'=>'Help Text goes here'),        
-   		); 
+		); 
 
+		protected $link_category = array();
 	
 		public function init()
 		{
@@ -359,8 +358,8 @@ class links_page_ui extends e_admin_ui
       'id'=>LCLAN_OPT_41, 
       'order'=>LCLAN_OPT_36); 
  		$this->prefs['link_cat_order']['writeParms']['optArray'] = array(
-      'ASC'=>ASC,
-      'DESC'=>DESC); 
+      'ASC'=>LAN_ASC,
+      'DESC'=>LAN_DESC); 
  		$this->prefs['link_sort']['writeParms']['optArray'] = array(
       'heading'=>LCLAN_OPT_34,
       'url'=>LCLAN_OPT_35,
@@ -369,8 +368,8 @@ class links_page_ui extends e_admin_ui
       'date'=>LCLAN_OPT_53
       );      
  		$this->prefs['link_order']['writeParms']['optArray'] = array(
-      'ASC'=>ASC,
-      'DESC'=>DESC);  	
+      'ASC'=>LAN_ASC,
+      'DESC'=>LAN_DESC);  	
  		$this->prefs['link_open_all']['writeParms']['optArray'] = array(
       '5'=>LCLAN_OPT_42,
       '0'=>LCLAN_OPT_43,
@@ -390,8 +389,6 @@ class links_page_ui extends e_admin_ui
   	if($db->select('links_page_cat', '*' )) { while ($row = $db->fetch()) { 
      $this->link_category[$row['link_category_id']] = $row['link_category_name']; } 	} 
      $this->fields['link_category']['writeParms']['optArray'] = $this->link_category;
-	 
-    
     
  		$this->fields['link_open']['writeParms']['optArray'] = array(
       '0'=>LCLAN_ITEM_17,
@@ -403,7 +400,7 @@ class links_page_ui extends e_admin_ui
 		// ------- Customize Create --------
 		
 
-		public function beforeCreate($new_data)
+		public function beforeCreate($new_data, $old_data)
 		{
 
   		if(isset($new_data['link_datestamp']) && empty($new_data['link_datestamp']))
@@ -513,10 +510,11 @@ class links_submitted_ui extends e_admin_ui
 		
 		protected $fieldpref = array('link_name', 'link_category', 'link_url', 'link_class', 'link_button', 'link_author', 'link_active', 'link_datestamp');
 		
-
 	 	protected $preftabs   = array();
 		protected $prefs = array();
-	
+
+		protected $link_category = array();
+
 		public function init()
 		{
 			// Set drop-down values (if any). 
@@ -525,8 +523,8 @@ class links_submitted_ui extends e_admin_ui
       'id'=>LCLAN_OPT_41, 
       'order'=>LCLAN_OPT_36); 
  		$this->prefs['link_cat_order']['writeParms']['optArray'] = array(
-      'ASC'=>ASC,
-      'DESC'=>DESC); 
+      'ASC'=>LAN_ASC,
+      'DESC'=>LAN_DESC); 
  		$this->prefs['link_sort']['writeParms']['optArray'] = array(
       'heading'=>LCLAN_OPT_34,
       'url'=>LCLAN_OPT_35,
@@ -535,8 +533,8 @@ class links_submitted_ui extends e_admin_ui
       'date'=>LCLAN_OPT_53
       );      
  		$this->prefs['link_order']['writeParms']['optArray'] = array(
-      'ASC'=>ASC,
-      'DESC'=>DESC);  	
+      'ASC'=>LAN_ASC,
+      'DESC'=>LAN_DESC);  	
  		$this->prefs['link_open_all']['writeParms']['optArray'] = array(
       '5'=>LCLAN_OPT_42,
       '0'=>LCLAN_OPT_43,
@@ -556,8 +554,6 @@ class links_submitted_ui extends e_admin_ui
   	if($db->select('links_page_cat', '*' )) { while ($row = $db->fetch()) { 
      $this->link_category[$row['link_category_id']] = $row['link_category_name']; } 	} 
      $this->fields['link_category']['writeParms']['optArray'] = $this->link_category;
-	 
-    
     
  		$this->fields['link_open']['writeParms']['optArray'] = array(
       '0'=>LCLAN_ITEM_17,
@@ -567,7 +563,7 @@ class links_submitted_ui extends e_admin_ui
   	}
 		// ------- Customize Create --------
 		
-		public function beforeCreate($new_data)
+		public function beforeCreate($new_data, $old_data)
 		{
 
   		if(isset($new_data['link_datestamp']) && empty($new_data['link_datestamp']))

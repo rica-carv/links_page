@@ -11,6 +11,7 @@ class links_page_shortcodes extends e_shortcode
 	 */
 	private $plugPrefs = array();
   
+	private $tp;
 	/**
 	 * Constructor.
 	 */

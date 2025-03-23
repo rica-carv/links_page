@@ -15,7 +15,7 @@
 +---------------------------------------------------------------+
 */
 if (!defined('e107_INIT')) { exit; }
-require_once(e_PLUGIN.'links_page/link_defines.php');
+require_once(e_PLUGIN.'links_page/includes/link_defines.php');
 define("LAN_ADMIN_HELP_0", "Ajuda:<br />Hiperligações");
 define("LAN_ADMIN_HELP_1", "<i>A página do gestor de categorias de hiperligações mostra todas as categorias presentes.</i><br /><br /><b>Lista detalhada</b><br />Você vê uma lista de todas as categorias com seus ícones, nomes e descrições, opções, e outras opções de ordenação.<br /><br /><b>Descrição dos ícones</b><br />
 	".ADMIN_LINK_ICON_LINK." : hiperligação para a categoria<br /><br />
@@ -48,12 +48,8 @@ define("LAN_ADMIN_HELP_6", "<i>A página de opções permite que você mude o co
 	");
 define("LAN_ADMIN_HELP_7", "<i>A página de edição de categorias de hiperligações permite que você edite uma categoria existente</i><br /><br />Você pode enviar um novo ícone, e depois disso, escolhê-lo para a categoria.<br />Você pode atualizar a data e hora da hiperligação clicando no box.");
 define("LAN_ADMIN_HELP_8", "<i>esta página mostra todas as hiperligações existentes na categoria selecionada.</i><br /><br /><b>lista detalhada</b><br />Você vê uma lista dos hiperligações com as imagens, nome, opções e opções de ordenação.<br /><br /><b>explicação dos ícones</b><br />
-	".ADMIN_LINK_ICON_LINK." : hiperligação para o website<br /><br />
-	".ADMIN_LINK_ICON_EDIT." : editar the hiperligação<br /><br />
-	".ADMIN_LINK_ICON_DELETE." : deletar a hiperligação<br /><br />
-	".ADMIN_LINK_ICON_ORDER_UP." : o botão para cima permite mover a hiperligação uma vez para cima e organizá-lo.<br /><br />
-	".ADMIN_LINK_ICON_ORDER_DOWN." : o botão para baixo irá ordenar a hiperligação uma vez para baixo.<br /><br /><b>ordenar</b>
-	<br />
-	<b>Orden</b><br />Aqui você pode organizar manualmente a ordem de todas as hiperligações. Você precisa mudar os valores nas caixas selecionadas para organizá-los e depois apertar o botão para salvar.<br />");
+	".ADMIN_LINK_ICON_EDIT." : editar a hiperligação<br /><br />
+	".ADMIN_LINK_ICON_DELETE." : apagar a hiperligação<br /><br />
+	<b>Ordenar</b><br />Aqui você pode organizar manualmente a ordem de todas as hiperligações. Você precisa mudar os valores nas caixas selecionadas para organizá-los e depois apertar o botão para salvar.<br />");
 define("LAN_ADMIN_HELP_9", "<i>A página de edição de hiperligações permite editar uma hiperligação existente</i><br /><br />Você pode enviar um novo ícone, e depois escolhê-lo para a hiperligação.<br /><br />o modo de abertura permite definir como a hiperligação será aberto quando o usuário clicar nele.");
 define("LAN_ADMIN_HELP_10", "<i>A página de hiperligações submetidos permite que você adicione uma hiperligação enviado</i><br /><br />Um pequeno texto de submetido por... será adicionado no campo da descrição.<br /><br />Você pode enviar um novo ícone e depois escolher este ícone para a hiperligação.<br /><br />o modo de abertura permite definir como a hiperligação irá abrir quando um usuário clicar nele.");	

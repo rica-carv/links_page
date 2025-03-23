@@ -24,7 +24,7 @@ define("LCLAN_ADMINMENU_3", "Create Link Category");
 define("LCLAN_ADMINMENU_4", "Manage Links");
 define("LCLAN_ADMINMENU_5", "Create Link");
 define("LCLAN_ADMINMENU_6", "Options");
-//define("LCLAN_ADMINMENU_7", "Submitted Links");   //unused
+define("LCLAN_ADMINMENU_7", "Submitted Links");
 define("LCLAN_ADMINMENU_8", "Categories");
 
 /* NEW */
@@ -65,6 +65,3 @@ define("LCLAN_CAT_26", "Update Link Category");
 define("LCLAN_CAT_27", "Clear Form");
 define("LCLAN_CAT_28", "Create Link Category");
 define("LCLAN_CAT_29", "Link Category");
- 
- 
- 

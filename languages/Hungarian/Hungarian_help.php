@@ -11,7 +11,7 @@
 */
 
 if (!defined('e107_INIT')) { exit; }
-require_once(e_PLUGIN.'links_page/link_defines.php');
+require_once(e_PLUGIN.'links_page/includes/link_defines.php');
 define("LAN_ADMIN_HELP_0", "Linkoldal - Súgó");
 
 define("LAN_ADMIN_HELP_1", "<i>A kategóriák karbantartásához jelenleg minden kategória megjelenik az oldalon.</i><br /><br /><b>Részletes lista</b><br />Láthatsz egy kategória listát ikonnal, leírással, beállítási lehetőségekkel és sorrendi beállítással.<br /><br /><b>Ikonok értelmezése</b><br />

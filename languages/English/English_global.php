@@ -214,6 +214,7 @@ define("LAN_LINKS_18", "links");
 define("LAN_LINKS_19", "categories");
 // define("LAN_LINKS_20", "category");  //unused
 define("LAN_LINKS_21", "There");
+define("LAN_LINKS_21_NEW", "There is [x] [y] total in [z] [w]");
 define("LAN_LINKS_22", "is");
 define("LAN_LINKS_23", "are");
 define("LAN_LINKS_24", "total in");

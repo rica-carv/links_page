@@ -13,7 +13,7 @@
 +----------------------------------------------------------------------------+
 */
 if (!defined('e107_INIT')) { exit; }
-require_once(e_PLUGIN.'links_page/link_defines.php');
+require_once(e_PLUGIN.'links_page/includes/link_defines.php');
 define("LAN_ADMIN_HELP_0", "Linkspage help area");
 
 define("LAN_ADMIN_HELP_1", "<i>the manage link categories page shows all categories present.</i><br /><br /><b>detailed list</b><br />You see a list of all categories with their icon, name and description, options, and sorting options.<br /><br /><b>explanation of icons</b><br />

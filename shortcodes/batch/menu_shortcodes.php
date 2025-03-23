@@ -11,6 +11,8 @@ class plugin_links_page_menu_shortcodes extends e_shortcode
 	 */
 	private $plugPrefs = array();
   
+	private $tp;
+	private $sql;
 	/**
 	 * Constructor.
 	 */
