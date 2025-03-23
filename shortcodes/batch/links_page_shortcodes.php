@@ -25,7 +25,7 @@ class links_page_shortcodes extends e_shortcode
 	function sc_link_navigator($parm='')
 	{ 
 		global  $rs;
-		$frm = e107::getForm(); 
+//		$frm = e107::getForm(); 
 		$mains = "";   
                      
 		if(vartrue($this->plugPrefs['link_navigator_frontpage'])){
@@ -55,7 +55,7 @@ class links_page_shortcodes extends e_shortcode
 
   function sc_link_nav_allcats($parm='')
 	{ 
-    global  $rs, $rowc;
+    global $rowc;
     $mains = "";
     if(vartrue($this->plugPrefs['link_navigator_allcat'])){     
     	$dbc = e107::getDb('dbc');
@@ -73,9 +73,6 @@ class links_page_shortcodes extends e_shortcode
     global $LINK_SORTORDER;
     return $LINK_SORTORDER;
   }
-
-
- 
   
   function sc_link_nextprev($parm='')
 	{ 
@@ -85,35 +82,35 @@ class links_page_shortcodes extends e_shortcode
   
   function sc_link_manage_icon($parm='')
 	{ 
-    global $LINK_MANAGE_ICON, $row;
+    global $LINK_MANAGE_ICON;
     $LINK_MANAGE_ICON = "";
     return $LINK_MANAGE_ICON;
   }  
 
   function sc_link_manage_name($parm='')
 	{ 
-    global $LINK_MANAGE_NAME, $row, $tp;
-    return $tp->toHTML($row['link_name'], TRUE);
+    global $row;
+    return $this->tp->toHTML($row['link_name'], TRUE);
   } 
 
   function sc_link_manage_options($parm='')
 	{ 
-    global $LINK_MANAGE_OPTIONS, $row, $tp;
+    global $LINK_MANAGE_OPTIONS, $row;
     $baseurl = e107::url('links_page', 'index'); 
     $linkid = $row['link_id'];
     $LINK_MANAGE_EDIT=  $baseurl."/manage.edit.".$linkid;
     $LINK_MANAGE_OPTIONS = "<a href='".$LINK_MANAGE_EDIT."' title='".LCLAN_ITEM_31."'>".LINK_ICON_EDIT."</a>";
    
     if (vartrue($this->plugPrefs['link_directdelete'])){
-    	$LINK_MANAGE_OPTIONS .= " <input type='image' title='delete' name='delete[main_{$linkid}]' alt='".LCLAN_ITEM_32."' src='".LINK_ICON_DELETE_BASE."' onclick=\"return jsconfirm('".$tp->toJS(LCLAN_ITEM_33." [ ".$row['link_name']." ]")."')\" style='vertical-align:top;' />";
+    	$LINK_MANAGE_OPTIONS .= " <input type='image' title='delete' name='delete[main_{$linkid}]' alt='".LCLAN_ITEM_32."' src='".LINK_ICON_DELETE_BASE."' onclick=\"return jsconfirm('".$this->tp->toJSON(LCLAN_ITEM_33." [ ".$row['link_name']." ]")."')\" style='vertical-align:top;' />";
     }
     return $LINK_MANAGE_OPTIONS;
   } 
   
   function sc_link_manage_cat($parm='')
 	{ 
-    global $LINK_MANAGE_CAT, $tp, $row;
-    return $tp->toHTML($row['link_category_name'], TRUE);
+    global $row;
+    return $this->tp->toHTML($row['link_category_name'], TRUE);
   }  
 
   function sc_link_manage_newlink($parm='')
@@ -135,20 +132,20 @@ class links_page_shortcodes extends e_shortcode
     
   function sc_link_main_heading($parm='')
 	{ 
-    global $LINK_MAIN_HEADING, $rowl, $tp;
-    return (!$rowl['total_links'] ? $rowl['link_category_name'] : "<a href='".e107::url('links_page', 'category', $rowl, 'full')."'>".$tp->toHTML($rowl['link_category_name'], TRUE)."</a>");
+    global $rowl;
+    return (!$rowl['total_links'] ? $rowl['link_category_name'] : "<a href='".e107::url('links_page', 'category', $rowl, 'full')."'>".$this->tp->toHTML($rowl['link_category_name'], TRUE)."</a>");
   }
   
   function sc_link_main_desc($parm='')
 	{ 
-    global $LINK_MAIN_DESC, $rowl,  $tp;
+    global $rowl;
                          
-    return (vartrue($this->plugPrefs['link_cat_desc'])? $tp->toHTML($rowl['link_category_description'], TRUE,'description') : "");
+    return (vartrue($this->plugPrefs['link_cat_desc'])? $this->tp->toHTML($rowl['link_category_description'], TRUE,'description') : "");
   }
  
   function sc_link_main_number($parm='')
 	{ 
-    global $LINK_MAIN_NUMBER, $rowl;   
+    global $rowl;   
     if(vartrue($this->plugPrefs['link_cat_amount'])){
 /*
     $LINK_MAIN_NUMBER = $rowl['total_links']." ".($rowl['total_links'] == 1 ? LAN_LINKS_MANAGER_1 : LAN_LINKS_18)." ".LAN_LINKS_16;
@@ -169,26 +166,26 @@ class links_page_shortcodes extends e_shortcode
 	{ 
     global $rowl;
     
-    $tp = e107::getParser();
+//    $tp = e107::getParser();
     if(!$this->plugPrefs['link_cat_icon']){
     	return "";
     }
     $LINK_MAIN_ICON = "&nbsp;";
 
 		$parms 		  = eHelper::scParams($parm);
-		$w 		     	= vartrue($parms['w']) ? $parms['w'] : $tp->thumbWidth(); // 190; // 160;
-		$h 			    = vartrue($parms['h']) ? $parms['h'] : $tp->thumbHeight(); // 130;	
+		$w 		     	= vartrue($parms['w']) ? $parms['w'] : $this->tp->thumbWidth(); // 190; // 160;
+		$h 			    = vartrue($parms['h']) ? $parms['h'] : $this->tp->thumbHeight(); // 130;	
     $x          = vartrue($parms['x']) ? $parms['h'] : 0;
     $crop       = vartrue($parms['crop']) ? $parms['crop'] : 1;    
 		$class 		  = varset($parms['class'],'');
-    $caption    = $tp->toAttribute($rowl['link_cat_name']) ;
+    $caption    = $this->tp->toAttribute($rowl['link_cat_name']) ;
     $att        = array('w'=>$w, 'h'=>$h, 'class'=>$class, 'alt'=>$caption, 'x'=>$x, 'crop'=>$crop);
         
     if(vartrue($this->plugPrefs['link_cat_icon']))
     {
     	if (vartrue($rowl['link_category_icon']))
     	{
-    		$LINK_MAIN_ICON = $tp->toImage($rowl['link_category_icon'],$att);  
+    		$LINK_MAIN_ICON = $this->tp->toImage($rowl['link_category_icon'],$att);  
     	}
     	if($rowl['total_links'] && $LINK_MAIN_ICON)
     	{
@@ -198,6 +195,11 @@ class links_page_shortcodes extends e_shortcode
     return $LINK_MAIN_ICON;
   }
 
+  function sc_link_main_catlink($parm='')
+	{ 
+    global $rowl;
+ 		return e107::url('links_page', 'category', $rowl, 'full');
+  }
  
   function sc_link_main_total($parm='')
 	{ 
@@ -238,23 +240,23 @@ class links_page_shortcodes extends e_shortcode
   function sc_link_button($parm='')
 	{ 
     global $rowl;
-    $tp = e107::getParser();
+//    $tp = e107::getParser();
     if(!$this->plugPrefs['link_icon']){
     	return "";
     }    
 		$parms 		  = eHelper::scParams($parm);
-		$w 		     	= vartrue($parms['w']) ? $parms['w'] : $tp->thumbWidth(); // 190; // 160;
-		$h 			    = vartrue($parms['h']) ? $parms['h'] : $tp->thumbHeight(); // 130;	
+		$w 		     	= vartrue($parms['w']) ? $parms['w'] : $this->tp->thumbWidth(); // 190; // 160;
+		$h 			    = vartrue($parms['h']) ? $parms['h'] : $this->tp->thumbHeight(); // 130;	
     $x          = vartrue($parms['x']) ? $parms['h'] : 0;
     $crop       = vartrue($parms['crop']) ? $parms['crop'] : 1;    
 		$class 		  = varset($parms['class'],'');
-    $caption    = $tp->toAttribute($rowl['link_name']) ;
+    $caption    = $this->tp->toAttribute($rowl['link_name']) ;
     $att        = array('w'=>$w, 'h'=>$h, 'class'=>$class, 'alt'=>$caption, 'x'=>$x, 'crop'=>$crop);
 
     $LINK_BUTTON = "&nbsp;";
     if(vartrue($this->plugPrefs['link_icon'])){
     	if ($rowl['link_button']) {                    
-         $LINK_BUTTON = $tp->toImage($rowl['link_button'],$att);
+         $LINK_BUTTON = $this->tp->toImage($rowl['link_button'],$att);
     	}  
     }
     return $LINK_BUTTON;
@@ -304,7 +306,7 @@ class links_page_shortcodes extends e_shortcode
   
   function sc_link_name($parm='')
 	{ 
-    global $LINK_NAME, $rowl;
+    global $rowl;
     return $rowl['link_name'];
   } 
   
@@ -320,7 +322,7 @@ class links_page_shortcodes extends e_shortcode
   
   function sc_link_refer($parm='')
 	{ 
-    global $LINK_REFER, $rowl,  $links_total,  $allrefer;
+    global $rowl,  $links_total,  $allrefer;
     ++$links_total;
     $allrefer += $rowl['link_refer'];
     return (vartrue($this->plugPrefs['link_referal'])  ? $rowl['link_refer'] : "");
@@ -347,8 +349,8 @@ class links_page_shortcodes extends e_shortcode
  
   function sc_link_desc($parm='')
 	{ 
-    global $LINK_DESC, $tp, $rowl;
-    return (vartrue($this->plugPrefs['link_desc']) ? $tp->toHTML($rowl['link_description'], TRUE,'BODY') : "");
+    global $rowl;
+    return (vartrue($this->plugPrefs['link_desc']) ? $this->tp->toHTML($rowl['link_description'], TRUE,'BODY') : "");
   }   
   
   function sc_link_rating($parm='')
@@ -365,7 +367,7 @@ class links_page_shortcodes extends e_shortcode
   
   function sc_link_new($parm='')
 	{ 
-    global $LINK_NEW,  $qs, $rowl;
+    global $LINK_NEW, $rowl;
     $LINK_NEW = "";
     if(USER && $rowl['link_datestamp'] > USERLV){
    // $LINK_NEW = "<img class='linkspage_new' src='".IMAGE_NEW."' alt='' style='vertical-align:middle' />";
@@ -437,35 +439,35 @@ class links_page_shortcodes extends e_shortcode
   
   function sc_link_rated_category($parm='')
 	{ 
-    global $LINK_RATED_CATEGORY, $rowl, $qs, $tp;
+    global $LINK_RATED_CATEGORY, $rowl, $qs;
     if(!isset($qs[1])){
-    $LINK_RATED_CATEGORY = "<a href='".e_SELF."?cat.".$rowl['link_category_id']."'>".$tp->toHTML($rowl['link_category_name'], TRUE)."</a>";
+    $LINK_RATED_CATEGORY = "<a href='".e_SELF."?cat.".$rowl['link_category_id']."'>".$this->tp->toHTML($rowl['link_category_name'], TRUE)."</a>";
     }
     return $LINK_RATED_CATEGORY;
   } 
   
   function sc_link_rated_name($parm='')
 	{ 
-    global $LINK_RATED_NAME, $rowl;
+    global $rowl;
     return $rowl['link_name'];
   } 
   
   function sc_link_rated_url($parm='')
 	{ 
-    global $LINK_RATED_URL, $rowl;
+    global $rowl;
     return (vartrue($this->plugPrefs['link_url']) ? $rowl['link_url'] : "");
   } 
   
   function sc_link_rated_refer($parm='')
 	{ 
-    global $LINK_RATED_REFER, $rowl;
+    global $rowl;
     return (vartrue($this->plugPrefs['link_referal']) ? LAN_LINKS_26." ".$rowl['link_refer'] : "");
   } 
   
   function sc_nk_rated_desc($parm='')
 	{ 
-global $LINK_RATED_DESC,  $tp, $rowl;
-return (vartrue($this->plugPrefs['link_desc']) ? $tp->toHTML($rowl['link_description'], TRUE) : "");
+global $rowl;
+return (vartrue($this->plugPrefs['link_desc']) ? $this->tp->toHTML($rowl['link_description'], TRUE) : "");
   } 
     
   // LINK_SUBMIT_TABLE ------------------------------------------------    
@@ -483,13 +485,13 @@ return (vartrue($this->plugPrefs['link_desc']) ? $tp->toHTML($rowl['link_descrip
         $catlist[$catrow['link_category_id']] = $catrow['link_category_name'];
     	}
     } 
-    $LINK_SUBMIT_CAT .= $frm->select('cat_id',$catlist,$row['link_category']);         
+    $LINK_SUBMIT_CAT = $frm->select('cat_id',$catlist,$row['link_category']);         
     return $LINK_SUBMIT_CAT;
   }    
   
   function sc_link_submit_pretext($parm='')
 	{ 
-    global $LINK_SUBMIT_PRETEXT;
+//    global $LINK_SUBMIT_PRETEXT;
     if(vartrue($this->plugPrefs['link_submit_directpost'])){
     return "";
     }else{

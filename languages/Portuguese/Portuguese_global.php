@@ -209,7 +209,7 @@ define("LAN_LINKS_26", "Referenciadores:");
 define("LAN_LINKS_27", "enviar uma hiperligação");
 define("LAN_LINKS_28", "Muito Obrigado");
 define("LAN_LINKS_29", "A sua hiperligação foi gravada e será avaliada pelo administrador do site.");
-define("LAN_LINKS_30", "Categorias de hiperligação");
+define("LAN_LINKS_30", "Categorias de hiperligações");
 define("LAN_LINKS_31", "enviar uma hiperligação");
 define("LAN_LINKS_32", "Categoria:");
 define("LAN_LINKS_33", "Nenhuma hiperligação foi avaliada ainda.");

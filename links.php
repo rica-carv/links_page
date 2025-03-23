@@ -483,18 +483,18 @@ function displayCategory($mode=''){
 			$rowl['total_links'] = $db2 -> count("links_page", "(*)", "WHERE link_category = '".$rowl['link_category_id']."' AND link_class REGEXP '".e_CLASS_REGEXP."' ");
 			if((!isset($linkspage_pref['link_cat_empty']) || $linkspage_pref['link_cat_empty'] == 0 && $rowl['total_links'] > "0") || (isset($linkspage_pref['link_cat_empty']) && $linkspage_pref['link_cat_empty'])){
 				$alllinks = $alllinks + $rowl['total_links'];
-				$link_main_table_string .= $tp -> parseTemplate($template['categories']['item'], FALSE, $link_shortcodes);
+				$link_main_table_string .= $tp -> parseTemplate($template['categories']['item'], TRUE, $link_shortcodes);
 			}
 		}
-		$link_main_table_start = $tp -> parseTemplate($template['categories']['start'], FALSE, $link_shortcodes);
-		$link_main_table_end = $tp -> parseTemplate($template['categories']['end'], FALSE, $link_shortcodes);
+		$link_main_table_start = $tp -> parseTemplate($template['categories']['start'], TRUE, $link_shortcodes);
+		$link_main_table_end = $tp -> parseTemplate($template['categories']['end'], TRUE, $link_shortcodes);
 		$text = $link_main_table_start.$link_main_table_string.$link_main_table_end;
     
     $navigator  = displayNavigator('cat'); 
     $navigator .= displaySortOrder('cat');     
     $text = $navigator.$text;
 //		$caption = LAN_LINKS_30;
-		$caption = $tp -> parseTemplate($template['categories']['caption'], FALSE, $link_shortcodes);
+		$caption = $tp -> parseTemplate($template['categories']['caption'], TRUE, $link_shortcodes);
 		e107::getRender()->tablerender($caption, $text);
 	}
 	return;
