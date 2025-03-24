@@ -80,7 +80,7 @@ define("LCLAN_OPT_54", "permitir gerenciamento pessoal em hiperligações");
 define("LCLAN_OPT_55", "permitir comentários em todas as hiperligações");
 define("LCLAN_OPT_56", "valor mínimo de referência");
 define("LCLAN_OPT_57", "referências serão mostradas apenas se as hiperligações com uma contagem mínima estiverem ativos (0 ou vazio = TODOS)");
-define("LCLAN_OPT_58", "hiperligação para enviar hiperligação");
+define("LCLAN_OPT_58", "hiperligação para enviar hiperligações");
 define("LCLAN_OPT_59", "hiperligação para gerenciamento pessoal (apenas se permitido)");
 define("LCLAN_OPT_60", "hiperligação para a página inicial de hiperligações");
 define("LCLAN_OPT_61", "hiperligação para todas as categorias");

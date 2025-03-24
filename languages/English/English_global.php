@@ -173,6 +173,15 @@ define("LCLAN_ADMINMENU_6", "Options");
 //define("LCLAN_ADMINMENU_7", "Submitted Links");     //unused
 define("LCLAN_ADMINMENU_8", "Categories");
 
+define("LCLAN_ADMINMENU_10", "Your SEF URL already exists!");
+define("LCLAN_REFERER", "Refer");
+define("LCLAN_CREATED", "Created");
+define("LCLAN_HELP_1", "if enabled links are submitted directly, else a site admin needs to approve them");
+define("LCLAN_HELP_2", "these users can add/edit their own personal links");
+define("LCLAN_HELP_3", "if enabled links are submitted directly, else a site admin needs to approve them");
+define("LCLAN_HELP_4", "if enabled the link managers can delete their own links");
+define("LCLAN_HELP_5", "only links with a rating larger then the given value are displayed (0 or empty = all)");
+
 define("NT_LAN_LP_1", "Links Page Events");
 define("NT_LAN_LP_2", "Link submitted by user");
 define("NT_LAN_LP_3", "Link Submitted");
