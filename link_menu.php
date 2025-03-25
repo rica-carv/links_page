@@ -11,7 +11,7 @@ if (!e107::isInstalled('links_page'))
 //$lc = new linkclass();
 //require_once(e_HANDLER."form_handler.php");
 //$rs = new form;
-$tp = e107::getParser();
+//$tp = e107::getParser();
 
 e107::lan('links_page');
 /*
@@ -25,7 +25,7 @@ elseif(file_exists(THEME.'images/bullet2.gif'))
 	$bullet = '<img src="'.THEME_ABS.'images/bullet2.gif" alt="" style="vertical-align: middle;" />';
 }
 */
-$linkspage_pref = e107::pref('links_page');
+//$linkspage_pref = e107::pref('links_page');
 /* 
 
 //navigator -------------------------
@@ -179,7 +179,8 @@ $sc->wrapper('links_page_menu');
 $template = e107::getTemplate('links_page', 'links_page_menu', null, true, true); 	
 $sc->addVars(array( 'template' => $template));
 
-$text = $tp->parsetemplate($template['menu'], TRUE, $sc);
+$text = e107::getParser()->parsetemplate($template['menu'], TRUE, $sc);
 
-$caption = ($linkspage_pref['link_menu_caption']??LCLAN_OPT_86);
-$ns -> tablerender($caption, $text);
+$caption = (e107::pref('links_page')['link_menu_caption']??LCLAN_OPT_86);
+e107::getRender()->tablerender($caption, $text);
+exit();
