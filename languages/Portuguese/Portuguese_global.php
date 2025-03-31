@@ -260,7 +260,7 @@ define("LCLAN_ADMIN_10", "Link");
 define("LCLAN_ADMIN_11", "apagado");
 define("LCLAN_ADMIN_12", "Categoria do Link");
 define("LCLAN_ADMIN_13", "Link enviado apagado");
-
+*/
 define("LCLAN_ADMIN_15", "Esta categoria continua contendo link(s), favor removê-lo(s) primeiro");
 define("LCLAN_SL_1", "Links Enviados");
 define("LCLAN_SL_2", "Não há links enviados");
@@ -280,4 +280,3 @@ define("LCLAN_SL_15", "Campos sublinhados são obrigatórios.");
 define("LCLAN_SL_16", "Enviar Link");
 define("LCLAN_SL_17", "");
 define("LCLAN_SL_18", "");
-*/

@@ -13,6 +13,8 @@ class plugin_links_page_menu_shortcodes extends e_shortcode
   
 	private $tp;
 	private $sql;
+	private $rs;
+	private $bullet;
 	/**
 	 * Constructor.
 	 */
