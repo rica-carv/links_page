@@ -32,7 +32,7 @@ define("LCLAN_OPT_14", "icon");
 define("LCLAN_OPT_15", "description");
 define("LCLAN_OPT_16", "amount");
 define("LCLAN_OPT_17", "referral");
-//define("LCLAN_OPT_18", "url");         //unused
+define("LCLAN_OPT_18", "url");         //unused
 define("LCLAN_OPT_19", "total category info line");
 define("LCLAN_OPT_20", "link to top refer");
 define("LCLAN_OPT_21", "link to top rated");
@@ -49,17 +49,17 @@ define("LCLAN_OPT_29", "display sort and order menu");
 define("LCLAN_OPT_32", "use override of link open method");
 //define("LCLAN_OPT_33", "default resize value");      //unused
 define("LCLAN_OPT_34", "name");
-//define("LCLAN_OPT_35", "url");              //unused
+define("LCLAN_OPT_35", "url");              //unused
 define("LCLAN_OPT_36", "order");
 define("LCLAN_OPT_37", "refer");
 define("LCLAN_OPT_38", "");
 define("LCLAN_OPT_39", "");
-//define("LCLAN_OPT_40", "name");     //unused
+define("LCLAN_OPT_40", "name");     //unused
 define("LCLAN_OPT_41", "id");
 define("LCLAN_OPT_42", "use individual link setting");
-//define("LCLAN_OPT_43", "Opens in same window");        //unused
-//define("LCLAN_OPT_44", "Opens in new window");        //unused
-//define("LCLAN_OPT_45", "Opens in 600x400 mini-window");    //unused
+define("LCLAN_OPT_43", "Opens in same window");        //unused
+define("LCLAN_OPT_44", "Opens in new window");        //unused
+define("LCLAN_OPT_45", "Opens in 600x400 mini-window");    //unused
 define("LCLAN_OPT_46", "who can manage links");
 define("LCLAN_OPT_47", "these users can add/edit their own personal links");
 define("LCLAN_OPT_48", "allow direct posting");
@@ -92,7 +92,7 @@ define("LCLAN_OPT_73", "display which data");
 define("LCLAN_OPT_74", "how many recent links are displayed");
 define("LCLAN_OPT_75", "hyperlinks");
 define("LCLAN_OPT_76", "selectbox");
-//define("LCLAN_OPT_77", "category");         //unused
+define("LCLAN_OPT_77", "category");         //unused
 define("LCLAN_OPT_78", "description");
 define("LCLAN_OPT_79", "caption navigator");
 define("LCLAN_OPT_80", "caption categories");
