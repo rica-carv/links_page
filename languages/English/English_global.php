@@ -32,7 +32,7 @@ define("LCLAN_OPT_14", "icon");
 define("LCLAN_OPT_15", "description");
 define("LCLAN_OPT_16", "amount");
 define("LCLAN_OPT_17", "referral");
-//define("LCLAN_OPT_18", "url");         //unused
+define("LCLAN_OPT_18", "url");         //unused
 define("LCLAN_OPT_19", "total category info line");
 define("LCLAN_OPT_20", "link to top refer");
 define("LCLAN_OPT_21", "link to top rated");
@@ -92,7 +92,7 @@ define("LCLAN_OPT_73", "display which data");
 define("LCLAN_OPT_74", "how many recent links are displayed");
 define("LCLAN_OPT_75", "hyperlinks");
 define("LCLAN_OPT_76", "selectbox");
-//define("LCLAN_OPT_77", "category");         //unused
+define("LCLAN_OPT_77", "category");         //unused
 define("LCLAN_OPT_78", "description");
 define("LCLAN_OPT_79", "caption navigator");
 define("LCLAN_OPT_80", "caption categories");
