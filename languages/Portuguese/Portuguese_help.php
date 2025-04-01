@@ -18,7 +18,6 @@ if (!defined('e107_INIT')) { exit; }
 require_once(e_PLUGIN.'links_page/includes/link_defines.php');
 define("LAN_ADMIN_HELP_0", "Ajuda:<br />Hiperligações");
 define("LAN_ADMIN_HELP_1", "<i>A página do gestor de categorias de hiperligações mostra todas as categorias presentes.</i><br /><br /><b>Lista detalhada</b><br />Você vê uma lista de todas as categorias com seus ícones, nomes e descrições, opções, e outras opções de ordenação.<br /><br /><b>Descrição dos ícones</b><br />
-	".ADMIN_LINK_ICON_LINK." : hiperligação para a categoria<br /><br />
 	".ADMIN_LINK_ICON_EDIT." : editar a categoria<br /><br />
 	".ADMIN_LINK_ICON_DELETE." : deletar a categoria<br /><br />
 	".ADMIN_LINK_ICON_ORDER_UP." : o botão para cima permite que você mova o item de categoria uma vez para cima para ordená-lo.<br /><br />

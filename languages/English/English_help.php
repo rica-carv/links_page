@@ -17,7 +17,6 @@ require_once(e_PLUGIN.'links_page/includes/link_defines.php');
 define("LAN_ADMIN_HELP_0", "Linkspage help area");
 
 define("LAN_ADMIN_HELP_1", "<i>the manage link categories page shows all categories present.</i><br /><br /><b>detailed list</b><br />You see a list of all categories with their icon, name and description, options, and sorting options.<br /><br /><b>explanation of icons</b><br />
- 
 ".ADMIN_LINK_ICON_EDIT." : edit the category<br /><br />
 ".ADMIN_LINK_ICON_DELETE." : delete the category<br /><br />
 ".ADMIN_LINK_ICON_ORDER_UP." : the up button allows you to move the category item one up in order.<br /><br />
