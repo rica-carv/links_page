@@ -49,17 +49,17 @@ define("LCLAN_OPT_29", "display sort and order menu");
 define("LCLAN_OPT_32", "use override of link open method");
 //define("LCLAN_OPT_33", "default resize value");      //unused
 define("LCLAN_OPT_34", "name");
-//define("LCLAN_OPT_35", "url");              //unused
+define("LCLAN_OPT_35", "url");              //unused
 define("LCLAN_OPT_36", "order");
 define("LCLAN_OPT_37", "refer");
 define("LCLAN_OPT_38", "");
 define("LCLAN_OPT_39", "");
-//define("LCLAN_OPT_40", "name");     //unused
+define("LCLAN_OPT_40", "name");     //unused
 define("LCLAN_OPT_41", "id");
 define("LCLAN_OPT_42", "use individual link setting");
-//define("LCLAN_OPT_43", "Opens in same window");        //unused
-//define("LCLAN_OPT_44", "Opens in new window");        //unused
-//define("LCLAN_OPT_45", "Opens in 600x400 mini-window");    //unused
+define("LCLAN_OPT_43", "Opens in same window");        //unused
+define("LCLAN_OPT_44", "Opens in new window");        //unused
+define("LCLAN_OPT_45", "Opens in 600x400 mini-window");    //unused
 define("LCLAN_OPT_46", "who can manage links");
 define("LCLAN_OPT_47", "these users can add/edit their own personal links");
 define("LCLAN_OPT_48", "allow direct posting");
