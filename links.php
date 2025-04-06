@@ -28,6 +28,8 @@ if (!e107::isInstalled('links_page'))
   exit;
 }
 
+define('NAVIGATION_ACTIVE', 'links_page'); // Probably could be removed if file was renamed to links_page.php.....
+
 $link_shortcodes = e107::getScBatch('links_page',TRUE);
 $link_shortcodes->wrapper('links_page');
   
@@ -45,7 +47,7 @@ $fl = new e_file;
 $cobj = e107::getComment();
 require_once(e_PLUGIN.'links_page/includes/link_class.php');
 $lc = new linkclass();
-global $tp;
+$tp= e107::getParser();
 
 $linkspage_pref = e107::pref('links_page');
   
@@ -429,8 +431,8 @@ function displayLinkComment(){
 			$linkbutton_count   = ($rowl['link_button']) ?  $linkbutton_count + 1 : $linkbutton_count;
 			$LINK_APPEND	= $lc -> parse_link_append($rowl);
 			$subject		= $rowl['link_name'];
-			$text = $tp -> parseTemplate($template['list']['start'], FALSE, $link_shortcodes);
-			$text .= $tp -> parseTemplate($template['list']['item'], true, $link_shortcodes);
+			$text = $tp -> parseTemplate($template['list']['start'], TRUE, $link_shortcodes);
+			$text .= $tp -> parseTemplate($template['list']['item'], TRUE, $link_shortcodes);
 			$text .= $tp -> parseTemplate($template['list']['end'], FALSE, $link_shortcodes);
       $navigator = displayNavigator();  
       $text = $navigator.$text; 
@@ -604,7 +606,7 @@ function displayCategoryLinks($mode=''){
 		if($mode)
 		{          
 			$link_category_total	= $link_total;
-			$link_table_start		= $tp -> parseTemplate($template['list']['start'], FALSE, $link_shortcodes);
+			$link_table_start		= $tp -> parseTemplate($template['list']['start'], TRUE, $link_shortcodes);
 			$link_table_end			= $tp -> parseTemplate($template['list']['end'], FALSE, $link_shortcodes);
 			$text = $link_table_start.$link_table_string.$link_table_end;
 /*---
@@ -614,7 +616,7 @@ function displayCategoryLinks($mode=''){
 ---*/
       
 //---      $link_shortcodes->addVars(array($cat_name, $cat_desc, $link_total));
-			$caption			= $tp -> parseTemplate($template['list']['caption'], FALSE, $link_shortcodes);
+			$caption			= $tp -> parseTemplate($template['list']['caption'], TRUE, $link_shortcodes);
      
       $navigator  = displayNavigator('cat'); 
       $navigator .= displaySortOrder('cat'); 
@@ -647,7 +649,7 @@ function displayCategoryLinks($mode=''){
 
 				$link_category_total = count($value);
 				$link_table_caption 	= $tp -> parseTemplate($template['list']['caption'], FALSE, $link_shortcodes);
-				$link_table_start		= $tp -> parseTemplate($template['list']['start'], FALSE, $link_shortcodes);
+				$link_table_start		= $tp -> parseTemplate($template['list']['start'], TRUE, $link_shortcodes);
 				$link_table_end			= $tp -> parseTemplate($template['list']['end'], FALSE, $link_shortcodes);
 				$text .= $link_table_start.$link_table_string.$link_table_end;
 
