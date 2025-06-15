@@ -160,7 +160,7 @@ if($this->plugPrefs["link_menu_recent"]){
     $lc = new linkclass();
     while($row = $this->sql->fetch()){
       $menulinkvars['LINK_MENU_BULLET']=$this->bullet;
-      $menulinkvars['LINK_MENU_LINK']=$lc->parse_link_append($row).$this->tp->toHTML($row['link_name'],TRUE,"");
+      $menulinkvars['LINK_MENU_LINK']=$lc->parse_link_append($row).$this->tp->toHTML($row['link_name'],TRUE,"")."</a>";
       $menulinkvars['LINK_MENU_LINKCAT']=($this->plugPrefs['link_menu_recent_category'] ? "<br /><a href='".e_PLUGIN."links_page/links.php?cat.".$row['link_category_id']."'>".$row['link_category_name']."</a>" : "");
       $menulinkvars['LINK_MENU_LINKDESC']=($this->plugPrefs['link_menu_recent_description'] && $row['link_description'] ? "<br />".$this->tp->toHTML($row['link_description'],TRUE,"") : "");
       $text .= $this->tp->parseTemplate($this->var['template']['recent_item'], true, $menulinkvars);
