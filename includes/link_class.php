@@ -111,7 +111,7 @@ class linkclass
         define("e_PAGETITLE", $page);
     }
 
-  function parse_link_append($rowl)
+    function parse_link_append($rowl)
 	{
         global $tp;
         if($this->plugPrefs['link_open_all'] && $this->plugPrefs['link_open_all'] == "5"){
@@ -134,6 +134,7 @@ class linkclass
         }
         return $lappend;
     }
+
 
   function showLinkSort($mode='')
 	{
