@@ -132,7 +132,7 @@ class linkclass
             default:
             $lappend = "<a class='linkspage_url' href='".$rowl['link_url']."' onclick=\"location.href='".e_PLUGIN_ABS."links_page/links.php?view.".$rowl['link_id']."';return false\" >";  // Googlebot won't see it any other way.
         }
-        return $lappend."</a>";
+        return $lappend;
     }
 
   function showLinkSort($mode='')
