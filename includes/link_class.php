@@ -111,9 +111,6 @@ class linkclass
         define("e_PAGETITLE", $page);
     }
 
-
-
-
   function parse_link_append($rowl)
 	{
         global $tp;
@@ -127,21 +124,16 @@ class linkclass
             case 1:
             $lappend = "<a class='linkspage_url' href='".$rowl['link_url']."' onclick=\"open_window('".e_PLUGIN_ABS."links_page/links.php?view.".$rowl['link_id']."','full');return false;\" >"; // Googlebot won't see it any other way.
             break;
-            case 2:
-            $lappend = "<a class='linkspage_url' href='".$rowl['link_url']."' onclick=\"location.href='".e_PLUGIN_ABS."links_page/links.php?view.".$rowl['link_id']."';return false\" >";  // Googlebot won't see it any other way.
-            break;
-            case 3:
-            $lappend = "<a class='linkspage_url' href='".$rowl['link_url']."' onclick=\"location.href='".e_PLUGIN_ABS."links_page/links.php?view.".$rowl['link_id']."';return false\" >";  // Googlebot won't see it any other way.
-            break;
             case 4:
             $lappend = "<a class='linkspage_url' href='".$rowl['link_url']."' onclick=\"open_window('".e_PLUGIN_ABS."links_page/links.php?view.".$rowl['link_id']."');return false\">"; // Googlebot won't see it any other way.
             break;
+            case 2:
+            case 3:
             default:
             $lappend = "<a class='linkspage_url' href='".$rowl['link_url']."' onclick=\"location.href='".e_PLUGIN_ABS."links_page/links.php?view.".$rowl['link_id']."';return false\" >";  // Googlebot won't see it any other way.
         }
-        return $lappend;
+        return $lappend."</a>";
     }
-
 
   function showLinkSort($mode='')
 	{
